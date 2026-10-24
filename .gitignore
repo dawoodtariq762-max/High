@@ -1,0 +1,102 @@
+# =============================================================================
+# Q TECH SMS — ignore rules
+# =============================================================================
+# RULE: only SOURCE may be committed. Anything created at runtime, anything
+# holding user data, and anything containing a secret must stay out of git.
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# 1. Installed dependencies and local tooling
+# -----------------------------------------------------------------------------
+node_modules/
+backend/node_modules/
+__pycache__/
+.venv/
+.cache/
+.npm/
+
+# -----------------------------------------------------------------------------
+# 2. Databases and SQLite side-car files  (LIVE DATA — NEVER COMMIT)
+# -----------------------------------------------------------------------------
+*.sqlite
+*.sqlite-*
+*.sqlite-tmp
+*.sqlite-journal
+*.db
+*.db-wal
+*.db-shm
+*.db-journal
+data/
+backend/data.sqlite
+backend/data.sqlite-*
+
+# -----------------------------------------------------------------------------
+# 3. Uploaded user files  (PRIVATE USER DATA — NEVER COMMIT)
+#    With DB_FILE=backend/data.sqlite the chat attachment store resolves to
+#    backend/chat-uploads/, so it must be excluded explicitly.
+# -----------------------------------------------------------------------------
+uploads/
+backend/chat-uploads/
+data/chat-uploads/
+chat-uploads/
+data/branding/
+branding/assets/
+
+# -----------------------------------------------------------------------------
+# 4. Generated exports, backups and logs
+# -----------------------------------------------------------------------------
+exports/
+qtech-exports/
+backups/
+backend/backups/
+qtech-sms-backups/
+almada-sms-backups/
+nova-sms-backups/
+logs/
+qtech-logs/
+*.log
+.pm2/
+*.patch
+
+# -----------------------------------------------------------------------------
+# 5. Secrets and local configuration (.env.example IS source — keep it)
+# -----------------------------------------------------------------------------
+.env
+.env.*
+**/.env
+**/.env.*
+!.env.example
+!**/.env.example
+*.pem
+*.key
+*.keystore
+*.p12
+*.pfx
+*.jks
+credentials.json
+secrets.json
+id_rsa*
+*_rsa
+*_ed25519
+
+# -----------------------------------------------------------------------------
+# 6. Operating system / editor artifacts
+# -----------------------------------------------------------------------------
+.DS_Store
+Thumbs.db
+Desktop.ini
+.idea/
+.vscode/
+npm-debug.log*
+nohup.out
+*.swp
+*~
+
+# -----------------------------------------------------------------------------
+# 7. Downloaded distributions and build artifacts
+# -----------------------------------------------------------------------------
+*.apk
+*.idsig
+*.zip
+*.tar.gz
+*.tgz

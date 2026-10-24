@@ -1,0 +1,351 @@
+/* Approved cross-panel LIGHT presentation, scoped away from every login page.
+   No controls are hidden by action/permission, and no workflow IDs are changed.
+   Phase-5 §2C: COLOURS ONLY. All theme-neutral geometry (sizes, spacing,
+   flex/grid, font metrics) now lives in assets/qtech-layout.css, which is
+   loaded after this file in every panel, so Light and Dark share one layout. */
+/* Approved cross-panel presentation, scoped away from every login page.
+   No controls are hidden by action/permission, and no workflow IDs are changed. */
+body.gx-light.gx-qtech {
+ --bg:#f9f9f9;--panel:#fff;--panel2:#f5f5f5;--text:#333;--muted:#666;--border:#d3d3d3;--border2:#c7c7c7;--accent:#0088cc;--blue:#007acc;background:#f9f9f9!important;color:#333!important;
+}
+body.gx-light.gx-qtech :is(.sidebar,.rail,.side,.appbar) {
+ background:#eee!important;border-right-color:#ccc!important;
+}
+body.gx-light.gx-qtech :is(.nav-item,.ritem,.navtab,.side .item,.sidebar .tab) {
+ background:linear-gradient(#fafafa,#e7e7e7)!important;color:#444!important;border-bottom-color:#d0d0d0!important;box-shadow:inset 0 1px #fff!important;
+}
+body.gx-light.gx-qtech :is(.nav-item,.ritem,.navtab,.side .item,.sidebar .tab):hover {
+ background:#f5fbff!important;color:#006da5!important;
+}
+body.gx-light.gx-qtech :is(.nav-item,.ritem,.navtab,.side .item,.sidebar .tab,.sub-item,.rsubitem,.dropitem).active {
+ background:#fff!important;color:#006da5!important;box-shadow:inset 3px 0 #0088cc!important;
+}
+body.gx-light.gx-qtech :is(.topbar,.mgr-topbar,.top) {
+ background:linear-gradient(#fff,#efefef)!important;border-bottom-color:#ccc!important;box-shadow:0 1px 4px #0000000c!important;
+}
+body.gx-light.gx-qtech :is(.breadcrumb,.crumb) {
+ background:linear-gradient(#f8f8f8,#eaeaea)!important;color:#555!important;border-color:#ccc;
+}
+body.gx-light.gx-qtech :is(.card,.panel,.table-wrap,.toolbar,.modal-box,.ms-modal,.box) {
+ border-color:#ccc!important;background:#fff!important;box-shadow:0 1px 2px #00000006!important;
+}
+body.gx-light.gx-qtech :is(.card-head,.modal-head,.ms-modal-head,.ms-notif-head) {
+ background:linear-gradient(#f5f5f5,#e2e2e2)!important;border-bottom-color:#c9c9c9!important;
+}
+body.gx-light.gx-qtech .card-head .sub {
+ color:#6b6b6b!important;
+}
+body.gx-light.gx-qtech :is(.toolbar,.table-controls,.table-foot) {
+ background:linear-gradient(#fafafa,#f0f0f0)!important;
+}
+body.gx-light.gx-qtech :is(th,td) {
+ border-right-color:#e1e1e1!important;border-bottom-color:#ddd!important;
+}
+body.gx-light.gx-qtech th {
+ background:#f8f8f8!important;color:#444!important;
+}
+body.gx-light.gx-qtech td {
+ background:#fff;
+}
+body.gx-light.gx-qtech tbody tr:hover td {
+ background:#f2f9fc;
+}
+body.gx-light.gx-qtech :is(input,select,textarea,.sd-trigger) {
+ border-color:#bbb!important;background:#fff!important;color:#444!important;box-shadow:inset 0 1px 2px #00000006!important;
+}
+body.gx-light.gx-qtech :is(input[type=checkbox],input[type=radio]) {
+ accent-color:#0088cc;
+}
+body.gx-light.gx-qtech :is(button,a,input,select,textarea,summary,[tabindex]):focus-visible {
+ outline-color:#0088cc!important;
+}
+body.gx-light.gx-qtech :is(.btn,.gx-btn,.ms-btn.primary) {
+ background:linear-gradient(#149cdb,#0070b9)!important;border-color:#006fae!important;color:#fff!important;box-shadow:inset 0 1px #ffffff22!important;
+}
+body.gx-light.gx-qtech :is(.btn-ghost,.btn.ghost,.exp-btns .btn,.exp-btns .gx-btn,.ms-btn.ghost) {
+ background:linear-gradient(#fff,#eaeaea)!important;border-color:#bbb!important;color:#444!important;
+}
+body.gx-light.gx-qtech :is(.btn-red,.btn.red,.gx-red,.gx-btn.danger) {
+ background:linear-gradient(#ec6561,#c83732)!important;border-color:#b5312c!important;color:#fff!important;
+}
+body.gx-light.gx-qtech :is(.btn-green,.btn.green,.gx-green):not(.exp-btns *) {
+ background:linear-gradient(#69ae59,#428d36)!important;border-color:#3b7f31!important;color:#fff!important;
+}
+body.gx-light.gx-qtech :is(.btn-amber,.btn-orange,.gx-amber) {
+ background:linear-gradient(#ffd28c,#efa336)!important;color:#52320d!important;border-color:#d79939!important;
+}
+body.gx-light.gx-qtech button:disabled {
+ opacity:.5;filter:grayscale(.3);
+}
+body.gx-light.gx-qtech .pagination button {
+ border-color:#ccc!important;background:linear-gradient(#fff,#eee)!important;color:#555!important;
+}
+body.gx-light.gx-qtech .pagination button.active {
+ background:#0088cc!important;color:#fff!important;border-color:#0076b0!important;
+}
+body.gx-light.gx-qtech :is(.stat-card.dash-metric,.card.metric,.gx-pay-chip) {
+ border-color:#c8c8c8!important;background:linear-gradient(#f5f5f5,#e4e4e4)!important;box-shadow:inset 0 1px #fff!important;
+}
+body.gx-light.gx-qtech .stat-card.dash-metric .stat-info p {
+ color:#555!important;
+}
+body.gx-light.gx-qtech .stat-card.dash-metric .stat-info h3 {
+ color:#2750a5!important;
+}
+body.gx-light.gx-qtech .stat-card.dash-metric .stat-info span {
+ color:#666!important;
+}
+body.gx-light.gx-qtech .dash-go {
+ border-color:#ddd!important;background:#fff!important;
+}
+body.gx-light.gx-qtech .dash-go svg {
+ fill:none!important;stroke:#348eae!important;
+}
+body.gx-light.gx-qtech .gx-shortcut {
+ background:linear-gradient(#fff,#eee);border-color:#d3d3d3;box-shadow:0 0 0 3px #ededed,inset 0 1px #fff;color:#444;
+}
+body.gx-light.gx-qtech .gx-shortcut svg {
+ stroke:#348eae!important;
+}
+body.gx-light.gx-qtech a.gx-shortcut:hover {
+ border-color:#348eae;background:#f5fbff;
+}
+body.gx-light.gx-qtech .gx-shortcut.lm-unavailable {
+ background:#f5f5f5;color:#737373;box-shadow:0 0 0 3px #f0f0f0;
+}
+body.gx-light.gx-qtech .lm-unavailable svg {
+ stroke:#999!important;
+}
+body.gx-light.gx-qtech .lm-unavailable small {
+ color:#777;
+}
+body.gx-light.gx-qtech .lm-related .gx-shortcut {
+ box-shadow:none;background:#fff;
+}
+body.gx-light.gx-qtech .lm-dashboard-status {
+ color:#62717a;
+}
+body.gx-light.gx-qtech .lm-dashboard-status.is-error {
+ color:#a12b26;border-color:#ecc7c5;background:#fff4f3;
+}
+body.gx-light.gx-qtech .lm-volume-total {
+ color:#777;
+}
+body.gx-light.gx-qtech .lm-volume-total strong {
+ color:#348eae!important;
+}
+body.gx-light.gx-qtech .lm-volume-svg text {
+ fill:#777;
+}
+body.gx-light.gx-qtech .lm-volume-svg circle:focus {
+ stroke:#123d51;
+}
+body.gx-light.gx-qtech .lm-chart-values {
+ color:#666;
+}
+body.gx-light.gx-qtech .lm-chart-empty {
+ color:#777;
+}
+body.gx-light.gx-qtech .lm-summary-icon {
+ background:#fff;border-color:#ddd;box-shadow:inset 0 0 0 3px #f8f8f8;color:#348eae;
+}
+body.gx-light.gx-qtech .lm-summary:nth-child(2) .lm-summary-icon,body.gx-light.gx-qtech .lm-summary:nth-child(3) .lm-summary-icon {
+ color:#bc8f24;
+}
+body.gx-light.gx-qtech .lm-summary strong {
+ color:#398439!important;
+}
+body.gx-light.gx-qtech .lm-summary span:not(.lm-summary-icon) {
+ color:#996738;
+}
+body.gx-light.gx-qtech .lm-summary small {
+ color:#888;
+}
+body.gx-light.gx-qtech .gx-pay-chip .t {
+ color:#555!important;
+}
+body.gx-light.gx-qtech .gx-pay-chip .v {
+ color:#2750a5!important;
+}
+body.gx-light.gx-qtech .gx-pay-chip .s {
+ color:#777!important;
+}
+body.gx-light.gx-qtech .lm-earning-card {
+ border-color:#d8d8d8;background:#fff;
+}
+body.gx-light.gx-qtech .lm-earning-card strong {
+ color:#777!important;
+}
+body.gx-light.gx-qtech .lm-earning-card small,body.gx-light.gx-qtech .lm-earning-state>p {
+ color:#777;
+}
+body.gx-light.gx-qtech .gx-map-wrap path:not(.gx-on) {
+ fill:#e0e7ea;stroke:#fff;
+}
+body.gx-light.gx-qtech .gx-map-wrap path:hover {
+ fill:#348eae!important;
+}
+body.gx-light.gx-qtech .welcome-step span b {
+ background:transparent;
+}
+body.gx-light.gx-qtech .lm-report-link {
+ color:#0075aa;
+}
+body.gx-light.gx-qtech .lm-empty {
+ color:#777;
+}
+body.gx-light.gx-qtech .rail>.logo {
+ background:#fff!important;box-shadow:none!important;
+}
+/* ===== Final colour pass, 28 September 2026 =====
+   Blue sidebar and light blue top bar, chosen to sit with the approved light theme,
+   the white Q TECH logo and the existing card/table surfaces. Visual only. */
+body.gx-light.gx-qtech :is(.sidebar,.rail,.side,.appbar) {
+ background:linear-gradient(180deg,#155177 0%,#103f61 45%,#0b2f4c 100%)!important;border-right-color:#072844!important;box-shadow:inset -1px 0 0 #1e6492,6px 0 20px #0d3b5c12!important;
+}
+body.gx-light.gx-qtech :is(.sb-brand,.rail>.brand,.side>.brand,.sidebar>.brand,.appbar-top) {
+ border-color:#1c5a82!important;
+}
+body.gx-light.gx-qtech :is(.brand small,.sb-brand small,.brand-text small,.side .brand small,.rail>.brand-text small,.appbar-top small) {
+ color:#a8d3ef!important;
+}
+body.gx-light.gx-qtech :is(.brand h1,.sb-brand h1,.brand-text h1,.side .brand b,.rail>.brand-text h1) {
+ color:#fff!important;
+}
+body.gx-light.gx-qtech :is(.sb-sec,.sb-section,.rsec) {
+ color:#8fbede!important;
+}
+body.gx-light.gx-qtech :is(.nav-item,.ritem,.navtab,.side .item,.sidebar .tab) {
+ background:transparent!important;border-bottom-color:#1b5678!important;color:#d6e8f4!important;box-shadow:none!important;
+}
+body.gx-light.gx-qtech :is(.nav-item,.ritem,.navtab,.side .item,.sidebar .tab) svg {
+ stroke:#a3cde9!important;color:#a3cde9!important;
+}
+body.gx-light.gx-qtech :is(.nav-item,.ritem,.navtab,.side .item,.sidebar .tab):hover {
+ background:#ffffff1c!important;color:#fff!important;
+}
+body.gx-light.gx-qtech :is(.nav-item,.ritem,.navtab,.side .item,.sidebar .tab,.sub-item,.rsubitem,.dropitem).active {
+ background:#fff!important;color:#0d3b5c!important;box-shadow:inset 3px 0 0 #7fc6ec!important;
+}
+body.gx-light.gx-qtech :is(.nav-item,.ritem,.navtab,.side .item,.sidebar .tab,.sub-item,.rsubitem,.dropitem).active svg {
+ stroke:#0d3b5c!important;color:#0d3b5c!important;
+}
+body.gx-light.gx-qtech :is(.sub-item,.rsubitem,.dropitem) {
+ background:#10405f!important;color:#c5dcec!important;border-bottom-color:#1b5678!important;
+}
+body.gx-light.gx-qtech :is(.sub-item,.rsubitem,.dropitem):hover {
+ background:#17577c!important;color:#fff!important;
+}
+body.gx-light.gx-qtech :is(.sub-item,.rsubitem,.dropitem).active {
+ background:#1d6892!important;color:#fff!important;
+}
+body.gx-light.gx-qtech .rail>.logo,body.gx-light.gx-qtech :is(.sb-brand,.side>.brand) .logo {
+ box-shadow:0 1px 6px #041e300f!important;
+}
+/* Manager navigation surface — 29 September 2026 audit fix (visual only).
+   Manager is the only panel that renders its menu with .navtabs / .dropmenu, and
+   qtech.css paints both of them white. The menu items inside are styled for the dark
+   sidebar (pale blue text), so the white container left the labels nearly unreadable.
+   Making the menu containers carry the same dark surface as Admin's .sb-nav and Agent's
+   .rail-nav (transparent over the sidebar gradient / the dark submenu surface) restores
+   one consistent colour system. No layout, markup or behaviour change. */
+body.gx-light.gx-qtech .navtabs {
+ background:transparent!important;box-shadow:none!important;
+}
+body.gx-light.gx-qtech .dropmenu {
+ background:#0f405f!important;border-color:#1b5678!important;box-shadow:none!important;
+}
+body.gx-light.gx-qtech :is(.nav-item,.ritem,.navtab,.side .item,.sidebar .tab,.sub-item,.rsubitem,.dropitem) :is(.lbl,.chev) {
+ color:currentColor!important;
+}
+body.gx-light.gx-qtech :is(.topbar,.mgr-topbar,.top,.tb1) {
+ background:linear-gradient(#ffffff 0%,#eef6fb 100%)!important;border-bottom-color:#c3daeb!important;box-shadow:0 1px 5px #0d3b5c14!important;
+}
+body.gx-light.gx-qtech :is(.topbar,.mgr-topbar,.top,.tb1) :is(.tb-title,.clock,.tb-date) {
+ color:#0e4570!important;
+}
+body.gx-light.gx-qtech .tb-btn {
+ background:#fff!important;border-color:#c8dced!important;
+}
+body.gx-light.gx-qtech .tb-btn svg {
+ stroke:#155f92!important;
+}
+body.gx-light.gx-qtech .tb-btn:hover {
+ background:#eaf5fc!important;border-color:#9fc9e4!important;
+}
+body.gx-light.gx-qtech .hamburger {
+ color:#155f92!important;background:transparent!important;
+}
+body.gx-light.gx-qtech .hamburger svg {
+ stroke:#155f92!important;
+}
+body.gx-light.gx-qtech :is(.who,.user-chip,.chip-user) {
+ background:#eef6fb!important;border-color:#c8dced!important;color:#123f60!important;
+}
+body.gx-light.gx-qtech .who :is(.nm,.rl) {
+ color:#123f60!important;
+}
+body.gx-light.gx-qtech .who .av {
+ background:linear-gradient(#1a6fa8,#12557f)!important;color:#fff!important;
+}
+body.gx-light.gx-qtech .mgr-mobile-menu {
+ background:#fff!important;border-color:#c8dced!important;color:#155f92!important;
+}
+/* Dashboard card accents — muted professional palette, not random bright colours. */
+body.gx-light.gx-qtech .lm-acc-1 {
+ --lm-accent:#1a6ba8;--lm-tint:#eaf4fb;--lm-edge:#bdd9ec;
+}
+body.gx-light.gx-qtech .lm-acc-2 {
+ --lm-accent:#12776c;--lm-tint:#e8f5f2;--lm-edge:#b9dcd6;
+}
+body.gx-light.gx-qtech .lm-acc-3 {
+ --lm-accent:#3d4fa4;--lm-tint:#edeffb;--lm-edge:#c8cfef;
+}
+body.gx-light.gx-qtech .lm-acc-4 {
+ --lm-accent:#9a6a12;--lm-tint:#fdf5e6;--lm-edge:#ecd9ae;
+}
+body.gx-light.gx-qtech .lm-acc-5 {
+ --lm-accent:#2f7a37;--lm-tint:#ebf6ec;--lm-edge:#c5dec5;
+}
+body.gx-light.gx-qtech .lm-acc-6 {
+ --lm-accent:#0f6f96;--lm-tint:#e9f4f9;--lm-edge:#c2dcea;
+}
+body.gx-light.gx-qtech .gx-shortcut[class*="lm-acc-"] {
+ background:linear-gradient(#ffffff,var(--lm-tint))!important;border-color:var(--lm-edge)!important;box-shadow:0 0 0 3px #ededed,inset 0 3px 0 var(--lm-accent)!important;
+}
+body.gx-light.gx-qtech .gx-shortcut[class*="lm-acc-"] svg {
+ stroke:var(--lm-accent)!important;
+}
+body.gx-light.gx-qtech .gx-shortcut[class*="lm-acc-"]>span {
+ color:#2b4657!important;
+}
+body.gx-light.gx-qtech a.gx-shortcut[class*="lm-acc-"]:hover {
+ background:linear-gradient(#ffffff,var(--lm-tint))!important;border-color:var(--lm-accent)!important;
+}
+body.gx-light.gx-qtech #page-dashboard .stat-card.dash-metric[class*="lm-acc-"] {
+ background:linear-gradient(#ffffff,var(--lm-tint))!important;border-color:var(--lm-edge)!important;box-shadow:inset 0 3px 0 var(--lm-accent),inset 0 1px #fff!important;
+}
+body.gx-light.gx-qtech #page-dashboard .stat-card.dash-metric[class*="lm-acc-"] .dash-go {
+ background:#fff!important;border-color:var(--lm-edge)!important;
+}
+body.gx-light.gx-qtech #page-dashboard .stat-card.dash-metric[class*="lm-acc-"] .dash-go svg {
+ stroke:var(--lm-accent)!important;
+}
+body.gx-light.gx-qtech #page-dashboard .stat-card.dash-metric[class*="lm-acc-"] .stat-info p {
+ color:#3d5a6d!important;
+}
+body.gx-light.gx-qtech #page-dashboard .stat-card.dash-metric[class*="lm-acc-"] .stat-info h3 {
+ color:#164a79!important;
+}
+body.gx-light.gx-qtech .gx-copy-inline {
+ border-color:#c6d9e8;background:#fff;color:#1a6ba8;
+}
+body.gx-light.gx-qtech .gx-copy-inline svg {
+ stroke:currentColor;fill:none;
+}
+body.gx-light.gx-qtech .gx-copy-inline:hover {
+ background:#eaf4fb;border-color:#8fc0e0;
+}
+body.gx-light.gx-qtech .gx-copy-inline.is-copied {
+ background:#ebf6ec;border-color:#8fbf95;color:#2f7a37;
+}

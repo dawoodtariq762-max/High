@@ -1,0 +1,356 @@
+/* ============================================================================
+   qtech-motion.css  —  Q TECH SMS motion & interaction layer
+   ----------------------------------------------------------------------------
+   One coordinated set of transitions for every role panel (Admin, Manager,
+   Agent, Client) and the secondary panels (Management, Payment, Panel Sharing,
+   Branding). It is a REFINEMENT layer on top of qtech-ds.css, not a new design.
+
+   Load order:  ... qtech-ds.css -> qtech-sidebar-unify.css -> qtech-motion.css
+                -> /branding/runtime.css  (branding must stay last)
+
+   Rules this file follows
+   - Same scope prefix as qtech-ds.css (html body.gx-qtech.qd:is(.gx-light,.gx-dark))
+     so it can win the !important fights deterministically by source order.
+   - Colours come from the existing --ds-* variables (and colour-mixes of them),
+     so the Branding Panel's palette overrides keep working. No new hex colours
+     except the white spinner tile on the logo, which mirrors Admin's .sb-logo.
+   - Only transform / opacity / visibility are animated, with two deliberate
+     exceptions that cannot be done otherwise: sub-menu height (max-height) and
+     the content offset when the desktop sidebar is collapsed (margin-left,
+     already animated by qtech-ds.css before this file).
+   - Respects html.ds-lite (the existing low-end / user "animations off" mode)
+     and prefers-reduced-motion. Decorative motion is dropped in LITE mode;
+     structural motion (sidebar slide, sub-menu open) is kept, exactly as
+     qtech-ds.css already does.
+   - Does NOT touch login pages, chat, or any API/business logic.
+   ========================================================================== */
+
+/* ---- 0. Tokens ---------------------------------------------------------- */
+html body.gx-qtech.qd {
+  --qm-ease: var(--ds-ease, cubic-bezier(.22, .8, .24, 1));   /* decelerate: things arriving */
+  --qm-out:  cubic-bezier(.4, 0, 1, 1);                       /* accelerate: things leaving  */
+  --qm-fast: .16s;
+  --qm-base: .24s;
+  --qm-slow: .34s;
+  --qm-step: 30ms;                                            /* stagger step */
+  --qm-glow: rgba(8, 16, 34, .30);                            /* neutral lift shadow */
+  --qm-ring: rgba(29, 78, 216, .38);                          /* focus / hover ring  */
+  --qm-ring-soft: rgba(29, 78, 216, .22);
+}
+@supports (color: color-mix(in srgb, red 10%, blue)) {
+  html body.gx-qtech.qd {
+    --qm-ring: color-mix(in srgb, var(--ds-brand, #1d4ed8) 40%, transparent);
+    --qm-ring-soft: color-mix(in srgb, var(--ds-brand, #1d4ed8) 24%, transparent);
+  }
+}
+
+@keyframes qm-fade   { from { opacity: 0; } }
+@keyframes qm-rise   { from { opacity: 0; transform: translate3d(0, 10px, 0); } }
+@keyframes qm-pop    { from { opacity: 0; transform: translate3d(0, 10px, 0) scale(.985); } }
+@keyframes qm-menu   { from { opacity: 0; transform: translate3d(0, -6px, 0) scale(.98); } }
+@keyframes qm-slide  { from { opacity: 0; transform: translate3d(-10px, 0, 0); } }
+@keyframes qm-spin   { to { transform: rotate(360deg); } }
+
+/* ---- 1. Sidebar: coordinated open / close --------------------------------
+   Opening decelerates (.38s), closing accelerates away (.28s). The transition
+   that runs is the one of the DESTINATION state, so the two are declared on the
+   two states. Desktop default = open; mobile default = closed. */
+html body.gx-qtech.qd:is(.gx-light, .gx-dark) :is(.sidebar, .rail, .appbar) {
+  transition: transform var(--qm-slow) var(--qm-ease), box-shadow var(--qm-slow) var(--qm-ease) !important;
+}
+html body.gx-qtech.qd.qt-sb-collapsed:is(.gx-light, .gx-dark) :is(.sidebar, .rail, .appbar) {
+  transition: transform var(--qm-base) var(--qm-out), box-shadow var(--qm-base) var(--qm-out) !important;
+}
+html body.gx-qtech.qd:is(.gx-light, .gx-dark) :is(.main, .appbar ~ .content, .appbar + .content) {
+  transition: margin-left var(--qm-slow) var(--qm-ease) !important;
+}
+html body.gx-qtech.qd.qt-sb-collapsed:is(.gx-light, .gx-dark) :is(.main, .appbar ~ .content, .appbar + .content) {
+  transition: margin-left var(--qm-base) var(--qm-out) !important;
+}
+@media (max-width: 900px) {
+  html body.gx-qtech.qd:is(.gx-light, .gx-dark) :is(.sidebar, .rail, .appbar) {
+    transition: transform var(--qm-base) var(--qm-out), box-shadow var(--qm-base) var(--qm-out) !important;
+  }
+  html body.gx-qtech.qd.qt-sb-open:is(.gx-light, .gx-dark) :is(.sidebar, .rail, .appbar),
+  html body.gx-qtech.qd:is(.gx-light, .gx-dark) :is(.sidebar, .rail, .appbar).show {
+    transition: transform var(--qm-slow) var(--qm-ease), box-shadow var(--qm-slow) var(--qm-ease) !important;
+    box-shadow: 18px 0 44px -14px rgba(0, 0, 0, .5);
+  }
+}
+
+/* Every sidebar backdrop fades the same way. Admin/Management already did;
+   Manager (.mgr-mobile-overlay), Agent (.qt-sb-overlay) and Client (.sb-overlay)
+   toggled display and popped in. They are now always rendered but inert while
+   closed, sit just under the sidebar (z 49 < 50) and never intercept clicks. */
+html body.gx-qtech.qd:is(.gx-light, .gx-dark) :is(.overlay, .mgr-mobile-overlay, .qt-sb-overlay, .sb-overlay) {
+  display: block !important;
+  position: fixed;
+  inset: 0;
+  z-index: 49;
+  background: rgba(8, 16, 34, .5);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity var(--qm-base) ease, visibility 0s linear var(--qm-base);
+}
+html body.gx-qtech.qd:is(.gx-light, .gx-dark) :is(.overlay, .mgr-mobile-overlay, .qt-sb-overlay, .sb-overlay).show {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition: opacity var(--qm-base) ease, visibility 0s;
+}
+
+/* Nav entries cascade in when the mobile drawer opens (first 9 only). */
+@media (max-width: 900px) {
+  html:not(.ds-lite) body.gx-qtech.qd.qt-sb-open :is(.sb-nav, .rail-nav, .navtabs) > * {
+    animation: qm-slide var(--qm-base) var(--qm-ease) backwards;
+  }
+  html:not(.ds-lite) body.gx-qtech.qd.qt-sb-open :is(.sb-nav, .rail-nav, .navtabs) > :nth-child(2) { animation-delay: calc(var(--qm-step) * 1 + 60ms); }
+  html:not(.ds-lite) body.gx-qtech.qd.qt-sb-open :is(.sb-nav, .rail-nav, .navtabs) > :nth-child(3) { animation-delay: calc(var(--qm-step) * 2 + 60ms); }
+  html:not(.ds-lite) body.gx-qtech.qd.qt-sb-open :is(.sb-nav, .rail-nav, .navtabs) > :nth-child(4) { animation-delay: calc(var(--qm-step) * 3 + 60ms); }
+  html:not(.ds-lite) body.gx-qtech.qd.qt-sb-open :is(.sb-nav, .rail-nav, .navtabs) > :nth-child(5) { animation-delay: calc(var(--qm-step) * 4 + 60ms); }
+  html:not(.ds-lite) body.gx-qtech.qd.qt-sb-open :is(.sb-nav, .rail-nav, .navtabs) > :nth-child(6) { animation-delay: calc(var(--qm-step) * 5 + 60ms); }
+  html:not(.ds-lite) body.gx-qtech.qd.qt-sb-open :is(.sb-nav, .rail-nav, .navtabs) > :nth-child(7) { animation-delay: calc(var(--qm-step) * 6 + 60ms); }
+  html:not(.ds-lite) body.gx-qtech.qd.qt-sb-open :is(.sb-nav, .rail-nav, .navtabs) > :nth-child(8) { animation-delay: calc(var(--qm-step) * 7 + 60ms); }
+  html:not(.ds-lite) body.gx-qtech.qd.qt-sb-open :is(.sb-nav, .rail-nav, .navtabs) > :nth-child(n+9) { animation-delay: calc(var(--qm-step) * 8 + 60ms); }
+}
+
+/* ---- 2. Nav items & sub-menus -------------------------------------------- */
+/* Press / hover feedback. Same easing everywhere; no layout properties. */
+html body.gx-qtech.qd:is(.gx-light, .gx-dark) :is(.nav-item, .sub-item, .ritem, .rsubitem, .navtab, .dropitem, .tab) {
+  transition: background-color var(--qm-fast) ease, color var(--qm-fast) ease,
+              box-shadow var(--qm-fast) ease, transform var(--qm-fast) var(--qm-ease) !important;
+}
+html body.gx-qtech.qd:is(.gx-light, .gx-dark) :is(.nav-item, .ritem, .navtab, .tab):active { transform: scale(.985) !important; }
+html body.gx-qtech.qd:is(.gx-light, .gx-dark) :is(.nav-item, .ritem, .navtab) > svg:first-child {
+  transition: transform var(--qm-base) var(--qm-ease), opacity var(--qm-fast) ease;
+}
+@media (hover: hover) {
+  html body.gx-qtech.qd:is(.gx-light, .gx-dark) :is(.nav-item, .ritem, .navtab):hover > svg:first-child { transform: scale(1.08); opacity: 1; }
+}
+html body.gx-qtech.qd:is(.gx-light, .gx-dark) :is(.sub-item, .rsubitem, .dropitem) :is(.dot, .d) {
+  transition: transform var(--qm-base) var(--qm-ease), background-color var(--qm-fast) ease;
+}
+html body.gx-qtech.qd:is(.gx-light, .gx-dark) :is(.sub-item, .rsubitem, .dropitem):is(:hover, .active) :is(.dot, .d) { transform: scale(1.5); }
+
+/* Chevron: identical on every panel (points right when closed, down when open).
+   Manager's markup draws a down-chevron, so it is pre-rotated to match. */
+html body.gx-qtech.qd:is(.gx-light, .gx-dark) :is(.nav-item, .ritem, .navtab) > .chev {
+  transition: transform var(--qm-base) var(--qm-ease) !important;
+}
+html body.gx-qtech.qd:is(.gx-light, .gx-dark) .navtab > .chev { transform: rotate(-90deg) !important; }
+html body.gx-qtech.qd:is(.gx-light, .gx-dark) .navtab.open > .chev { transform: rotate(0deg) !important; }
+
+/* Dropdown groups: Admin/Management/Agent use .submenu/.rsub (.open),
+   Manager uses .dropmenu (.show) inside its sidebar. All now open to their
+   MEASURED height (--qm-h set by qtech-motion.js; 480px fallback without JS)
+   instead of a fixed cap, so there is no dead time at the end of the open
+   animation and long groups are never clipped. Closed groups are
+   visibility:hidden so their links cannot be tabbed to. */
+html body.gx-qtech.qd:is(.gx-light, .gx-dark) :is(.submenu, .rsub, .navtabs .dropmenu, .appbar .dropmenu) {
+  display: block !important;
+  position: static !important;
+  max-height: 0 !important;
+  overflow: hidden !important;
+  opacity: 0;
+  visibility: hidden;
+  transition: max-height var(--qm-base) var(--qm-out), opacity var(--qm-fast) ease,
+              visibility 0s linear var(--qm-base) !important;
+}
+html body.gx-qtech.qd:is(.gx-light, .gx-dark) :is(.submenu.open, .rsub.open, .navtabs .dropmenu.show, .appbar .dropmenu.show) {
+  max-height: var(--qm-h, 480px) !important;
+  opacity: 1;
+  visibility: visible;
+  transition: max-height var(--qm-slow) var(--qm-ease), opacity var(--qm-base) ease, visibility 0s !important;
+}
+html:not(.qm-ready) body.gx-qtech.qd :is(.submenu, .rsub, .dropmenu) { transition: none !important; }
+html:not(.ds-lite) body.gx-qtech.qd:is(.gx-light, .gx-dark) :is(.submenu.open, .rsub.open, .navtabs .dropmenu.show, .appbar .dropmenu.show) > * {
+  animation: qm-slide var(--qm-base) var(--qm-ease) backwards;
+}
+html:not(.ds-lite) body.gx-qtech.qd:is(.gx-light, .gx-dark) :is(.submenu.open, .rsub.open, .navtabs .dropmenu.show, .appbar .dropmenu.show) > :nth-child(2) { animation-delay: 35ms; }
+html:not(.ds-lite) body.gx-qtech.qd:is(.gx-light, .gx-dark) :is(.submenu.open, .rsub.open, .navtabs .dropmenu.show, .appbar .dropmenu.show) > :nth-child(3) { animation-delay: 70ms; }
+html:not(.ds-lite) body.gx-qtech.qd:is(.gx-light, .gx-dark) :is(.submenu.open, .rsub.open, .navtabs .dropmenu.show, .appbar .dropmenu.show) > :nth-child(4) { animation-delay: 105ms; }
+html:not(.ds-lite) body.gx-qtech.qd:is(.gx-light, .gx-dark) :is(.submenu.open, .rsub.open, .navtabs .dropmenu.show, .appbar .dropmenu.show) > :nth-child(n+5) { animation-delay: 140ms; }
+
+/* ---- 3. Page-to-page navigation ------------------------------------------
+   Three rules used to compete for .page (qtech-ds.css ds-in + ds-fade, api.js
+   msPageFade). One wins now: the page fades, its direct blocks rise in a short
+   cascade. Card rows keep their own per-card entrance (qtech-ds/unify), so
+   those containers are excluded to avoid animating twice. */
+html body.gx-qtech.qd:is(.gx-light, .gx-dark) .page { animation: none; }
+html body.gx-qtech.qd:is(.gx-light, .gx-dark) .page.active { animation: qm-fade .22s ease; }
+html:not(.ds-lite) body.gx-qtech.qd:is(.gx-light, .gx-dark) .page.active > :nth-child(-n+6):not(.stats-grid):not(.dash-metrics):not(.qt-cards):not(.qt-wcards):not(.grid2):not(.table-wrap) {
+  animation: qm-rise .36s var(--qm-ease) backwards;
+}
+html:not(.ds-lite) body.gx-qtech.qd:is(.gx-light, .gx-dark) .page.active > :nth-child(2) { animation-delay: 40ms; }
+html:not(.ds-lite) body.gx-qtech.qd:is(.gx-light, .gx-dark) .page.active > :nth-child(3) { animation-delay: 80ms; }
+html:not(.ds-lite) body.gx-qtech.qd:is(.gx-light, .gx-dark) .page.active > :nth-child(4) { animation-delay: 120ms; }
+html:not(.ds-lite) body.gx-qtech.qd:is(.gx-light, .gx-dark) .page.active > :nth-child(n+5) { animation-delay: 160ms; }
+
+/* ---- 4. Cards -------------------------------------------------------------
+   Entrance is already staggered per card by qtech-ds.css / sidebar-unify.css.
+   Added: lift + lighting on hover (pointer devices only), a clear keyboard
+   focus state, and a pressed state. All transform/box-shadow, no layout. */
+html body.gx-qtech.qd:is(.gx-light, .gx-dark) :is(.stat-card, .dash-metric, .qt-card, .qt-wcard) {
+  transition: transform var(--qm-base) var(--qm-ease), box-shadow var(--qm-base) var(--qm-ease),
+              border-color var(--qm-base) ease !important;
+}
+html body.gx-qtech.qd:is(.gx-light, .gx-dark) .card {
+  transition: box-shadow var(--qm-base) var(--qm-ease), border-color var(--qm-base) ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  html body.gx-qtech.qd:is(.gx-light, .gx-dark) :is(.stat-card, .dash-metric, .qt-card, .qt-wcard):hover {
+    transform: translate3d(0, -3px, 0);
+    box-shadow: 0 16px 30px -16px var(--qm-glow), 0 0 0 1px var(--qm-ring-soft) !important;
+  }
+  html body.gx-qtech.qd:is(.gx-light, .gx-dark) .card:hover {
+    border-color: var(--qm-ring-soft) !important;
+    box-shadow: 0 12px 28px -18px var(--qm-glow) !important;
+  }
+}
+html body.gx-qtech.qd:is(.gx-light, .gx-dark) :is(.stat-card, .dash-metric, .qt-card, .qt-wcard):active { transform: translate3d(0, 0, 0) scale(.992); }
+html body.gx-qtech.qd:is(.gx-light, .gx-dark) :is(.stat-card, .dash-metric, .qt-card, .qt-wcard, [data-page]):focus-visible {
+  outline: 2px solid var(--ds-brand, #1d4ed8);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px var(--qm-ring-soft) !important;
+}
+html body.gx-qtech.qd:is(.gx-light, .gx-dark) .card:focus-within { border-color: var(--qm-ring-soft) !important; }
+
+/* ---- 5. Buttons & controls ------------------------------------------------
+   Controls that are clicked repeatedly (table actions, toolbars, pagination)
+   no longer move on hover; they change tone and shadow instead. */
+html body.gx-qtech.qd:is(.gx-light, .gx-dark) :is(.btn, .tb-btn, .modal-close, .pagination button, .hamburger, .mgr-mobile-menu, .mgr-topbar-menu) {
+  transition: background-color var(--qm-fast) ease, border-color var(--qm-fast) ease, color var(--qm-fast) ease,
+              box-shadow var(--qm-fast) ease, filter var(--qm-fast) ease, opacity var(--qm-fast) ease,
+              transform .12s var(--qm-ease) !important;
+}
+html body.gx-qtech.qd:is(.gx-light, .gx-dark) :is(.btn, .tb-btn):hover:not(:disabled) { transform: none !important; filter: brightness(1.06); }
+html body.gx-qtech.qd:is(.gx-light, .gx-dark) :is(.btn, .tb-btn, .modal-close, .pagination button, .hamburger, .mgr-mobile-menu, .mgr-topbar-menu):active:not(:disabled) {
+  transform: scale(.97) !important;
+  filter: brightness(.96);
+}
+html body.gx-qtech.qd:is(.gx-light, .gx-dark) :is(.btn, .tb-btn, .modal-close, .pagination button, .hamburger, .mgr-mobile-menu, .mgr-topbar-menu):focus-visible {
+  outline: 2px solid var(--ds-brand, #1d4ed8);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 5px var(--qm-ring);
+}
+html body.gx-qtech.qd:is(.gx-light, .gx-dark) :is(input, select, textarea):focus-visible {
+  box-shadow: 0 0 0 3px var(--qm-ring);
+}
+html body.gx-qtech.qd:is(.gx-light, .gx-dark) :is(.btn, .tb-btn, .pagination button):disabled,
+html body.gx-qtech.qd:is(.gx-light, .gx-dark) .btn[aria-disabled="true"] {
+  opacity: .55;
+  cursor: not-allowed;
+  filter: saturate(.7);
+  transform: none !important;
+}
+/* Loading: .is-loading / .loading / aria-busy="true" (qtech-motion.js also sets
+   .is-loading on a .btn that is disabled while its label ends in "…" / "..."). The label
+   stays visible; a small ring spins in front of it. currentColor => theme-safe. */
+html body.gx-qtech.qd:is(.gx-light, .gx-dark) .btn:is(.is-loading, .loading, [aria-busy="true"]) {
+  pointer-events: none;
+  cursor: progress;
+}
+html body.gx-qtech.qd:is(.gx-light, .gx-dark) .btn:is(.is-loading, .loading, [aria-busy="true"])::before {
+  content: "";
+  flex: none;
+  width: 13px;
+  height: 13px;
+  margin-right: 8px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  animation: qm-spin .7s linear infinite;
+}
+
+/* ---- 6. Modals, dialogs, dropdown menus ------------------------------------
+   Static modals (.modal-overlay + .show, used by Admin/Manager/Agent/Management
+   and api.js profile/activity dialogs) now animate OUT as well as in: they are
+   always rendered but invisible and inert while closed (visibility:hidden also
+   removes them from tab order and the accessibility tree). Overlays that a page
+   shows with an inline style="display:..." are excluded and keep their behaviour.
+   Dialogs created already-open by script get the keyframe entrance only. */
+html body.gx-qtech.qd:is(.gx-light, .gx-dark) :is(.modal-overlay, .ms-modal-backdrop):not([style*="display"]) {
+  display: flex !important;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  animation: none;
+  transition: opacity var(--qm-base) ease, visibility 0s linear var(--qm-base);
+}
+html body.gx-qtech.qd:is(.gx-light, .gx-dark) :is(.modal-overlay, .ms-modal-backdrop).show:not([style*="display"]) {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+  animation: qm-fade var(--qm-base) ease;
+  transition: visibility 0s;           /* entrance is the keyframe; the transition above is for the exit */
+  will-change: opacity;                /* only while open, so hidden dialogs hold no extra layers */
+}
+html body.gx-qtech.qd:is(.gx-light, .gx-dark) :is(.modal-overlay, .ms-modal-backdrop):not(.show):not([style*="display"]) :is(.modal, .ms-modal) {
+  opacity: 0;
+  transform: none;
+  transition: opacity var(--qm-fast) ease;
+  animation: none !important;
+}
+html body.gx-qtech.qd:is(.gx-light, .gx-dark) :is(.modal-overlay, .ms-modal-backdrop).show :is(.modal, .ms-modal) {
+  animation: qm-pop var(--qm-slow) var(--qm-ease) !important;
+}
+html body.gx-qtech.qd:is(.gx-light, .gx-dark) .qt-legal-overlay { animation: qm-fade var(--qm-base) ease; }
+
+/* Custom select menus and floating dropdowns (shown by toggling display). */
+html:not(.ds-lite) body.gx-qtech.qd:is(.gx-light, .gx-dark) :is(.sd-menu, .sd-options-list, .dropmenu:not(.navtabs .dropmenu):not(.appbar .dropmenu)) {
+  transform-origin: top center;
+  animation: qm-menu var(--qm-fast) var(--qm-ease);
+}
+html:not(.ds-lite) body.gx-qtech.qd:is(.gx-light, .gx-dark) .sd-option { transition: background-color var(--qm-fast) ease, color var(--qm-fast) ease; }
+
+/* Table rows: tone change only (no movement on repeated-use lists). */
+html body.gx-qtech.qd:is(.gx-light, .gx-dark) tbody tr { transition: background-color var(--qm-fast) ease; }
+
+/* ---- 6b. Click-origin navigation -------------------------------------------
+   When a link or card is clicked, the page that opens grows out of the spot that
+   was clicked (qtech-motion.js sets --qm-ox/--qm-oy and html.qm-from), and a thin
+   brand-coloured bar sweeps across the top while the next page loads. Transform
+   and opacity only. Decorative, so LITE mode and reduced-motion drop it. */
+@keyframes qm-zoom { from { opacity: 0; transform: scale(.97); } }
+@keyframes qm-bar-go   { from { transform: scaleX(0); } to { transform: scaleX(.85); } }
+@keyframes qm-bar-done { from { transform: scaleX(.85); opacity: 1; } 60% { transform: scaleX(1); opacity: 1; } to { transform: scaleX(1); opacity: 0; } }
+html:not(.ds-lite).qm-from body.gx-qtech.qd:is(.gx-light, .gx-dark) :is(.page.active, .main > main) {
+  transform-origin: var(--qm-ox, 50%) var(--qm-oy, 20%);
+  animation: qm-zoom .4s var(--qm-ease) backwards;
+}
+.qm-bar {
+  position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 2147483000;
+  background: var(--ds-brand, #1d4ed8);
+  transform: scaleX(0); transform-origin: left center; pointer-events: none;
+}
+.qm-bar.go   { animation: qm-bar-go 1.4s cubic-bezier(.1, .7, .2, 1) forwards; }
+.qm-bar.done { animation: qm-bar-done .45s ease-out forwards; }
+html.ds-lite .qm-bar { display: none; }
+
+/* "View report →" style links: underline grows in on hover/focus (transform only). */
+html body.gx-qtech.qd:is(.gx-light, .gx-dark) .lm-report-link { position: relative; text-decoration: none; }
+html body.gx-qtech.qd:is(.gx-light, .gx-dark) .lm-report-link::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -2px; height: 1px;
+  background: currentColor; transform: scaleX(0); transform-origin: left center;
+  transition: transform var(--qm-base) var(--qm-ease);
+}
+html body.gx-qtech.qd:is(.gx-light, .gx-dark) .lm-report-link:is(:hover, :focus-visible)::after { transform: scaleX(1); }
+
+/* ---- 7. Safety nets ---------------------------------------------------------
+   Keep motion off the compositor while the tab is hidden (qtech-ds.js sets
+   html.ds-paused) and honour reduced-motion with a selector strong enough to
+   beat every rule above (the triple .qd is deliberate). */
+html.ds-paused body.qd :is(.stat-card, .dash-metric, .btn)::before { animation-play-state: paused !important; }
+@media (prefers-reduced-motion: reduce) {
+  html body.gx-qtech.qd.qd.qd:is(.gx-light, .gx-dark) *,
+  html body.gx-qtech.qd.qd.qd:is(.gx-light, .gx-dark) *::before,
+  html body.gx-qtech.qd.qd.qd:is(.gx-light, .gx-dark) *::after {
+    animation-duration: .001ms !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+    transition-delay: 0s !important;
+    scroll-behavior: auto !important;
+  }
+}
