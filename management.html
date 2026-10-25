@@ -3224,14 +3224,23 @@ async function loadSmppLogs(){
   }catch(e){ b.innerHTML=`<tr><td colspan="6" class="muted" style="text-align:center;padding:14px">${smEsc(e.message||e)}</td></tr>`; }
 }
 
+/* The panel's display name. Kept as a top-level helper because it is needed in
+   more than one place: a local `var _bn` declared inside printIntegrationGuide()
+   is NOT visible here, and referencing it threw
+       ReferenceError: _bn is not defined
+   which aborted openSmppModal() before it could add .show to #smppModal — the
+   "+ Add Connection" button then looked completely dead. */
+function smBrandName(){
+  return (window.QTECH_BRAND && window.QTECH_BRAND.panelName) || 'ZOOM SMS';
+}
 function smModeChange(){
   const mode=document.getElementById('smMode').value;
   const isServer=mode==='server';
   document.getElementById('smClientBox').style.display=isServer?'none':'';
   document.getElementById('smServerBox').style.display=isServer?'':'none';
   document.getElementById('smModeHint').textContent=isServer
-    ? _bn + ' opens a port and waits. Give the carrier this server IP, the listen port, and the System ID / Password you set below.'
-    : _bn + ' connects out to the provider. Enter the host, port, System ID and Password they gave you.';
+    ? smBrandName() + ' opens a port and waits. Give the carrier this server IP, the listen port, and the System ID / Password you set below.'
+    : smBrandName() + ' connects out to the provider. Enter the host, port, System ID and Password they gave you.';
 }
 
 function openSmppModal(id){
