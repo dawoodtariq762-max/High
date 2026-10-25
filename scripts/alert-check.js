@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/* Q TECH SMS — performance alert checker (cron every minute)
+/* ZOOM SMS — performance alert checker (cron every minute)
  * Usage:  * * * * * node /root/qtech-sms/scripts/alert-check.js >> /var/log/qtech-alerts.log 2>&1
  * Env:    ALERT_URL (default http://localhost:4000), TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID
  * Sends a Telegram message only when a threshold is breached (1 msg / 10 min max per problem).
@@ -33,7 +33,7 @@ function telegram(text) {
   const problems = [];
   let h;
   try { h = await get('/api/health'); } catch (e) {
-    problems.push(`🔴 Q TECH SMS DOWN (${e.message}) on ${os.hostname()}`);
+    problems.push(`🔴 ZOOM SMS DOWN (${e.message}) on ${os.hostname()}`);
     h = null;
   }
   if (h) {
@@ -46,7 +46,7 @@ function telegram(text) {
     const key = problems[0].slice(0, 40);
     if (!state[key] || now - state[key] > COOLDOWN_MS) {
       state[key] = now;
-      telegram(`Q TECH SMS Alert\n${problems.join('\n')}\n\nRSS ${h?.rss_mb}MB · DB ${h?.db_size_mb}MB · ${new Date().toISOString()}`);
+      telegram(`ZOOM SMS Alert\n${problems.join('\n')}\n\nRSS ${h?.rss_mb}MB · DB ${h?.db_size_mb}MB · ${new Date().toISOString()}`);
       console.log('[alert] SENT:', problems.join(' | '));
     } else console.log('[alert] suppressed (cooldown)');
   } else console.log('[alert] OK', new Date().toISOString());

@@ -1,0 +1,39 @@
+ZOOM SMS rebrand + mobile sidebar fix
+=====================================
+Update pack — contains ONLY the files that changed.
+Generated: 2026-10-25
+
+HOW TO APPLY
+------------
+1. Back up your panel first (your existing install stays untouched until step 3).
+2. Unzip this pack into the panel's root folder, OVERWRITING existing files with
+   the same names.  Folder structure matches the panel root exactly.
+3. Delete these four OLD logo files from assets/ (they are replaced, and no
+   longer referenced anywhere):
+       assets/qtech-logo.png
+       assets/qtech-logo-square.png
+       assets/qtech-logo-transparent.png
+       assets/qtech-favicon.png
+4. Restart the panel:      pm2 restart qtech-sms
+5. Hard-refresh your browser (Ctrl+F5 / Cmd+Shift+R) so the new logo files are
+   not served from cache.
+
+NO database migration, no config change, and no .env change is required.
+Internal identifiers were deliberately left alone: CSS class names, API routes,
+DB tables, the PM2 process name, the backup folder, and the nginx name still use
+the old qtech-* spelling.  Only user-visible branding and the four image files
+were renamed.
+
+ABOUT THE SIDEBAR FIX
+---------------------
+Two files changed:  api.js  and  assets/api.js  (both copies, kept identical).
+The fix is inside closeAllSidebars().  Screens were verified on Admin,
+Management, Manager, Agent and Client at 390x844 and 360x740, and on desktop at
+1440x900, 1280x800 and 1024x768.
+
+IMPORTANT — IF YOU EVER SET CUSTOM BRANDING
+-------------------------------------------
+Branding text is stored in the database (table: branding_settings).  This pack
+ships new DEFAULT wording, but any value you previously saved at /branding will
+still override it and will keep showing your saved text.  After applying, log in
+at /branding and re-save the name/logo if you want it changed there too.

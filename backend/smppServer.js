@@ -1,4 +1,4 @@
-// SMPP Server module removed from Q TECH SMS.
+// SMPP Server module removed from ZOOM SMS.
 // Kept as a harmless stub so older deployments that still have this file do not start any listener.
 module.exports = {
   start() { return { ok: false, disabled: true, message: 'SMPP server removed' }; },

@@ -1,12 +1,12 @@
-# Q TECH SMS
+# ZOOM SMS
 
 Multi-level SMS / OTP platform for **Admin › Manager › Agent › Client** (plus a Test panel and
 a Payment panel). One Express + SQLite backend, plain HTML panels, no build step.
 
-> Brand: **Q TECH SMS** (exact spelling — do not use any previous panel name).
-> The official logo is `assets/qtech-logo.png` (the supplied asset, used unmodified);
-> the sidebar/login logo `assets/qtech-logo-square.png` and the favicon
-> `assets/qtech-favicon.png` (128×128) are technical conversions of the same file.
+> Brand: **ZOOM SMS** (exact spelling — do not use any previous panel name).
+> The official logo is `assets/zoom-logo.png?v=zoom-20261025` (the supplied asset, used unmodified);
+> the sidebar/login logo `assets/zoom-logo-square.png?v=zoom-20261025` and the favicon
+> `assets/zoom-favicon.png?v=zoom-20261025` (128×128) are technical conversions of the same file.
 
 ---
 
@@ -143,7 +143,7 @@ node scripts/check-html-scripts.js manager.html    # inline <script> syntax chec
 | Backup dir default | `~/nova-sms-backups` (intermediate: `~/almada-sms-backups`) | `~/qtech-sms-backups` (`BACKUP_DIR` overrides; legacy files still honoured) |
 | Backup file prefix | `nova-sms-backup-` (intermediate: `almada-sms-backup-`) | `qtech-sms-backup-` (legacy prefixes still accepted) |
 | Ops scripts / units | `powerx-*` (intermediate: `almada-*`) | `qtech-watchdog`, `qtech-diskguard`, `nginx-qtech.conf`, `qtech-litestream.service` |
-| Panel asset files | `assets/galaxy.css`, `assets/galaxy.js`, `galaxy-logo.png`, `galaxy-favicon.png` (intermediate: `almada-*`, `lamix-light.css`) | `assets/qtech.css`, `assets/qtech.js`, `qtech-logo.png`, `qtech-logo-square.png`, `qtech-favicon.png` |
+| Panel asset files | `assets/galaxy.css`, `assets/galaxy.js`, `galaxy-logo.png`, `galaxy-favicon.png` (intermediate: `almada-*`, `lamix-light.css`) | `assets/qtech.css`, `assets/qtech.js`, `zoom-logo.png?v=zoom-20261025`, `zoom-logo-square.png?v=zoom-20261025`, `zoom-favicon.png?v=zoom-20261025` |
 
 Keep the old values in your existing `.env` only if you adapt them: unset variables fall back
 to defaults (`ALMADA_ROLE=all`, FTS off), which is safe but changes nothing else.
@@ -152,9 +152,9 @@ to defaults (`ALMADA_ROLE=all`, FTS off), which is safe but changes nothing else
 
 ## 7. Status of this build
 
-This revision is the **Q TECH SMS rebrand + dashboard redesign** phase (Phase 3):
+This revision is the **ZOOM SMS rebrand + dashboard redesign** phase (Phase 3):
 
-* Rebranded end-to-end from ALMADA SMS to **Q TECH SMS** — UI, page titles, sidebar/login
+* Rebranded end-to-end from ALMADA SMS to **ZOOM SMS** — UI, page titles, sidebar/login
   branding, the supplied logo + favicon, API response strings, generated filenames
   (exports, import sample, backups), ops scripts, deploy templates and docs.
   Load-bearing identifiers kept for compatibility: `ALMADA_ROLE` / `ALMADA_FTS` env vars,

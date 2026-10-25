@@ -1,4 +1,4 @@
-# Q TECH SMS — Premium Login Page Enhancement — Implementation Report
+# ZOOM SMS — Premium Login Page Enhancement — Implementation Report
 **Date:** 2026-10-21 &nbsp;|&nbsp; **Scope:** Frontend login only (no backend / no auth logic changed)  
 **Deliverable folder:** `QTECH_SMS_Premium_Login_Enhanced/`
 
@@ -12,7 +12,7 @@
 | `assets/qtech-login-anim.js` | **enhanced** (390 → 540 lines) | Preserved buildLayer, decorateCard, halo-tracking, logo handling, toggle, liteMode, reduced-motion. **Added** `buildStage()` + `buildFloor()`, `wireInteractions()`, adaptive `starCount()`, early lite detection, stage visibility sync, captcha spin, shake-on-error, focus lifts, button micro-interaction. Still only adds decorative DOM and toggles a class on `<html>` — never touches form values, fetch, or routing. |
 | `login.html` | **version bump only** | `qtech-login-anim.css/js` query string `v=qtech-20261026` → `v=qtech-20261021-premium` to bust cache. No markup or auth script touched. |
 | `management-login.html`, `payment-login.html`, `panel-sharing-login.html`, `test-login.html` | **version bump only** | Same cache-bust as above. All five login entry points share the identical updated sheet/script, so the theme stays identical everywhere. |
-| `assets/qtech.css`, `assets/qtech.js`, `assets/qtech-favicon.png`, `assets/qtech-logo-*.png`, `branding/runtime.js` | **unchanged** (copied for completeness) | Import paths kept intact (`/assets/...`, `/branding/runtime.js`). No backend, route, or API contract changed. |
+| `assets/qtech.css`, `assets/qtech.js`, `assets/zoom-favicon.png?v=zoom-20261025`, `assets/zoom-logo-*.png`, `branding/runtime.js` | **unchanged** (copied for completeness) | Import paths kept intact (`/assets/...`, `/branding/runtime.js`). No backend, route, or API contract changed. |
 | `branding-login.html` | **unchanged** | Own static card design — not part of the cinematic login surface; left exactly as supplied. |
 
 > **Preserved visual identity:** deep-navy “Midnight Aurora” gradient, dark glass card, RGB conic edge ring (`qt-edge` / `qt-glow`), halo, orbs, trails, waves, stars, shooting stars, grid. All still present; only the *entrance* timing and *extra side depth* are new. The card remains the single primary focus.

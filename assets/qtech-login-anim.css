@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Q TECH SMS — CINEMATIC LOGIN EXPERIENCE  ("Signal Horizon")
+   ZOOM SMS — CINEMATIC LOGIN EXPERIENCE  ("Signal Horizon")
    assets/qtech-login-anim.css
 
    One shared sheet for EVERY login page:
@@ -295,7 +295,7 @@ html body.gx-light.gx-login .login-panel { background: transparent !important; }
  *    white background, so on the glass card it is blended with `multiply`:
  *    white disappears into the card, the artwork keeps its colours, nothing is
  *    stretched (object-fit/size still come from qtech.css). To rebrand, replace
- *    assets/qtech-logo-square.png — any logo (white OR transparent background)
+ *    assets/zoom-logo-square.png?v=zoom-20261025 — any logo (white OR transparent background)
  *    works with no CSS change.
  * ------------------------------------------------------------------ */
 html body.gx-light:is(.gx-login,.gx-portal-login) :is(.m-brand img, .logo img, .login-hero-logo) {

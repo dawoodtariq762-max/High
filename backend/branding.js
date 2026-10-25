@@ -1,5 +1,5 @@
 /**
- * Q TECH SMS — Panel Branding.
+ * ZOOM SMS — Panel Branding.
  *
  * A separate, password-protected branding panel. It is deliberately isolated
  * from the normal user/role system:
@@ -42,9 +42,9 @@ const LOGIN_MAX_ATTEMPTS = 6;
  * fresh install is unchanged.
  * ------------------------------------------------------------------ */
 const TEXT_DEFAULTS = {
-  panelName: 'Q TECH SMS',
-  shortName: 'Q TECH',
-  loginTitle: 'Q TECH SMS',
+  panelName: 'ZOOM SMS',
+  shortName: 'ZOOM',
+  loginTitle: 'ZOOM SMS',
   tabTitle: '',                 // blank => derive from panelName
   tagline: 'Intelligent Messaging Infrastructure',
   headerBrand: '',              // blank => panelName
@@ -267,8 +267,8 @@ module.exports = function branding(app, ctx) {
         favicon: s.assets.favicon ? '/branding/asset/favicon' : '',
       },
       // the login page's shipped transparent mark stays the fallback
-      defaultLogo: '/assets/qtech-logo-transparent.png',
-      defaultFavicon: '/assets/qtech-favicon.png',
+      defaultLogo: '/assets/zoom-logo-transparent.png?v=zoom-20261025',
+      defaultFavicon: '/assets/zoom-favicon.png?v=zoom-20261025',
     };
   }
 
@@ -277,7 +277,7 @@ module.exports = function branding(app, ctx) {
     const s = getSettings();
     const c = s.colors || {};
     const out = [];
-    out.push('/* Q TECH SMS — generated branding runtime. Do not edit by hand. */');
+    out.push('/* ZOOM SMS — generated branding runtime. Do not edit by hand. */');
 
     /* Logo integrity. The shipped stylesheet forces background:#fff behind the
        panel logos (assets/qtech.css:337), which paints a visible white box
@@ -404,7 +404,7 @@ function apply(){
     if(el.tagName==='IMG'){el.setAttribute('alt',v);continue;}
     if(el.textContent.trim()!==v) el.textContent=v;
   }
-  /* accessible names that carry the brand, e.g. aria-label="Q TECH SMS branding" */
+  /* accessible names that carry the brand, e.g. aria-label="ZOOM SMS branding" */
   var ar=document.querySelectorAll('[data-brand-aria]');
   for(var k=0;k<ar.length;k++){
     var el3=ar[k],slot3=ar[k].getAttribute('data-brand-aria'),v3=MAP[slot3];
@@ -803,7 +803,7 @@ try{
         reportBrand: p.reportBrand, footerText: p.footerText, supportText: p.supportText,
       };
     } catch (e) {
-      return { panelName: 'Q TECH SMS', shortName: 'Q TECH', reportBrand: 'Q TECH SMS', footerText: '', supportText: '' };
+      return { panelName: 'ZOOM SMS', shortName: 'ZOOM', reportBrand: 'ZOOM SMS', footerText: '', supportText: '' };
     }
   }
   /* filesystem/URL-safe slug for download filenames */

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # =============================================================================
-# Q TECH SMS — install the 3-day backup retention job
+# ZOOM SMS — install the 3-day backup retention job
 # =============================================================================
 #   cd /root/qtech-sms && sudo bash scripts/install-backup-retention.sh
 #
@@ -49,7 +49,7 @@ if command -v systemctl >/dev/null 2>&1 && [ -d /run/systemd/system ]; then
 
   cat > /etc/systemd/system/qtech-backup-retention.service <<EOF
 [Unit]
-Description=Q TECH SMS backup retention (keep ${RETENTION_DAYS} days)
+Description=ZOOM SMS backup retention (keep ${RETENTION_DAYS} days)
 After=network.target
 
 [Service]
@@ -65,7 +65,7 @@ EOF
 
   cat > /etc/systemd/system/qtech-backup-retention.timer <<EOF
 [Unit]
-Description=Q TECH SMS daily backup + ${RETENTION_DAYS}-day retention
+Description=ZOOM SMS daily backup + ${RETENTION_DAYS}-day retention
 
 [Timer]
 OnCalendar=*-*-* 03:17:00

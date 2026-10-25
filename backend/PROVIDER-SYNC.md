@@ -1,9 +1,9 @@
-# Q TECH SMS — Background Provider Sync
+# ZOOM SMS — Background Provider Sync
 
 ```
 Provider API  ->  Background Sync Service  ->  Local Database
                                                      |
-                                        Q TECH SMS Backend (/api/*)
+                                        ZOOM SMS Backend (/api/*)
                                                      |
                         Admin / Manager / Agent / Client panels
 ```
@@ -92,7 +92,7 @@ SYNC_INTERVAL_SECONDS=12     # scheduler tick (min 5)
 | `auth` | `bearer` · `header` (+`auth_header`) · `query` (+`auth_query`) · `none` |
 | `since_format` | `sql` · `iso` · `epoch` · `epoch_ms` |
 | `records_path` | Dotted path to the array. Omit to auto-detect `data`/`results`/`messages` |
-| `map` | Provider field → Q TECH field. `ref` **must** be the provider's unique id |
+| `map` | Provider field → ZOOM field. `ref` **must** be the provider's unique id |
 | `extra_params` | Any additional fixed query parameters |
 | `timeout_ms` | Request timeout, default 20000 |
 

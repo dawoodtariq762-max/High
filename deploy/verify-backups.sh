@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Q TECH SMS — monthly backup verification (cron: 1st of month, 4am)
+# ZOOM SMS — monthly backup verification (cron: 1st of month, 4am)
 # Runs integrity_check on the newest Litestream RESTORABLE snapshot + newest
 # file-backup. Telegram alert on failure (same bot as alert-check.js).
 set -uo pipefail
@@ -11,7 +11,7 @@ TG_TOKEN="${TELEGRAM_BOT_TOKEN:-}"; TG_CHAT="${TELEGRAM_CHAT_ID:-}"
 fail() {
   echo "FAIL: $1"
   [ -n "$TG_TOKEN" ] && curl -s -X POST "https://api.telegram.org/bot${TG_TOKEN}/sendMessage" \
-    -d chat_id="${TG_CHAT}" -d text="🚨 Q TECH SMS backup verify FAILED: $1" >/dev/null
+    -d chat_id="${TG_CHAT}" -d text="🚨 ZOOM SMS backup verify FAILED: $1" >/dev/null
   exit 1
 }
 

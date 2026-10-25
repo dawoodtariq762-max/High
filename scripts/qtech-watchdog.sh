@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # =============================================================================
-# Q TECH SMS — health watchdog
+# ZOOM SMS — health watchdog
 # =============================================================================
 # WHY THIS EXISTS (proven by test, not assumed):
 #

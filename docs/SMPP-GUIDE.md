@@ -1,5 +1,5 @@
-# Q TECH SMS — SMPP Guide (Simple)
-**Provider ko Q TECH SMS se connect karna — step by step (Roman Urdu + English)**
+# ZOOM SMS — SMPP Guide (Simple)
+**Provider ko ZOOM SMS se connect karna — step by step (Roman Urdu + English)**
 
 ---
 
@@ -9,7 +9,7 @@
 
 Simple words: **Provider aapko pipe deta hai, us pipe se SMS aapke panel mein aate hain.**
 
-Q TECH SMS mein 3 tarah ke SMS channels hain (sab ka result same — SMS panel mein dikhta hai):
+ZOOM SMS mein 3 tarah ke SMS channels hain (sab ka result same — SMS panel mein dikhta hai):
 1. **HTTP webhook** — provider URL par SMS POST karta hai (sab se common)
 2. **HTTP pull** — panel khud provider ki API se SMS uthata hai
 3. **SMPP client** — provider ke SMPP server se permanent connection
@@ -20,7 +20,7 @@ Q TECH SMS mein 3 tarah ke SMS channels hain (sab ka result same — SMS panel m
 
 Jab SMPP provider se deal karein to us se ye 6 cheezein likhwa kar lein:
 
-| # | Cheez | Example | Kahan dalna hai (Q TECH SMS) |
+| # | Cheez | Example | Kahan dalna hai (ZOOM SMS) |
 |---|---|---|---|
 | 1 | **Host** | `smpp.provider.com` ya IP | SMPP connection form → Host |
 | 2 | **Port** | `2775` (common) ya `8775` | Port field |
@@ -37,13 +37,13 @@ Jab SMPP provider se deal karein to us se ye 6 cheezein likhwa kar lein:
 - **Transmitter** = sirf SMS send (humein inbound chahiye, is liye rare)
 
 ### Inbound numbers ke liye kya hoga?
-Provider ko batayein: *"Humein inbound SMS chahiye — bind transceiver/receiver, aap `deliver_sm` hamare System ID par bhejein."* Provider routing set kar dega. Q TECH SMS automatically:
+Provider ko batayein: *"Humein inbound SMS chahiye — bind transceiver/receiver, aap `deliver_sm` hamare System ID par bhejein."* Provider routing set kar dega. ZOOM SMS automatically:
 - `deliver_sm` **aur** `data_sm` dono accept karta hai
 - **DLR (delivery receipts)** ko alag pehchan-ta hai — ye human SMS nahi hote, panel mein count nahi hote (galat data nahi banta)
 
 ---
 
-## 3. Q TECH SMS mein connection kaise banate hain?
+## 3. ZOOM SMS mein connection kaise banate hain?
 
 1. Login karein → **Management panel** (super admin)
 2. **SMPP Connections** page kholein
@@ -82,7 +82,7 @@ Provider ko batayein: *"Humein inbound SMS chahiye — bind transceiver/receiver
 Agar provider HTTP webhook de raha hai to nahi. SMPP tab useful hai jab provider sirf SMPP de ya high-volume stable pipe chahiye.
 
 **Q: SMPP Server mode kya hai? (carrier humse connect ho)**
-Q TECH SMS mein SMPP **server** mode filhal disabled hai (sirf client active). Agar kabhi carrier aapke server par bind karna chahen to ye alag architecture decision hogi — pehle approval se.
+ZOOM SMS mein SMPP **server** mode filhal disabled hai (sirf client active). Agar kabhi carrier aapke server par bind karna chahen to ye alag architecture decision hogi — pehle approval se.
 
 **Q: SMS aa raha hai magar panel mein nahi dikh raha?**
 1) Connection "Bound" hai? 2) Provider ne routing di? 3) Panel ke System Logs page par SMPP events dekhein (har connect/disconnect/inbound log hota hai).

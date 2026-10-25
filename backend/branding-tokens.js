@@ -1,5 +1,5 @@
 /**
- * Q TECH SMS — Panel Branding token catalogue.
+ * ZOOM SMS — Panel Branding token catalogue.
  *
  * Split out of branding.js because the catalogue is data, not logic.
  *

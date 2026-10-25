@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="icon" type="image/png" href="/assets/qtech-favicon.png?v=qtech-20261009"  data-brand-favicon />
-<title>Q TECH SMS — Admin Panel</title>
+<link rel="icon" type="image/png" href="/assets/zoom-favicon.png?v=zoom-20261025"  data-brand-favicon />
+<title>ZOOM SMS — Admin Panel</title>
 <style id="route-auth-hide">html{visibility:hidden;}
 .page-head{border-bottom:1px solid #ddd!important;padding-bottom:14px!important;}
 .page > .toolbar,.page > .table-wrap,.page > .card,.page > .grid2{position:relative!important;}
@@ -54,6 +54,13 @@ a{text-decoration:none;}
 .tb-date{font-size:13px;}
 .tb-right{margin-left:auto;display:flex;align-items:center;gap:6px;}
 .tb-btn{width:38px;height:38px;border-radius:9px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;position:relative;transition:.15s;}
+/* Cross-panel navigation button (Admin <-> Management). Same .tb-btn shell so it
+   inherits the panel's own colours, radius and hover; it only grows to fit its
+   label. On phones the label drops and it becomes an icon button again, so the
+   topbar never crowds. */
+.tb-btn.tb-btn-nav{width:auto;padding:0 12px;gap:7px;}
+.tb-btn .tb-nav-label{font-size:12.5px;font-weight:600;white-space:nowrap;line-height:1;}
+@media(max-width:620px){.tb-btn .tb-nav-label{display:none;}.tb-btn.tb-btn-nav{width:38px;padding:0;gap:0;}}
 .tb-btn svg{width:19px;height:19px;stroke:currentColor;}
 .tb-btn .badge{position:absolute;top:7px;right:8px;width:8px;height:8px;border-radius:50%;border:2px solid var(--bg2);}
 .avatar{width:36px;height:36px;border-radius:50%;margin-left:6px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;border:2px solid var(--border2);}
@@ -312,8 +319,8 @@ thead th{font-size:11.5px!important;letter-spacing:.25px!important;}
   <!-- ================= SIDEBAR ================= -->
   <aside class="sidebar" id="sidebar">
     <div class="sb-brand">
-      <div class="sb-logo"><img class="qtech-sms-logo-img" data-brand-logo src="/assets/qtech-logo-square.png?v=qtech-20261009" alt="Q TECH SMS" /></div>
-      <div><h1 data-brand="name">Q TECH SMS</h1><small>Admin Panel</small></div>
+      <div class="sb-logo"><img class="qtech-sms-logo-img" data-brand-logo src="/assets/zoom-logo-square.png?v=zoom-20261025" alt="ZOOM SMS" /></div>
+      <div><h1 data-brand="name">ZOOM SMS</h1><small>Admin Panel</small></div>
     </div>
     <nav class="sb-nav">
       <div class="sb-section">Daily Operations</div>
@@ -366,6 +373,7 @@ thead th{font-size:11.5px!important;letter-spacing:.25px!important;}
       <button class="hamburger" onclick="openSidebar()"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
       <span class="tb-date" id="clock">Fri, 2026-07-03 05:33:57</span>
       <div class="tb-right">
+        <button class="tb-btn tb-btn-nav" type="button" title="Management Panel" aria-label="Management Panel" onclick="window.location.href='/management'"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg><span class="tb-nav-label">Management</span></button>
         
         <button class="tb-btn" title="Fullscreen" onclick="toggleFull()"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>
         <div class="avatar">A</div>

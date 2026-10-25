@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # =============================================================================
-# Q TECH SMS — Add / update a provider API key (interactive)
+# ZOOM SMS — Add / update a provider API key (interactive)
 # =============================================================================
 # Run this ON THE VPS:   cd /root/qtech-sms && ./add-provider.sh
 #
@@ -35,13 +35,13 @@ command -v curl    >/dev/null || { err "curl is required";    exit 1; }
 
 bold ""
 bold "==============================================="
-bold " Q TECH SMS — add a provider API key"
+bold " ZOOM SMS — add a provider API key"
 bold "==============================================="
 say ""
 
 # ---------------------------------------------------------------- 1. login
-ask ADMIN_USER "Q TECH admin username" "vibepk"
-printf 'Q TECH admin password: '
+ask ADMIN_USER "ZOOM admin username" "vibepk"
+printf 'ZOOM admin password: '
 read -rs ADMIN_PASS </dev/tty; echo
 
 TOKEN=$(curl -s -X POST "$BASE/api/login" -H 'Content-Type: application/json' \
@@ -52,7 +52,7 @@ try:
 except Exception: print("")')
 
 if [ -z "$TOKEN" ]; then
-  err "Login failed. Check the username/password, and that Q TECH SMS is running on $BASE"
+  err "Login failed. Check the username/password, and that ZOOM SMS is running on $BASE"
   exit 1
 fi
 ok "✓ Logged in"
@@ -88,7 +88,7 @@ ask REC_COUNT   "records per poll"       "50"
 ask RECPATH     "JSON path to the array" "data"
 
 say ""
-say "--- Field mapping (provider field -> Q TECH field) ----------------"
+say "--- Field mapping (provider field -> ZOOM field) ----------------"
 ask M_NUMBER  "number field"  "num"
 ask M_CLI     "CLI field"     "cli"
 ask M_MESSAGE "message field" "message"
@@ -180,7 +180,7 @@ elif [ "$FAILED" != "0" ]; then
   err "Fetched $FETCHED but saved 0 — all $FAILED were rejected."
   say ""
   say "  This is almost always: the provider's numbers are not imported"
-  say "  and allocated in Q TECH SMS, which only stores an SMS if the number"
+  say "  and allocated in ZOOM SMS, which only stores an SMS if the number"
   say "  exists in a range AND is allocated to a client."
   say ""
   say "  Open the panel -> Failed SMS to see the exact reason,"

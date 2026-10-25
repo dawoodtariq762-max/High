@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # =============================================================================
-# Q TECH SMS — disk guard
+# ZOOM SMS — disk guard
 # =============================================================================
 # WHY THIS EXISTS (calculated from this project's own backup code):
 #

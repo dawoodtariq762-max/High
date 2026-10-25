@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Q TECH SMS — CINEMATIC LOGIN EXPERIENCE  ("Signal Horizon")
+   ZOOM SMS — CINEMATIC LOGIN EXPERIENCE  ("Signal Horizon")
    assets/qtech-login-anim.js
 
    Companion to assets/qtech-login-anim.css. One shared script for every login
@@ -506,7 +506,7 @@
    * ---------------------------------------------------------------- */
   function brandLabel() {
     try { if (window.QTECH_BRAND && window.QTECH_BRAND.panelName) return window.QTECH_BRAND.panelName; } catch (e) {}
-    return 'Q TECH SMS';
+    return 'ZOOM SMS';
   }
   function brandLogoUrl() {
     try {

@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="icon" type="image/png" href="/assets/qtech-favicon.png?v=qtech-20261009"  data-brand-favicon />
-<title>Q TECH SMS — Management Panel</title>
+<link rel="icon" type="image/png" href="/assets/zoom-favicon.png?v=zoom-20261025"  data-brand-favicon />
+<title>ZOOM SMS — Management Panel</title>
 <style id="route-auth-hide">html{visibility:hidden;}
 .page-head{border-bottom:1px solid #ddd!important;padding-bottom:14px!important;}
 .page > .toolbar,.page > .table-wrap,.page > .card,.page > .grid2{position:relative!important;}
@@ -103,6 +103,13 @@ a{text-decoration:none;}
 .tb-date{font-size:13px;}
 .tb-right{margin-left:auto;display:flex;align-items:center;gap:6px;}
 .tb-btn{width:38px;height:38px;border-radius:9px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;position:relative;transition:.15s;}
+/* Cross-panel navigation button (Management <-> Admin). Same .tb-btn shell so it
+   inherits the panel's own colours, radius and hover; it only grows to fit its
+   label. On phones the label drops and it becomes an icon button again, so the
+   topbar never crowds. */
+.tb-btn.tb-btn-nav{width:auto;padding:0 12px;gap:7px;}
+.tb-btn .tb-nav-label{font-size:12.5px;font-weight:600;white-space:nowrap;line-height:1;}
+@media(max-width:620px){.tb-btn .tb-nav-label{display:none;}.tb-btn.tb-btn-nav{width:38px;padding:0;gap:0;}}
 .tb-btn svg{width:19px;height:19px;stroke:currentColor;}
 .tb-btn .badge{position:absolute;top:7px;right:8px;width:8px;height:8px;border-radius:50%;border:2px solid var(--bg2);}
 .avatar{width:36px;height:36px;border-radius:50%;margin-left:6px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;border:2px solid var(--border2);}
@@ -356,8 +363,8 @@ thead th{font-size:11.5px!important;letter-spacing:.25px!important;}
   <!-- ================= SIDEBAR ================= -->
   <aside class="sidebar" id="sidebar">
     <div class="sb-brand">
-      <div class="sb-logo"><img class="qtech-sms-logo-img" data-brand-logo src="/assets/qtech-logo-square.png?v=qtech-20261009" alt="Q TECH SMS" /></div>
-      <div><h1 data-brand="name">Q TECH SMS</h1><small>Management Panel</small></div>
+      <div class="sb-logo"><img class="qtech-sms-logo-img" data-brand-logo src="/assets/zoom-logo-square.png?v=zoom-20261025" alt="ZOOM SMS" /></div>
+      <div><h1 data-brand="name">ZOOM SMS</h1><small>Management Panel</small></div>
     </div>
     <nav class="sb-nav">
       <div class="sb-section">Number Maintenance</div>
@@ -390,6 +397,7 @@ thead th{font-size:11.5px!important;letter-spacing:.25px!important;}
       <button class="hamburger" onclick="openSidebar()"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
       <span class="tb-date" id="clock">Fri, 2026-07-03 05:33:57</span>
       <div class="tb-right">
+        <button class="tb-btn tb-btn-nav" type="button" title="Admin Panel" aria-label="Admin Panel" onclick="window.location.href='/admin'"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg><span class="tb-nav-label">Admin</span></button>
         
         <button class="tb-btn" title="Fullscreen" onclick="toggleFull()"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>
         <div class="avatar">A</div>
@@ -837,9 +845,9 @@ Nigeria"></textarea><div class="hint">Default rates will be NA. You can edit pay
           <div class="stat-card dash-metric d-pink"><div class="stat-info"><p>Errors</p><h3 id="smErrors">0</h3><span id="smErrText">Connections in error state</span></div><div class="dash-go">!</div></div>
         </div>
         <div class="card" style="margin-bottom:16px">
-          <div class="card-head"><div><h3>How this works</h3><div class="sub">SMPP connects <span data-brand-replace="name">Q TECH SMS</span> to a carrier's SMS infrastructure over a persistent TCP session. Choose <b>Client mode</b> when Q TECH SMS binds out to the carrier's SMPP server, or <b>Server mode</b> when the carrier binds in to the SMPP server hosted by Q TECH SMS. Configure the correct host, port, system ID, password, bind type, allowed IPs and reconnection settings for the selected mode. Incoming messages are validated and de-duplicated before they are recorded.</div></div></div>
-          <div class="hint"><b>Client mode</b> — <span data-brand-replace="name">Q TECH SMS</span> connects out to your provider's SMPP server. You need their host, port, system&nbsp;ID and password.<br>
-          <b>Server mode</b> — <span data-brand-replace="name">Q TECH SMS</span> listens on a port and your carrier connects in. You choose the system&nbsp;ID and password and give them to the carrier, plus this server's IP and the port.<br>
+          <div class="card-head"><div><h3>How this works</h3><div class="sub">SMPP connects <span data-brand-replace="name">ZOOM SMS</span> to a carrier's SMS infrastructure over a persistent TCP session. Choose <b>Client mode</b> when ZOOM SMS binds out to the carrier's SMPP server, or <b>Server mode</b> when the carrier binds in to the SMPP server hosted by ZOOM SMS. Configure the correct host, port, system ID, password, bind type, allowed IPs and reconnection settings for the selected mode. Incoming messages are validated and de-duplicated before they are recorded.</div></div></div>
+          <div class="hint"><b>Client mode</b> — <span data-brand-replace="name">ZOOM SMS</span> connects out to your provider's SMPP server. You need their host, port, system&nbsp;ID and password.<br>
+          <b>Server mode</b> — <span data-brand-replace="name">ZOOM SMS</span> listens on a port and your carrier connects in. You choose the system&nbsp;ID and password and give them to the carrier, plus this server's IP and the port.<br>
           Reconnection is automatic with backoff. Incoming messages are de-duplicated, so a redelivered message is never counted twice.</div>
         </div>
         <div class="table-wrap"><div class="tscroll"><table>
@@ -980,8 +988,8 @@ Nigeria"></textarea><div class="hint">Default rates will be NA. You can edit pay
     </div>
     <div class="form-group"><label>Mode <span class="req">*</span></label>
       <select id="smMode" onchange="smModeChange()">
-        <option value="client">Client — <span data-brand-replace="name">Q TECH SMS</span> connects out to the provider</option>
-        <option value="server">Server — the carrier connects in to <span data-brand-replace="name">Q TECH SMS</span></option>
+        <option value="client">Client — <span data-brand-replace="name">ZOOM SMS</span> connects out to the provider</option>
+        <option value="server">Server — the carrier connects in to <span data-brand-replace="name">ZOOM SMS</span></option>
       </select>
       <div class="hint" id="smModeHint"></div>
     </div>
@@ -1090,7 +1098,7 @@ Nigeria"></textarea><div class="hint">Default rates will be NA. You can edit pay
       <div class="form-group"><label>Overlap Window (seconds)</label><input type="number" id="apOverlap" value="30" min="0" max="3600" /><div class="hint">Re-checks this many seconds back so no SMS is missed. Duplicates are blocked automatically.</div></div>
       <div class="form-group"><label>Response Array Path</label><input type="text" id="apRecPath" placeholder="data" /><div class="hint">Where the records array is, e.g. <b>data</b>.</div></div>
     </div>
-    <div class="section-title" style="margin:14px 0 8px">Field Mapping <span class="muted" style="font-weight:500">(provider field → <span data-brand-replace="name">Q TECH SMS</span> field)</span></div>
+    <div class="section-title" style="margin:14px 0 8px">Field Mapping <span class="muted" style="font-weight:500">(provider field → <span data-brand-replace="name">ZOOM SMS</span> field)</span></div>
     <div class="form-grid">
       <div class="form-group"><label>Number</label><input type="text" id="apMapNumber" placeholder="num" /></div>
       <div class="form-group"><label>CLI / Sender</label><input type="text" id="apMapCli" placeholder="cli" /></div>
@@ -1101,7 +1109,7 @@ Nigeria"></textarea><div class="hint">Default rates will be NA. You can edit pay
     </div>
     <div class="form-grid">
       <div class="form-group"><label>Payout (optional)</label><input type="text" id="apMapPayout" placeholder="payout" /><div class="hint">Used only as an indicator. Payout is always calculated from panel rate cards; a provider payout of 0 marks the SMS non-payable.</div></div>
-      <div class="form-group"><label>Unique ID (optional)</label><input type="text" id="apMapRef" placeholder="Leave empty if not provided" /><div class="hint">If the provider sends no id, <span data-brand-replace="name">Q TECH SMS</span> generates a fingerprint to prevent duplicates.</div></div>
+      <div class="form-group"><label>Unique ID (optional)</label><input type="text" id="apMapRef" placeholder="Leave empty if not provided" /><div class="hint">If the provider sends no id, <span data-brand-replace="name">ZOOM SMS</span> generates a fingerprint to prevent duplicates.</div></div>
     </div>
     <div class="hint" id="apTestResult" style="margin-top:12px"></div>
   </div>
@@ -3068,7 +3076,7 @@ function printIntegrationGuide(){
   if(!body) return;
   const w=window.open('','_blank');
   if(!w){ alert('❌ Allow pop-ups to print the guide, or use Download Markdown.'); return; }
-  var _bn=(window.QTECH_BRAND&&window.QTECH_BRAND.panelName)||'Q TECH SMS';
+  var _bn=(window.QTECH_BRAND&&window.QTECH_BRAND.panelName)||'ZOOM SMS';
     w.document.write('<!doctype html><html><head><meta charset="utf-8"><title>'+_bn+' — Provider Integration Guide</title><style>'
     +'body{font-family:Inter,Segoe UI,system-ui,Arial,sans-serif;font-size:12.5px;line-height:1.6;color:#0f172a;margin:28px;}'
     +'h1,h2,h3,h4{line-height:1.25;margin:20px 0 8px;}h1{font-size:22px;}h2{font-size:18px;border-bottom:1px solid #e2e8f0;padding-bottom:5px;}h3{font-size:15px;}h4{font-size:13.5px;}'

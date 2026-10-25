@@ -112,7 +112,7 @@
       b.setAttribute('aria-pressed', on?'true':'false');
     });
     const lbl=document.getElementById('msThemeLabel');
-    if(lbl) lbl.textContent = 'Appearance: '+(dark?'Dark':'Light')+' \u00b7 Q TECH SMS';
+    if(lbl) lbl.textContent = 'Appearance: '+(dark?'Dark':'Light')+' \u00b7 ZOOM SMS';
     /* FINAL POLISH 2B: every theme control in the page (the top-nav sun/moon toggle,
        any [data-theme-btn]) repaints from this one event, so the switch is instant and
        stays in sync no matter who triggered it (toggle, settings panel, stored value). */
@@ -127,7 +127,7 @@
     panel.id='msSettingsPanel'; panel.className='ms-notif-panel'; panel.style.top='68px';
     panel.innerHTML=`<div class="ms-notif-head"><b>Panel Settings</b><div class="ms-notif-actions"><button id="msCloseSettings">×</button></div></div>
       <div class="ms-notif-list" style="padding:14px 16px">
-        <div class="ms-switch" id="msThemeLabel">Appearance: Light · Q TECH SMS</div>
+        <div class="ms-switch" id="msThemeLabel">Appearance: Light · ZOOM SMS</div>
         <div class="ms-theme-row" role="group" aria-label="Appearance">
           <button type="button" class="ms-theme-btn" data-theme-btn="light">Light</button>
           <button type="button" class="ms-theme-btn" data-theme-btn="dark">Dark</button>
@@ -145,7 +145,7 @@
     if(document.getElementById('msThemeCss')) return;
     const st=document.createElement('style');st.id='msThemeCss';
     st.textContent=`
-      /* Q TECH SMS runtime motion and widgets; palette in qtech.css. */
+      /* ZOOM SMS runtime motion and widgets; palette in qtech.css. */
       .page.active{animation:msPageFade .24s cubic-bezier(.22,.9,.3,1) both}.card,.table-wrap,.toolbar,.stat-card{transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease,background-color .18s ease}button,.btn,.tb-btn,.nav-item,.sub-item,.tab,.ritem,.rsubitem,.navtab,.dropitem{transition:transform .14s ease,box-shadow .14s ease,background-color .14s ease,color .14s ease,opacity .14s ease}button:active,.btn:active{transform:translateY(1px) scale(.99)}tbody tr{transition:background-color .14s ease}@keyframes msPageFade{from{opacity:.55;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
       .ms-progress{position:fixed;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,#007acc,#6db9df,#0054b8);z-index:20000;transform-origin:left;animation:msProgress .7s ease both}.ms-working{box-shadow:0 0 0 4px rgba(0,122,204,.20)!important;filter:brightness(1.04)}@keyframes msProgress{0%{transform:scaleX(0)}70%{transform:scaleX(.82)}100%{transform:scaleX(1);opacity:0}}
       .ms-toast{position:fixed;right:22px;bottom:22px;background:linear-gradient(96deg,#eef8ff,#ffffff);border:1px solid rgba(0,122,204,.34);color:#333;border-radius:12px;padding:11px 14px;font-weight:700;font-size:13px;box-shadow:0 20px 50px rgba(0,70,110,.14);z-index:20001;opacity:0;transform:translateY(8px);animation:msToast .95s ease both}@keyframes msToast{15%,80%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(8px)}}
@@ -565,6 +565,21 @@
       if(typeof window.closeManagerSidebar==='function' && window.innerWidth <= 900) window.closeManagerSidebar();
       if(typeof window.closeSidebar==='function' && window.innerWidth <= 900) window.closeSidebar();
       if(typeof window.closeSb==='function' && window.innerWidth <= 900) window.closeSb();
+      /* ZOOM SMS FIX (mobile sidebar): removing the panel's own .show class is not
+         enough on its own. The off-canvas menu is also held open by QTNav's
+         body.qt-sb-open class, and the rule
+             body.gx-qtech.qt-sb-open .rail{transform:translateX(0)!important}
+         keeps the panel on screen even after .show is gone.
+         Panels whose submenu entries are anchors (a.ms-page-link-overlay, e.g. the
+         Agent rail) stop the click in the CAPTURE phase before QTNav's own handler
+         on the nav element ever runs, so that class was never cleared and the
+         sidebar stayed visible after choosing a submenu page. Hand it to QTNav so
+         every piece of open state (body class, overlay, aria-expanded, scroll lock)
+         is released together. Narrow-only: on desktop this must not collapse the
+         sidebar. */
+      if(window.innerWidth <= 900 && window.QTNav && typeof window.QTNav.close === 'function'){
+        try{ window.QTNav.close(); }catch(_){}
+      }
     }catch(e){}
   }
 
@@ -768,6 +783,28 @@
     open: function(){ this.apply(true); },
     close: function(){ this.apply(false); },
     toggle: function(){ this.apply(!this.isOpen()); },
+    /* Is this nav entry a SUBMENU TOGGLE parent rather than a navigation link?
+       Two independent signals, either is enough:
+         - its own onclick calls the panel's toggle helper (toggleSub / toggleRsub /
+           toggleDrop ...), or
+         - the element right after it is a dropdown group (.submenu / .rsub /
+           .dropmenu).
+       A toggle parent only expands or collapses its children; it never changes
+       page, so the off-canvas menu must stay open while the user reads them. */
+    isSubmenuToggle: function(el){
+      if (!el || !el.getAttribute) return false;
+      const oc = el.getAttribute('onclick') || '';
+      if (/toggleSub|toggleRsub|toggleDrop|toggleNav/i.test(oc)) return true;
+      let s = el.nextElementSibling;
+      while (s) {
+        if (s.classList) {
+          if (s.classList.contains('submenu') || s.classList.contains('rsub') || s.classList.contains('dropmenu')) return true;
+          if (s.classList.contains('nav-item') || s.classList.contains('ritem') || s.classList.contains('sb-section')) return false;
+        }
+        s = s.nextElementSibling;
+      }
+      return false;
+    },
     init: function(){
       const p = this.find(); if (!p) return;
       const self = this;
@@ -783,7 +820,15 @@
       /* any navigation click closes an off-canvas menu (no reload, no state loss) */
       p.nav.addEventListener('click', function(e){
         if (!self.narrow()) return;
-        if (e.target.closest('.nav-item, .sub-item, .ritem, .rsubitem, .navtab, .dropitem, .tab, .item')) self.close();
+        const hit = e.target.closest('.nav-item, .sub-item, .ritem, .rsubitem, .navtab, .dropitem, .tab, .item');
+        if (!hit) return;
+        /* SUBMENU TOGGLE PARENTS must NOT close the menu. Closing here slid the
+           off-canvas sidebar - and the submenu that had just opened inside it -
+           out of the viewport, so groups like Admin's "SMS Module" looked
+           completely unresponsive on phones even though they opened correctly.
+           Only genuine navigation closes the menu. */
+        if (hit.classList.contains('nav-item') && self.isSubmenuToggle(hit)) return;
+        self.close();
       });
       document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && self.narrow()) self.close(); });
       let rt = null;
@@ -914,13 +959,13 @@
   const QT_LEGAL_HTML = ''
     + '<div class="qt-legal-card" role="document">'
     +   '<div class="qt-legal-head">'
-    +     '<div class="qt-legal-eyebrow">Q TECH SMS</div>'
+    +     '<div class="qt-legal-eyebrow">ZOOM SMS</div>'
     +     '<h2 class="qt-legal-title" id="qtLegalTitle">Terms and Conditions</h2>'
     +   '</div>'
     +   '<div class="qt-legal-body">'
-    +     '<p><b>About this panel.</b> Q TECH SMS provides SMS numbers, messaging, allocation and reporting services to authorized users.</p>'
+    +     '<p><b>About this panel.</b> ZOOM SMS provides SMS numbers, messaging, allocation and reporting services to authorized users.</p>'
     +     '<p><b>Your responsibility.</b> By continuing you confirm that you will use these services only for lawful and legitimate purposes, and that you will comply with the laws that apply to you and the rules of the services you use.</p>'
-    +     '<p><b>You must not use Q TECH SMS numbers or messages for:</b></p>'
+    +     '<p><b>You must not use ZOOM SMS numbers or messages for:</b></p>'
     +     '<ul>'
     +       '<li>fake accounts, fraud or scams;</li>'
     +       '<li>spam or unsolicited bulk messaging;</li>'

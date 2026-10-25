@@ -15,8 +15,8 @@ for (const role of ['admin','manager','agent','client','management','panel-shari
     /* the opt-in "qd" class enables the design system (assets/qtech-ds.css) */
     assert.match(s, /<body class="gx-light gx-qtech( qd)?">/);
     assert.equal((s.match(/href="\/assets\/qtech-light\.css/g)||[]).length,1);
-    assert.match(s,/assets\/qtech-logo-square\.png/);
-    assert.match(s,/assets\/qtech-favicon\.png/);
+    assert.match(s,/assets\/zoom-logo-square\.png/);
+    assert.match(s,/assets\/zoom-favicon\.png/);
     assert.doesNotMatch(s,/almada|gx-lamix/i); /* provider-clone placeholder names (e.g. a CR-API provider) are data, not panel branding */
     assert.doesNotMatch(s, /data-page=["']bonus["']|href=["'][^"']*\/bonus["']/i);
   });
@@ -25,7 +25,7 @@ for (const name of ['login','management-login','panel-sharing-login','payment-lo
   test(name+' stays outside new theme and dashboard runtime',()=>{
     const s=read(name+'.html');assert.doesNotMatch(s,/qtech-light|dashboard-ui|gx-qtech/);
     assert.match(s,/\/api\/login/);
-    assert.match(s,/Q TECH SMS/);
+    assert.match(s,/ZOOM SMS/);
   });
 }
 for(const role of ['admin','manager','agent','client']) {
@@ -397,7 +397,7 @@ test('Circular logo + button variants + tooltip contrast + button alignment',()=
   assert.match(css,/\.btn\{display:inline-flex;align-items:center;justify-content:center;text-align:center/);
   assert.match(css,/\.exp-btns\{display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap;\}/);
 });
-test('SMS CLI Limit page uses the Q TECH component classes (ids/handlers untouched)',()=>{
+test('SMS CLI Limit page uses the ZOOM component classes (ids/handlers untouched)',()=>{
   const m=read('management.html');
   assert.match(m,/class="card qt-cli-form"/);
   assert.match(m,/class="qt-cli-row"/);

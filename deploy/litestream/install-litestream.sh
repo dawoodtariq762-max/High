@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Q TECH SMS — install Litestream (static binary, no package manager needed)
+# ZOOM SMS — install Litestream (static binary, no package manager needed)
 set -euo pipefail
 VERSION="${LITESTREAM_VERSION:-v0.3.13}"
 ARCH="$(uname -m)"; [ "$ARCH" = "x86_64" ] && ARCH=amd64

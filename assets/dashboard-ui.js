@@ -1,4 +1,4 @@
-/* Q TECH SMS dashboard presentation helpers.
+/* ZOOM SMS dashboard presentation helpers.
  *
  * Presentation only: no writes, no storage, no auth change, no financial
  * calculation. Every value comes from an existing role-scoped GET response
@@ -198,7 +198,7 @@
 })();
 
 /* =========================================================================
- * QTDashboard — Q TECH SMS dashboard components (reference-style design).
+ * QTDashboard — ZOOM SMS dashboard components (reference-style design).
  *
  * Presentation only: no writes, no storage, no auth change, no financial
  * calculation. Every value comes from an existing role-scoped GET response

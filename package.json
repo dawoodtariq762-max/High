@@ -1,7 +1,7 @@
 {
   "name": "qtech-sms-panel",
   "version": "1.0.0",
-  "description": "Q TECH SMS multi-level SMS/OTP panel for Admin, Manager, Agent and Client roles.",
+  "description": "ZOOM SMS multi-level SMS/OTP panel for Admin, Manager, Agent and Client roles.",
   "main": "backend/server.js",
   "scripts": {
     "start": "node backend/server.js",

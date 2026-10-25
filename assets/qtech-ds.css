@@ -1,4 +1,4 @@
-/* Q TECH SMS design system v1 (admin first). Opt-in: only applies to html body.gx-qtech.qd:is(.gx-light,.gx-dark).
+/* ZOOM SMS design system v1 (admin first). Opt-in: only applies to html body.gx-qtech.qd:is(.gx-light,.gx-dark).
    Login is untouched. Load AFTER qtech.css / qtech-light.css / qtech-chrome.css / qtech-layout.css. */
 html body.gx-qtech.qd:is(.gx-light,.gx-dark){
   --ds-bg:#f4f6fa;--ds-surface:#fff;--ds-ink:#0f1b2d;--ds-text:#1e293b;--ds-muted:#64748b;

@@ -8,9 +8,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content" />
 <meta name="color-scheme" content="light dark" />
 <meta name="theme-color" content="#ffffff" id="metaTheme" />
-<link rel="icon" type="image/png" href="/assets/qtech-favicon.png" data-brand-favicon />
+<link rel="icon" type="image/png" href="/assets/zoom-favicon.png?v=zoom-20261025" data-brand-favicon />
 <link rel="stylesheet" href="/assets/qtech-chat-theme.css?v=chat-redesign-20261022" />
-<title>Chat — Q TECH SMS</title>
+<title>Chat — ZOOM SMS</title>
 <script>
 /* Auth guard — chat is for Admin / Manager / Agent only (spec 3A).
    Opening this URL directly without a valid session bounces to the login. */
@@ -58,8 +58,8 @@
 <div class="app" id="app">
   <header class="topbar">
     <div class="brand">
-      <img src="/assets/qtech-logo-transparent.png" alt="" data-brand-logo />
-      <div class="brand-text"><span data-brand="name">Q TECH SMS</span><small>Chat</small></div>
+      <img src="/assets/zoom-logo-transparent.png?v=zoom-20261025" alt="" data-brand-logo />
+      <div class="brand-text"><span data-brand="name">ZOOM SMS</span><small>Chat</small></div>
     </div>
     <div class="spacer"></div>
     <div class="tools" role="toolbar" aria-label="Chat tools">
@@ -177,7 +177,7 @@ var presence = {};
 var listState = 'loading';            /* 'loading' | 'ready' | 'error' */
 var listError = '';
 var uiState = {};                     /* per-conversation view state, keyed by id */
-var BASE_TITLE = 'Chat \u2014 Q TECH SMS';
+var BASE_TITLE = 'Chat \u2014 ZOOM SMS';
 var $ = function(id){ return document.getElementById(id); };
 var esc = function(s){ return String(s==null?'':s).replace(/[&<>"']/g, function(c){
   return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]; }); };

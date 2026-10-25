@@ -1,5 +1,5 @@
 /**
- * PM2 Process Configuration — Q TECH SMS
+ * PM2 Process Configuration — ZOOM SMS
  * =============================================================================
  * Start:    pm2 start ecosystem.config.js
  * Reload:   pm2 restart qtech-sms --update-env

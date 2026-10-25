@@ -1,5 +1,5 @@
 /**
- * Q TECH SMS — Backend API
+ * ZOOM SMS — Backend API
  * Node.js + Express + SQLite (sql.js). MySQL-ready SQL.
  */
 const express = require('express');
@@ -869,7 +869,7 @@ app.get('/api/smpp/outbox', authRequired, requireRole('admin'), (req, res) => {
   res.json(rows);
 });
 
-app.get('/health', (req, res) => res.json({ ok: true, service: 'Q TECH SMS', time: new Date().toISOString() }));
+app.get('/health', (req, res) => res.json({ ok: true, service: 'ZOOM SMS', time: new Date().toISOString() }));
 app.get('/api/health', (req, res) => {
   let dbSize = 0, walSize = 0;
   try {
@@ -878,7 +878,7 @@ app.get('/api/health', (req, res) => {
   } catch (_) {}
   const mem = process.memoryUsage();
   res.json({
-    ok: true, service: 'Q TECH SMS', time: new Date().toISOString(),
+    ok: true, service: 'ZOOM SMS', time: new Date().toISOString(),
     uptime_s: Math.round(process.uptime()),
     rss_mb: +(mem.rss / 1048576).toFixed(1),
     heap_mb: +(mem.heapUsed / 1048576).toFixed(1),
@@ -5840,7 +5840,7 @@ app.post('/api/panel-sharing/http/test', authRequired, requireRole('admin'), asy
   const sampleData = {
     cli: '67425',
     number: '+44712345678',
-    message: 'Q TECH SMS connection test code: 123456',
+    message: 'ZOOM SMS connection test code: 123456',
     date: new Date().toISOString().slice(0, 10),
     time: new Date().toISOString().slice(11, 19),
     otp_code: '123456',
@@ -6584,7 +6584,7 @@ function processIncomingSmsPayload(req, payload, sourceIp='', opts={}) {
     if (limitStatus.exceeded) { smsPayoutRate = '0'; limitReason = limitStatus.reason; }
   }
     /* Provider rule: if the provider explicitly reports payout 0, the SMS is
-     non-payable and Q TECH SMS must show 0 regardless of the configured rate card.
+     non-payable and ZOOM SMS must show 0 regardless of the configured rate card.
      Any other provider payout (or none at all) is IGNORED for display - the
      panel always calculates payout from its own rate cards. */
   if (opts.forceZeroPayout) { smsPayoutRate = '0'; if (!limitReason) limitReason = 'provider_payout_zero'; }
@@ -6660,7 +6660,7 @@ app.get('/api/incoming-sms', smsIngestLimit, (req, res) => {
   const hasPayload = Object.keys(req.query || {}).some(k => ['number','to','To','recipient','destination','msisdn','receiver','called','message','text','body','Body','sms','content','msg'].includes(k));
   if (!hasPayload) {
     const settings = getCarrierSettings();
-    return res.json({ ok: true, service: 'Q TECH SMS incoming SMS endpoint', method: 'POST preferred', path: '/api/incoming-sms', integration_status: settings.integration_status, accepted_content_types: ['application/json','application/x-www-form-urlencoded','multipart/form-data'] });
+    return res.json({ ok: true, service: 'ZOOM SMS incoming SMS endpoint', method: 'POST preferred', path: '/api/incoming-sms', integration_status: settings.integration_status, accepted_content_types: ['application/json','application/x-www-form-urlencoded','multipart/form-data'] });
   }
   return handleCarrierIncoming(req, res, normalizeIncomingPayload(req));
 });
@@ -7088,7 +7088,7 @@ const PORT = process.env.PORT || 4000;
     console.log('• Payment ledger startup backfill disabled (new OTPs are recorded normally)');
   }
   console.log('• API Integration poller disabled (HTTP incoming only)');
-  app.listen(PORT, () => console.log(`\n✅ Q TECH SMS backend running: http://localhost:${PORT}\n`));
+  app.listen(PORT, () => console.log(`\n✅ ZOOM SMS backend running: http://localhost:${PORT}\n`));
 
   /* ===== P19k #5: one-time startup stats reconciliation =====
      Owner report: purane deletes (pre-fix code) ke baad dashboard (SMS This Month /

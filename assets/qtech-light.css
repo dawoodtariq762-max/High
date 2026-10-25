@@ -199,7 +199,7 @@ body.gx-light.gx-qtech .rail>.logo {
 }
 /* ===== Final colour pass, 28 September 2026 =====
    Blue sidebar and light blue top bar, chosen to sit with the approved light theme,
-   the white Q TECH logo and the existing card/table surfaces. Visual only. */
+   the white ZOOM logo and the existing card/table surfaces. Visual only. */
 body.gx-light.gx-qtech :is(.sidebar,.rail,.side,.appbar) {
  background:linear-gradient(180deg,#155177 0%,#103f61 45%,#0b2f4c 100%)!important;border-right-color:#072844!important;box-shadow:inset -1px 0 0 #1e6492,6px 0 20px #0d3b5c12!important;
 }

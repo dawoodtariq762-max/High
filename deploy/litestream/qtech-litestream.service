@@ -1,7 +1,7 @@
-# Q TECH SMS — Litestream replicate daemon (systemd)
+# ZOOM SMS — Litestream replicate daemon (systemd)
 # Continuous WAL shipping: even a total VPS loss loses at most ~1s of data.
 [Unit]
-Description=Q TECH SMS Litestream continuous backup
+Description=ZOOM SMS Litestream continuous backup
 After=network-online.target
 Wants=network-online.target
 

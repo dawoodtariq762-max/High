@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # =============================================================================
-# Q TECH SMS — backup retention (keep 3 days) + optional snapshot
+# ZOOM SMS — backup retention (keep 3 days) + optional snapshot
 # =============================================================================
 # PURPOSE
 #   An independent safety net alongside the in-app pruner in backend/backup.js

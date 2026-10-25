@@ -1,4 +1,4 @@
-# Q TECH SMS — Litestream continuous backup config
+# ZOOM SMS — Litestream continuous backup config
 # Copy to /etc/litestream.yml on the VPS. Continuous WAL shipping = RPO ~1s
 # (default sync interval) instead of the 3h snapshot window.
 #

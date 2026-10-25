@@ -1,4 +1,4 @@
-// Q TECH SMS — PM2 process model (Phase-2 ALMADA_ROLE split)
+// ZOOM SMS — PM2 process model (Phase-2 ALMADA_ROLE split)
 // api   : web + worker exports (user-facing; must never wait on timers)
 // sync  : timers only (provider sync + automatic backups)
 // Rules: cluster mode KABHI nahi (SQLite single-writer). Dono processes same

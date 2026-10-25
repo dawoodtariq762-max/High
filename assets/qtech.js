@@ -1,5 +1,5 @@
 /* ============================================================================
-   Q TECH SMS — UI helpers (qtech.js v1)  — ZERO business-logic changes.
+   ZOOM SMS — UI helpers (qtech.js v1)  — ZERO business-logic changes.
    Provides: icon system, tooltips, country resolution (E.164), dashboard map,
    error/empty states, mobile card-table helper. Panels opt-in explicitly.
    ========================================================================== */

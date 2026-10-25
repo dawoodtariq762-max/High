@@ -1,4 +1,4 @@
-/* Q TECH SMS design system helper: picks LITE mode on weak devices, smooths theme switches. No network, no data access. */
+/* ZOOM SMS design system helper: picks LITE mode on weak devices, smooths theme switches. No network, no data access. */
 (function(){'use strict';var r=document.documentElement;
 function weak(){var c=navigator.hardwareConcurrency||8,m=navigator.deviceMemory||8,sd=navigator.connection&&navigator.connection.saveData,
  rm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;return c<=4||m<=4||!!sd||rm;}

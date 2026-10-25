@@ -1,4 +1,4 @@
-/* Q TECH SMS — light-only structural components and theme. */
+/* ZOOM SMS — light-only structural components and theme. */
 ::-webkit-scrollbar{width:10px;height:10px;}
 ::-webkit-scrollbar-thumb{border-radius:8px;border:2px solid var(--bg);}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px;}
@@ -371,18 +371,18 @@ body.gx-light .gx-shortcut svg{stroke:#007acc;fill:none}
 body.gx-light .gx-shortcut:hover{border-color:#0088cc;background:#eef7fc;}
 
 /* ==========================================================================
-   FINAL POLISH §6C — Q TECH SMS LOGIN BRANDING (every login entry point)
+   FINAL POLISH §6C — ZOOM SMS LOGIN BRANDING (every login entry point)
    --------------------------------------------------------------------------
    The previous login surface was a pale grey page (#f2f3f5) with a pale blue card
    (#eaf0fa) and a green button: the background and the card were almost the same
-   tone, so the form had no separation, and the green did not belong to the Q TECH
+   tone, so the form had no separation, and the green did not belong to the ZOOM
    SMS palette. This block is the single login design for /panel-login and for the
    portal logins (Management, Payment, Test), so all entry points carry the same
    branding.
 
    Design: a calm deep-navy brand gradient behind one crisp white card. The dark,
    low-detail background gives the card a clear edge without competing with the
-   form; the blue is the existing Q TECH SMS accent (#1d4ed8 / #2563eb) already used
+   form; the blue is the existing ZOOM SMS accent (#1d4ed8 / #2563eb) already used
    by the panels, which keeps the login visually distinct from the panels' light
    grey working surfaces. Colours only — sizes, spacing and the responsive
    breakpoints above are unchanged, and no login, password, session, CAPTCHA or role
@@ -465,7 +465,7 @@ body.gx-light .gx-statement-status{color:#666}
  
 }
 
-/* ===== Q TECH SMS — reference-style dashboard components (qt-*) =====
+/* ===== ZOOM SMS — reference-style dashboard components (qt-*) =====
    Gradient KPI cards, white stat groups and smooth area charts used by the
    Admin / Manager / Agent / Client dashboards. Presentation only. */
 .qt-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:0 0 16px}
@@ -512,7 +512,7 @@ body.gx-light .gx-statement-status{color:#666}
   .qt-card .qt-value{font-size:22px}
 }
 
-/* ===== Q TECH SMS — button variants, tooltip contrast, circular logo, alignment =====
+/* ===== ZOOM SMS — button variants, tooltip contrast, circular logo, alignment =====
    Added with the Phase-4 pass: .btn-blue / .btn-purple had no background at all
    (transparent button, low-contrast label) and [data-tip] tooltips rendered with
    no background/text colour. Both themes are covered. */
@@ -548,7 +548,7 @@ body :is(.sb-logo,.brand .logo,.rail .logo,.sb-brand .logo,.brand-logo .logo){bo
 }
 
 /* =========================================================================
-   Q TECH SMS — DARK THEME (body.gx-dark)
+   ZOOM SMS — DARK THEME (body.gx-dark)
    Same components, same structure: only the palette changes. The light layer
    (qtech-light.css) targets body.gx-light exclusively, so the two never fight.
    ========================================================================= */

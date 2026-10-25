@@ -1,5 +1,5 @@
 /**
- * Q TECH SMS — Complete Cleanup, PIN Security, and UI Consistency Verification Suite
+ * ZOOM SMS — Complete Cleanup, PIN Security, and UI Consistency Verification Suite
  */
 
 const assert = require('assert');
@@ -109,7 +109,7 @@ function api(endpoint, method = 'GET', body = null, token = null, extraHeaders =
 
 async function runTests() {
   console.log('====================================================');
-  console.log(' Q TECH SMS Comprehensive Verification Suite');
+  console.log(' ZOOM SMS Comprehensive Verification Suite');
   console.log('====================================================\n');
 
   await new Promise((resolve) => {
@@ -255,19 +255,19 @@ async function runTests() {
 
   // TEST 6: Branding Check
   console.log('--- Test 6: Branding Check ---');
-  assert.strictEqual(/Q TECH SMS/i.test(adminHtml), true, 'admin.html must contain Q TECH SMS branding');
+  assert.strictEqual(/ZOOM SMS/i.test(adminHtml), true, 'admin.html must contain ZOOM SMS branding');
   assert.strictEqual(adminHtml.includes('Agent Account PIN'), true, 'admin.html must display Agent Account PIN instead of Chat Accounts');
   for (const file of ['admin.html','manager.html','agent.html','client.html','login.html','management.html','payment.html','test.html','panel-sharing.html']) {
     const html = fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
     assert.strictEqual(/ALMADA|Galaxy|Skyline|Power ?X|PowerX|Alameda|Almeda/i.test(html), false, file + ' must not contain any old brand name');
-    assert.strictEqual(/Q TECH SMS/.test(html), true, file + ' must contain Q TECH SMS branding');
+    assert.strictEqual(/ZOOM SMS/.test(html), true, file + ' must contain ZOOM SMS branding');
   }
   for (const role of ['admin','manager','agent','client']) {
     const html = fs.readFileSync(path.join(__dirname, '..', role + '.html'), 'utf8');
-    assert.ok(html.includes('/assets/qtech-logo-square.png'), role + '.html must use the supplied Q TECH logo');
-    assert.ok(html.includes('/assets/qtech-favicon.png'), role + '.html must use the Q TECH favicon');
+    assert.ok(html.includes('/assets/zoom-logo-square.png?v=zoom-20261025'), role + '.html must use the supplied ZOOM logo');
+    assert.ok(html.includes('/assets/zoom-favicon.png?v=zoom-20261025'), role + '.html must use the ZOOM favicon');
   }
-  console.log('  ✓ PASS: Branding is consistently "Q TECH SMS" (no old brand names, supplied logo in use) and "Agent Account PIN".');
+  console.log('  ✓ PASS: Branding is consistently "ZOOM SMS" (no old brand names, supplied logo in use) and "Agent Account PIN".');
 
   server.close();
   console.log('\n====================================================');

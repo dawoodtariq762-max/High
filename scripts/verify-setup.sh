@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # =============================================================================
-# Q TECH SMS — post-install verification
+# ZOOM SMS — post-install verification
 # =============================================================================
 #   bash scripts/verify-setup.sh
 #
@@ -24,7 +24,7 @@ hdr()  { echo; printf '\033[1m%s\033[0m\n' "$*"; }
 cd "$APP_DIR" 2>/dev/null || { echo "App dir not found: $APP_DIR"; exit 1; }
 
 echo "=========================================="
-echo " Q TECH SMS — setup verification"
+echo " ZOOM SMS — setup verification"
 echo " $(date '+%F %T')"
 echo "=========================================="
 

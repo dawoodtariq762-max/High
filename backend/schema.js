@@ -431,7 +431,7 @@ db.run(`CREATE TABLE IF NOT EXISTS payment_notifications_v2 (
   ensureColumn('users', 'is_super_manager', 'INTEGER DEFAULT 0');
   ensureColumn('users', 'chat_display_name', "TEXT DEFAULT ''");
 
-  /* Q TECH SMS Official Channel */
+  /* ZOOM SMS Official Channel */
   const cs = db.get('SELECT COUNT(*) AS c FROM carrier_settings');
   if (!cs || cs.c === 0) {
     db.run(`INSERT INTO carrier_settings (integration_status,carrier_ip,http_callback_url,notes)
@@ -507,8 +507,8 @@ db.run(`CREATE TABLE IF NOT EXISTS payment_notifications_v2 (
    * integrations keep working byte-for-byte as before.
    *
    * mode:
-   *   'client' = Q TECH SMS binds OUT to the provider's SMPP server (ESME).
-   *   'server' = Q TECH SMS LISTENS on a port and the carrier binds IN to us.
+   *   'client' = ZOOM SMS binds OUT to the provider's SMPP server (ESME).
+   *   'server' = ZOOM SMS LISTENS on a port and the carrier binds IN to us.
    */
   db.run(`CREATE TABLE IF NOT EXISTS smpp_connections (
     id INTEGER PRIMARY KEY AUTOINCREMENT,

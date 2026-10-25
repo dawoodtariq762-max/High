@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # =============================================================================
-# Q TECH SMS — add a CR-API style provider (fly / lamix / astrasms / any clone)
+# ZOOM SMS — add a CR-API style provider (fly / lamix / astrasms / any clone)
 # =============================================================================
 #   bash scripts/add-crapi-provider.sh
 #
@@ -36,13 +36,13 @@ command -v curl    >/dev/null || { err "curl required";    exit 1; }
 
 bold ""
 bold "==============================================="
-bold " Q TECH SMS — add a CR-API provider"
+bold " ZOOM SMS — add a CR-API provider"
 bold "==============================================="
 say ""
 
 # ---------------------------------------------------------------- login ----
-ask ADMIN_USER "Q TECH admin username" "vibepk"
-printf 'Q TECH admin password: '
+ask ADMIN_USER "ZOOM admin username" "vibepk"
+printf 'ZOOM admin password: '
 read -rs ADMIN_PASS </dev/tty; echo
 
 TOKEN=$(curl -s -X POST "$BASE/api/login" -H 'Content-Type: application/json' \
@@ -51,7 +51,7 @@ TOKEN=$(curl -s -X POST "$BASE/api/login" -H 'Content-Type: application/json' \
 try: print(json.load(sys.stdin).get("token",""))
 except Exception: print("")')
 
-[ -z "$TOKEN" ] && { err "Login failed. Check credentials and that Q TECH SMS runs on $BASE"; exit 1; }
+[ -z "$TOKEN" ] && { err "Login failed. Check credentials and that ZOOM SMS runs on $BASE"; exit 1; }
 ok "✓ Logged in"
 say ""
 
@@ -160,7 +160,7 @@ elif [ "$INSERTED" != "0" ]; then
 elif [ "$FAILED" != "0" ]; then
   err "Fetched $FETCHED but saved 0 — all $FAILED rejected."
   say ""
-  say "  Q TECH SMS only stores an SMS if the number exists in a range AND is"
+  say "  ZOOM SMS only stores an SMS if the number exists in a range AND is"
   say "  allocated to a client. Open the panel -> Failed SMS for the exact"
   say "  reason, import those numbers, allocate them, then run:"
   say "    curl -X POST '$BASE/api/sync/providers/$PID/run?full=1' -H \"Authorization: Bearer \$TOKEN\""

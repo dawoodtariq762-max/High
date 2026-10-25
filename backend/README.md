@@ -1,6 +1,6 @@
-# Q TECH SMS — Backend
+# ZOOM SMS — Backend
 
-Node.js + Express + SQLite (`better-sqlite3`) backend for the Q TECH SMS panel.
+Node.js + Express + SQLite (`better-sqlite3`) backend for the ZOOM SMS panel.
 JWT authentication, role hierarchy (Admin › Manager › Agent › Client), one Express file for
 the whole HTTP surface (`server.js`), one schema file, one SQLite database.
 
