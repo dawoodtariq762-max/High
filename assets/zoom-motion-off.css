@@ -1,0 +1,221 @@
+/* ============================================================================
+   ZOOM SMS — MOTION & EFFECT REMOVAL
+   ----------------------------------------------------------------------------
+   The brief asks for a simple, lightweight, fast UI: no animated backgrounds,
+   no glowing / pulsing / floating / moving decoration, no unnecessary card or
+   button animation, no long transitions, no sidebar or dropdown animation that
+   slows interaction.
+
+   It also says explicitly NOT to remove functional indicators — loading
+   states, progress indicators, message status indicators and error feedback
+   must keep working. So this file is an ALLOWLIST, not a blanket kill:
+
+     1. everything is frozen by default
+     2. the small set of animations that carry MEANING is restored afterwards
+
+   SPECIFICITY: every selector is prefixed `html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login)` on purpose.
+   Declarations here are `!important`, but so are the ones they must beat
+   (qtech-motion.css uses `body.gx-qtech .sidebar{transition:…!important}`), and
+   when two `!important` declarations collide the more specific selector wins.
+   A bare `.sidebar` or `*` loses that fight, which is why the prefix is there.
+
+   Loaded LAST so source order also works in our favour.
+   ========================================================================== */
+
+/* ---------------------------------------------------------------------------
+   0. KEYFRAMES THE FUNCTIONAL INDICATORS DEPEND ON
+   The keepers below reference chSpin / chPulse / chInd / chShake. Those are
+   declared in qtech-chat-theme.css, which only the chat page loads — so on
+   every other panel the name resolved to nothing and the indicator sat still.
+   They are redeclared here (identical motion, different names would break the
+   app's own references) so a loading state works on every page.
+   ------------------------------------------------------------------------- */
+@keyframes chSpin  { to { transform: rotate(360deg); } }
+@keyframes chPulse { 0%, 100% { opacity: 1; } 50% { opacity: .45; } }
+@keyframes chInd   { 0% { transform: translateX(-100%); } 100% { transform: translateX(300%); } }
+@keyframes chShake {
+  0%, 100% { transform: translateX(0); }
+  20%      { transform: translateX(-5px); }
+  40%      { transform: translateX(5px); }
+  60%      { transform: translateX(-3px); }
+  80%      { transform: translateX(3px); }
+}
+
+/* ---------------------------------------------------------------------------
+   1. FREEZE EVERYTHING
+   Duration is collapsed to near-zero rather than `animation:none` on purpose.
+   Several components reveal themselves with `animation-fill-mode: both` from
+   an opacity:0 start; switching the animation off outright would strand those
+   elements invisible. Running the animation for 0.001ms still lets the final
+   keyframe apply, so content ends up visible and correctly positioned.
+   ------------------------------------------------------------------------- */
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login),
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) *,
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) *::before,
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) *::after {
+  animation-duration: .001ms !important;
+  animation-delay: 0s !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: .08s !important;
+  transition-delay: 0s !important;
+  scroll-behavior: auto !important;
+}
+
+/* ---------------------------------------------------------------------------
+   2. RESTORE WHAT CARRIES MEANING
+   These are signals, not decoration. Removing them would hide state from the
+   operator, so they keep their real durations.
+   ------------------------------------------------------------------------- */
+
+/* Spinners — "something is happening, please wait" */
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(.spin,.spinner,.qt-spin,.qt-busy,.loading-spinner,.ch-spin),
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) [class*="spin"]:not(.spinner-hidden) {
+  animation: chSpin .7s linear infinite !important;
+}
+
+/* Skeleton placeholders — content is still loading */
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(.sk,.skeleton,.ch-skel,.is-loading),
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) [data-state="loading"] {
+  animation: chPulse 1.4s ease-in-out infinite !important;
+}
+
+/* Indeterminate progress bars (file upload, batch send) */
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(.att-bar,.bar,.progress).ind i,
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) .progress-indeterminate {
+  animation: chInd 1.1s ease-in-out infinite !important;
+}
+
+/* Determinate progress — width changes are real progress, keep them readable */
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(.att-bar,.bar,.progress,.qm-bar) .fill,
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) [role="progressbar"] > * {
+  transition: width .18s linear !important;
+}
+
+/* Error / rejection feedback. A shake says "rejected", so it stays. */
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(.ch-shake,.shake,.is-error,.field-error,.msg.error,.err-shake) {
+  animation: chShake .32s ease-in-out !important;
+}
+
+/* Anything explicitly marked busy or pending keeps its motion. */
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is([aria-busy="true"],[data-loading="true"],[data-busy="true"],.pending,.is-pending) {
+  animation: chPulse 1.2s ease-in-out infinite !important;
+}
+
+/* ---------------------------------------------------------------------------
+   3. REMOVE THE DECORATIVE LOGIN BACKDROP
+   assets/qtech-login-anim.css paints orbs, waves, trails, stars, a moving
+   grid, a floor, bokeh and halo layers. They exist only behind the login card
+   and cost the most on low-end phones. Removed outright rather than frozen, so
+   the browser never has to composite them.
+   ------------------------------------------------------------------------- */
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(
+  .qtech-login-bg,
+  .qt-fx,.qt-bk,.qt-geo,.qt-ring,.qt-halo,.qt-grid,
+  .qt-chip,.qt-chip-1,.qt-chip-2,.qt-chip-3,.qt-chip-4,
+  .qt-cur,.qt-cur-1,.qt-cur-2,.qt-cur-3,
+  .qt-edge,.qt-floor,.qt-floor-grid,.qt-conf,.qt-cr,
+  .qt-ribbon1,.qt-ribbon2,.qt-scan,.qt-packet,.qt-node,
+  .qlb-orb,.qlb-orb-a,.qlb-orb-b,.qlb-orb-c,
+  .qlb-wave,.qlb-wave-1,.qlb-wave-2,
+  .qlb-trail,.qlb-trail-1,.qlb-trail-2,.qlb-trail-3,
+  .qlb-star,.qlb-shot,.qlb-shot-1,.qlb-shot-2,.qlb-orbit,.qlb-halo,
+  .login-bg-fx,.login-fx-layer,.bg-fx,.orb,.bokeh,.particles
+),
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(.qtech-login-bg,.qt-fx,.qt-bk,.qtech-anim-layer)::before,
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(.qtech-login-bg,.qt-fx,.qt-bk,.qtech-anim-layer)::after {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  animation: none !important;
+  background-image: none !important;
+}
+
+/* The animation toggle in the login corner is now meaningless. */
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(.login-anim-switch,.login-anim-toggle,.login-anim-label,.login-anim-state) {
+  display: none !important;
+}
+
+/* ---------------------------------------------------------------------------
+   4. STRIP GLOW AND SHINE
+   Text glow and sweeping shine are pure decoration. Box shadows that provide
+   elevation or focus rings are deliberately left alone.
+   ------------------------------------------------------------------------- */
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login),
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) *,
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) *::before,
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) *::after { text-shadow: none !important; }
+
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(.qt-shine,.qt-glow,.glow,.shine,.sweep,.sheen,.qt-sweep,.qt-glow-fade,.qt-ripple),
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(.card,.dash-metric,.stat-card,.qt-card)::after,
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(.card,.dash-metric,.stat-card,.qt-card)::before {
+  display: none !important;
+  opacity: 0 !important;
+  animation: none !important;
+  background-image: none !important;
+}
+
+/* ---------------------------------------------------------------------------
+   5. INSTANT SIDEBAR, DROPDOWN AND MENU STATE CHANGES
+   Slide/expand animation here is what makes the UI feel slow on a phone.
+   The open/closed state itself is untouched — only the travel time goes.
+   ------------------------------------------------------------------------- */
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(
+  .sidebar,.rail,.rail-nav,.sb-nav,.side,.appbar,
+  .submenu,.dropdown,.dropdown-menu,.menu,.qm-menu,
+  .modal,.modal-box,.modal-overlay,.ms-modal,
+  .nav-item,.sub-item,.dropitem,.ritem,.navtab,.sidebar .tab
+) {
+  transition: none !important;
+  animation: none !important;
+  transform: none !important;
+}
+
+/* Hover states must remain VISIBLE — only the travel is removed, never the
+   feedback itself. */
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(
+  .nav-item,.sub-item,.dropitem,.ritem,.navtab,.sidebar .tab
+):hover {
+  transition: background-color .08s linear, color .08s linear !important;
+}
+
+/* ---------------------------------------------------------------------------
+   6. THE LOGIN PRIMARY BUTTON
+   qtech-login-anim.css:725 paints a purple/indigo gradient
+   (linear-gradient(110deg,#4f46e5,#7c3aed,#db2777,#4f46e5)) with !important.
+   The reference design's button is gold, so that is overridden here at a
+   higher specificity than the source rule.
+   ------------------------------------------------------------------------- */
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(
+  .btn,.btn-primary,button[type=submit],.login-card .btn,.submit-btn,.primary-btn,
+  .login-panel .btn,.login-card button[type=submit]
+) {
+  background: linear-gradient(90deg,#d4af43 0%,#e9c869 100%) !important;
+  background-image: linear-gradient(90deg,#d4af43 0%,#e9c869 100%) !important;
+  border: 1px solid #b8912f !important;
+  color: #17140a !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  filter: none !important;
+}
+
+/* ---------------------------------------------------------------------------
+   7. KEEP ACCESSIBILITY AND STATE VISIBLE
+   Focus rings, selection and required-field markers are functional. Do not
+   let the "no effects" rule make them invisible.
+   ------------------------------------------------------------------------- */
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) *:focus-visible {
+  outline: 2px solid #e0bc4f !important;
+  outline-offset: 2px !important;
+}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) ::selection { background: #e0bc4f; color: #17140a; }
+
+/* Reduced-motion users already asked for this; honour it completely. */
+@media (prefers-reduced-motion: reduce) {
+  html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login),
+  html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) *,
+  html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) *::before,
+  html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

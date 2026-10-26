@@ -313,7 +313,9 @@ thead th{font-size:11.5px!important;letter-spacing:.25px!important;}
 
 <script src="/assets/number-copy.js?v=20260928-final"></script>
 <link rel="stylesheet" href="/assets/qtech-motion.css?v=motion-20261021"/><script src="/assets/qtech-motion.js?v=motion-20261021" defer></script>
-<link rel="stylesheet" href="/branding/runtime.css"/><script src="/branding/runtime.js" defer></script></head>
+<link rel="stylesheet" href="/branding/runtime.css"/>
+<link rel="stylesheet" href="/assets/zoom-theme.css?v=zoom-20261026"/>
+<link rel="stylesheet" href="/assets/zoom-motion-off.css?v=zoom-20261026"/><script src="/branding/runtime.js" defer></script></head>
 <body class="gx-light gx-qtech qd">
 <div class="layout">
   <!-- ================= SIDEBAR ================= -->
@@ -687,7 +689,7 @@ thead th{font-size:11.5px!important;letter-spacing:.25px!important;}
     <div class="form-group"><label>Memo</label><input type="text" id="rMemo" placeholder="Optional note" /></div>
     <!-- PART 4: AGENT SELF-ALLOCATION LIMITS (per-range) -->
     <div style="border-top:1px solid var(--border2);padding-top:14px;margin-top:10px">
-      <h4 style="margin:0 0 10px 0;font-size:13.5px;color:var(--accent,#30abed)">Agent Self-Allocation Settings</h4>
+      <h4 style="margin:0 0 10px 0;font-size:13.5px;color:var(--accent,#e0bc4f)">Agent Self-Allocation Settings</h4>
       <div class="form-grid">
         <div class="form-group">
           <label class="switch"><input type="checkbox" id="rSelfAllocEnabled" checked/> Enable Agent Self-Allocation</label>
@@ -2100,7 +2102,7 @@ async function loadDashboard(){
     {label:'Active Managers', value:d.active_managers||0, icon:'clients'},
     {label:'Total Agents', value:d.agents||0, icon:'clients'}
   ]);
-  window.QTDashboard.areaChart('qtSmsChart',{title:'SMS Last 7 Days',series:'SMS',color:'#6d5df6',rows:d.daily7,valueKey:'count',ariaLabel:'Received SMS per day for the last seven UK reporting days'});
+  window.QTDashboard.areaChart('qtSmsChart',{title:'SMS Last 7 Days',series:'SMS',color:'#e0bc4f',rows:d.daily7,valueKey:'count',ariaLabel:'Received SMS per day for the last seven UK reporting days'});
   window.QTDashboard.statGroup('qtPayouts','Payouts',[
     {label:'Payout Today', value:d.payout_today||0, money:true, icon:'money'},
     {label:'Payout This Week', value:d.payout_week||0, money:true, icon:'money'},

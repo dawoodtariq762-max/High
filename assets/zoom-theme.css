@@ -1,0 +1,1151 @@
+/* ============================================================================
+   ZOOM SMS — DARK + GOLD THEME
+   ----------------------------------------------------------------------------
+   GENERATED FILE — do not edit by hand.
+   Regenerate with:  node tools/build-zoom-theme.js
+
+   Produced from the 753 rules that the shipped stylesheets already
+   scope to .gx-dark, with every colour re-mapped from the navy/cyan palette to
+   the warm near-black + gold palette measured from the supplied design reference:
+
+     page background   #0a0908  (warm near-black)
+     panel / card      #141210
+     border            #2a2621
+     primary text      #f2efe8
+     muted text        #9a9287
+     accent (gold)     #e0bc4f   hover #e9c869   pressed #967623
+
+   Loading order matters: this file must come AFTER qtech-light.css,
+   qtech-layout.css and /branding/runtime.css so it wins the cascade.
+   ========================================================================== */
+
+/* ---------------------------------------------------------------------------
+   TOKENS
+   Declared on every theme root so the design is the DEFAULT in the admin,
+   manager, agent, client, management, payment, panel-sharing and branding
+   panels and on all five login pages — not a toggle the user must find.
+   ------------------------------------------------------------------------- */
+html:root:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login),
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) {
+  --bg:#0a0908; --bg2:#100e0c; --panel:#141210; --panel2:#12100e; --row:#141210;
+  --text:#f2efe8; --text-2:#cfc9be; --muted:#9a9287; --text-muted:#9a9287; --ice:#f2efe8;
+  --border:#2a2621; --border2:#3a352c;
+  --blue:#e0bc4f; --accent:#e0bc4f; --accent2:#d4af43;
+  --sidebar:#0a0908; --topbar:#12100e;
+  --red:#e8876b; --danger:#e8876b; --green:#6fcf7f; --ok:#6fcf7f;
+  --amber:#e0a33e; --indigo:#c9a63c; --sky:#e0bc4f; --cyan:#d9b543;
+  --mgr:#e9c869; --agt:#e0bc4f; --cli:#d9b543;
+  --grad:linear-gradient(90deg,#d4af43,#e9c869);
+  --shadow:0 1px 3px rgba(0,0,0,.45);
+  color-scheme:dark;
+}
+
+/* Base canvas + text for every theme state. */
+html:root:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) { background:#0a0908 !important; }
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) { background:#0a0908 !important; color:#f2efe8 !important; }
+
+/* ---------------------------------------------------------------------------
+   RE-MAPPED COMPONENT RULES (663 unwrapped)
+   ------------------------------------------------------------------------- */
+html:root body.gx-login {min-height:100dvh;display:flex;align-items:center!important;justify-content:center;padding:32px 16px!important;overflow-y:auto!important}
+html:root body.gx-login .shell {display:block!important;width:100%!important;max-width:420px!important;border-radius:20px!important;overflow:hidden;margin:auto!important;min-height:0!important}
+html:root body.gx-login .brand-panel.logo-only-panel {display:none!important}
+html:root body.gx-login .login-panel {padding:32px!important;min-height:0!important}
+html:root body.gx-login .login-card {width:100%!important;max-width:none!important}
+html:root body.gx-login .m-brand {display:flex!important;align-items:center;justify-content:center;margin:0 0 24px!important}
+html:root body.gx-login .m-brand-t {display:none!important}
+html:root body.gx-login .m-brand img {box-shadow:none!important}
+html:root body.gx-login .login-head {text-align:center;margin-bottom:24px!important}
+html:root body.gx-login .login-head h2 {font-size:26px!important;line-height:1.2;letter-spacing:-.04em!important}
+html:root body.gx-login .login-head .eyebrow {display:block!important;font-size:10px!important;letter-spacing:.15em!important;margin-bottom:10px!important}
+html:root body.gx-login .field {margin-bottom:18px!important}
+html:root body.gx-login .field label {margin-bottom:7px!important}
+html:root body.gx-login .input-wrap input {height:48px!important;padding-left:42px!important}
+html:root body.gx-login .pass-input {padding-right:70px!important}
+html:root body.gx-login .captcha-row {grid-template-columns:120px minmax(0,1fr)!important;gap:12px!important}
+html:root body.gx-login .captcha-box {height:48px!important;border-radius:8px!important}
+html:root body.gx-login .row-between {gap:8px;flex-wrap:wrap;margin:8px 0 22px!important;font-size:12px!important}
+html:root body.gx-login form > .btn {height:48px!important;border-radius:9px!important}
+html:root body.gx-login .footer {margin-top:24px!important;font-size:11px!important}
+html:root body.gx-light.gx-login .shell {background:#fff!important;border:1px solid #f2efe8!important;box-shadow:0 18px 60px #100e0c0c!important}
+html:root body.gx-light.gx-login .login-panel {background:#fff!important}
+html:root body.gx-light.gx-login :is(.captcha-box,.toggle-pass) {background:#1e1a10!important;color:#a8842a!important;border-color:#2b2519!important}
+html:root body.gx-portal-login {min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:32px 16px!important}
+html:root body.gx-portal-login > .card {width:100%!important;max-width:420px!important;padding:32px!important;border-radius:20px!important}
+html:root body.gx-light.gx-portal-login form button {background:#b8912f!important;color:white!important;border-radius:8px!important;box-shadow:none!important;min-height:46px}
+html:root body.gx-portal-login :is(.title,h1) {font-size:24px!important;letter-spacing:-.03em}
+html:root body.gx-portal-login .logo {box-shadow:none!important}
+html:root body.gx-portal-login input {min-height:46px!important}
+html:root body.gx-light.gx-login .login-head .eyebrow {color:#b8912f!important}
+html:root body.gx-light.gx-login .row-between a {color:#a8842a!important}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) {background:
+    radial-gradient(1100px 520px at 50% -14%, rgba(184,145,47,.55) 0%, rgba(184,145,47,0) 62%),
+    radial-gradient(760px 420px at 88% 108%, rgba(184,145,47,.30) 0%, rgba(184,145,47,0) 60%),
+    linear-gradient(165deg,#100e0c 0%,#0d0b09 48%,#0a0908 100%)!important;background-attachment:fixed!important}
+html:root body.gx-light.gx-login .shell {max-width:420px!important;border-radius:18px!important;background:#fff!important;border:1px solid rgba(255,255,255,.16)!important;box-shadow:0 30px 70px rgba(8,7,6,.45),0 2px 10px rgba(8,7,6,.28)!important}
+html:root body.gx-light.gx-login .login-panel {background:#fff!important;padding:30px 30px 26px!important}
+html:root body.gx-light.gx-portal-login > .card {background:#fff!important;border:1px solid rgba(255,255,255,.16)!important;border-radius:18px!important;box-shadow:0 30px 70px rgba(8,7,6,.45),0 2px 10px rgba(8,7,6,.28)!important;color:#100e0c!important}
+html:root body.gx-light.gx-login .m-brand {margin:6px 0 22px!important}
+html:root body.gx-light.gx-login .m-brand img {width:190px!important;height:114px!important;max-width:100%!important;max-height:none!important;border-radius:0!important;object-fit:contain!important;background:#fff}
+html:root body.gx-light.gx-login .login-head h2 {font-size:25px!important;font-weight:800!important;color:#100e0c!important;letter-spacing:-.03em!important}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) .login-head .eyebrow,
+body.gx-light.gx-portal-login .eyebrow {color:#a8842a!important;font-weight:800!important}
+html:root body.gx-light.gx-portal-login :is(.title,h1) {color:#100e0c!important;font-weight:800!important}
+html:root body.gx-light.gx-portal-login .sub {color:#5c554b!important}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) :is(.field label,label) {color:#2e2a23!important;font-weight:700!important}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) :is(.footer,.hint) {color:#cfc9be!important}
+html:root body.gx-light.gx-login .footer {color:#7d7568!important}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) input {background:#fff!important;border:1px solid #e9c869!important;border-radius:12px!important;color:#100e0c!important;box-shadow:0 1px 2px rgba(16,14,12,.05)!important}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) input::placeholder {color:#5c554b!important}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) input:focus {border-color:#a8842a!important;box-shadow:0 0 0 3px #241f14!important}
+html:root body.gx-light.gx-login .input-wrap svg {stroke:#5c554b!important}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) :is(.checkbox,.row-between) {color:#2e2a23!important}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) .row-between a {color:#a8842a!important}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) :is(.captcha-box,.toggle-pass) {background:#e9c869!important;color:#a8842a!important;border-color:#e9c869!important}
+html:root body.gx-light.gx-login .captcha-box {border-style:dashed!important;font-weight:800!important}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) :is(form > .btn,form button) {background:linear-gradient(180deg,#b8912f,#a8842a)!important;border:1px solid #a8842a!important;border-radius:12px!important;color:#fff!important;font-size:15px!important;font-weight:800!important;box-shadow:0 10px 24px rgba(168,132,42,.32)!important}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) :is(form > .btn,form button):hover {filter:brightness(1.07)!important}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) :is(form > .btn,form button):active {filter:brightness(.96)!important}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) .msg {border-radius:11px!important}
+html:root body.gx-light.gx-portal-login .logo {width:180px!important;height:110px!important;display:block;margin:0 auto 20px!important;background:white!important;border:0!important;border-radius:0!important}
+html:root body.gx-light.gx-portal-login .logo img {width:100%;height:100%;object-fit:contain}
+html:root:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) {background:#0a0908!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) {--bg:#0a0908;--bg2:#100e0c;--panel:#141210;--panel2:#12100e;--row:#141210;--text:#f2efe8;--text-2:#cfc9be;--muted:#9a9287;--text-muted:#9a9287;--ice:#f2efe8;--border:#2a2621;--border2:#3a352c;--blue:#e0bc4f;--accent:#e0bc4f;--accent2:#d4af43;--sidebar:#0a0908;--topbar:#12100e;--red:#e8876b;--danger:#e8876b;--green:#6fcf7f;--ok:#6fcf7f;--amber:#e0a33e;--indigo:#c9a63c;--sky:#e0bc4f;--cyan:#d9b543;--mgr:#e9c869;--agt:#e0bc4f;--cli:#d4af43;--grad:linear-gradient(#d4af43,#b8912f);--shadow:0 1px 3px rgba(0,0,0,.4);background:#0a0908!important;color:#f2efe8!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(h1,h2,h3,h4,b,strong,.title,.nm,.tb-title,.t1,.pt) {color:#f2efe8!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(.card,.panel,.table-wrap,.toolbar,.modal-box,.ms-modal,.box,.qt-chart-card,.qt-wcard) {background:#141210!important;border-color:#2a2621!important;box-shadow:0 1px 3px rgba(0,0,0,.35)!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(.card-head,.modal-head,.ms-modal-head,.ms-notif-head) {background:#12100e!important;border-bottom:1px solid #2a2621!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) .card-head .sub,body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) .muted,body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) .hint,body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) .breadcrumb {color:#9a9287!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) .breadcrumb {background:#12100e!important;border:1px solid #2a2621!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(.toolbar,.table-controls,.table-foot) {background:#12100e!important;border-color:#2a2621!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(th,td) {border-right:1px solid #221f1a!important;border-bottom:1px solid #2a2621!important;color:#f2efe8}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) th {background:#12100e!important;color:#9a9287!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) td {background:transparent}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) tbody tr:hover td {background:#1c1a16}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(input,select,textarea,.sd-trigger) {background:#0a0908!important;border:1px solid #3a352c!important;color:#f2efe8!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(input::placeholder,textarea::placeholder) {color:#7d7568}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(.topbar,.tb1,.mgr-topbar,.top,.appbar) {background:#12100e!important;border-bottom:1px solid #2a2621!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login).gx-qtech :is(.sidebar,.rail,.side,.appbar) {background:linear-gradient(180deg,#0d0b09 0%,#0a0908 60%,#080706 100%)!important;border-right:1px solid #221f1a!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login).gx-qtech :is(.nav-item,.ritem,.navtab,.side .item,.sidebar .tab) {background:transparent!important;border-bottom:1px solid #1c1a16!important;color:#cfc9be!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login).gx-qtech :is(.nav-item,.ritem,.navtab,.side .item,.sidebar .tab) svg {stroke:#b09a6a!important;color:#b09a6a!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login).gx-qtech :is(.nav-item,.ritem,.navtab,.side .item,.sidebar .tab):hover {background:#1c1a16!important;color:#fff!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login).gx-qtech :is(.nav-item,.ritem,.navtab,.side .item,.sidebar .tab,.sub-item,.rsubitem,.dropitem).active {background:#a8842a!important;color:#fff!important;box-shadow:inset 3px 0 0 #e9c869!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login).gx-qtech :is(.nav-item,.ritem,.navtab,.sub-item,.rsubitem,.dropitem).active svg {stroke:#fff!important;color:#fff!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login).gx-qtech :is(.sub-item,.rsubitem,.dropitem) {background:#0d0b09!important;color:#9a9287!important;border-bottom:1px solid #1c1a16!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login).gx-qtech :is(.sb-brand,.rail>.brand,.side>.brand,.sidebar>.brand,.appbar-top) {border-color:#221f1a!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login).gx-qtech :is(.brand h1,.sb-brand h1,.brand-text h1) {color:#fff!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login).gx-qtech :is(.brand small,.sb-brand small) {color:#b09a6a!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login).gx-qtech :is(.sb-section,.sb-sec,.rsec) {color:#3a352c!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(.btn-ghost,.btn.ghost,.exp-btns .btn,.exp-btns .gx-btn,.icon-btn,.gx-copy-num-btn,.ms-btn.ghost) {background:#1c1a16!important;color:#cfc9be!important;border:1px solid #3a352c!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(.btn-blue,.btn.blue,.gx-blue) {background:linear-gradient(#b8912f,#a8842a)!important;border-color:#967623!important;color:#fff!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(.btn-purple,.btn.purple,.gx-purple) {background:linear-gradient(#d4af43,#c9a63c)!important;border-color:#b8912f!important;color:#fff!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(.btn-green,.btn.green,.gx-green):not(.exp-btns *) {background:linear-gradient(#15803d,#4f9a5c)!important;border-color:#14532d!important;color:#fff!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(.btn-red,.btn.red,.gx-red,.gx-btn.danger) {background:linear-gradient(#dc2626,#b91c1c)!important;border-color:#8a3a2a!important;color:#fff!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) [data-tip]:hover::after {background:#f2efe8!important;color:#0a0908!important;border-color:#f2efe8!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) [data-tip]:hover::before {border-top-color:#f2efe8!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(.tag,.tag-mgr,.tag-agt,.tag-cli,.tag-client,.tag-blue,.tag-green,.tag-amber,.tag-red,.tag-gray) {background:#1c1a16!important;color:#cfc9be!important;border:1px solid #3a352c!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) .qt-note {background:#12100e!important;border-color:#2a2621!important;color:#9a9287!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) .qt-wcard .qt-value {color:#f2efe8}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) .qt-wcard .qt-label {color:#9a9287}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) .qt-chart-card {background:#141210!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) .qt-chart-head h3 {color:#f2efe8}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(.qt-ylab,.qt-xlab) {fill:#7d7568}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) .qt-chart-card :is(line) {stroke:#221f1a}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) .qt-tip {background:#f2efe8;color:#0a0908}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) .qt-chip.c1 {background:#181614;color:#ddc06a}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) .qt-chip.c2 {background:#3b1a2e;color:#f9a8d4}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) .qt-chip.c3 {background:#141210;color:#e9c869}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) .qt-chip.c4 {background:#3b2a12;color:#e8b955}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) .qt-chip.c5 {background:#12301f;color:#6ee7b7}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) .qt-chip.c6 {background:#100e0c;color:#e9c869}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(.ms-notif-panel,.ms-settings,.ms-modal) {background:#141210!important;border-color:#2a2621!important;color:#f2efe8!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) .ms-toast {background:linear-gradient(96deg,#1c1a16,#141210)!important;border-color:#3a352c!important;color:#f2efe8!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(.upload-box,.lm-summary-icon) {background:#12100e!important;border-color:#3a352c!important;color:#9a9287!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(.modal-overlay .modal-box) {background:#141210!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) .cell-money {color:#f2efe8}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(.pagination button,.table-foot .info) {color:#9a9287}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(.pagination button) {background:#1c1a16!important;border:1px solid #3a352c!important;color:#cfc9be!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(.pagination button.active) {background:#a8842a!important;color:#fff!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) ::-webkit-scrollbar-thumb {background:#3a352c}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :focus-visible {outline-color:#e0bc4f}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login).gx-login {background:linear-gradient(160deg,#0a0908,#100e0c)!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login).gx-login :is(.brand-panel,.login-card,form,.box) {background:#141210!important;border-color:#2a2621!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login).gx-login :is(label,h1,h2,h3,p,span,div) {color:#cfc9be}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login).gx-login input {background:#0a0908!important;border:1px solid #3a352c!important;color:#f2efe8!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login).gx-login form > .btn {background:#b8912f!important;border-color:#a8842a!important;color:#fff!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) .ms-theme-btn {background:#1c1a16;border-color:#3a352c;color:#cfc9be}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) .ms-theme-btn.active {background:#a8842a;border-color:#a8842a;color:#fff}
+html:root body:is(.gx-light,.gx-dark) {font-family:Inter,'Segoe UI',system-ui,-apple-system,sans-serif;font-size:14px;line-height:1.5}
+html:root body:is(.gx-light,.gx-dark) :is(.brand b,.brand h1,.sb-brand h1,.brand-text h1) {letter-spacing:-.025em!important}
+html:root body:is(.gx-light,.gx-dark) :is(.nav-item,.side-item,.sub-item,.ritem,.rsubitem,.navtab,.item,.sb-nav .tab,.dropitem) {border-radius:8px!important}
+html:root body:is(.gx-light,.gx-dark) :is(.nav-item,.side-item,.sub-item,.ritem,.rsubitem,.navtab,.item,.sb-nav .tab,.dropitem).active {font-weight:650!important}
+html:root body:is(.gx-light,.gx-dark) :is(.sb-section,.sb-sec,.rsec,.sec) {font-size:11px!important;letter-spacing:.08em!important}
+html:root body:is(.gx-light,.gx-dark) :is(.tb-btn,.gx-theme-btn,.hamburger,.hamb,.mgr-topbar-menu) {border-width:1px!important;border-style:solid!important;border-radius:8px!important}
+html:root body:is(.gx-light,.gx-dark) .content {padding:24px!important}
+html:root body:is(.gx-light,.gx-dark) :is(.page-head,.head) {gap:12px;margin-bottom:20px!important;flex-wrap:wrap}
+html:root body:is(.gx-light,.gx-dark) :is(.page-head h2,.head h2) {font-size:24px!important;font-weight:700!important;letter-spacing:-.035em!important}
+html:root body:is(.gx-light,.gx-dark) :is(.card,.stat-card,.table-wrap,.table,.toolbar,.box,.dash-note-card,.gx-pay-chip,.readonly-note,.upload-box,.client-welcome-card) {border-width:1px!important;border-style:solid!important;border-radius:12px!important}
+html:root body:is(.gx-light,.gx-dark) :is(.stats-grid,.dash-metrics,.grid2,.dash-row) {gap:18px!important}
+html:root body:is(.gx-light,.gx-dark) :is(.stat-card,.dash-metric,.metric) {padding:20px!important;border-top-width:3px!important;border-top-style:solid!important}
+html:root body:is(.gx-light,.gx-dark) :is(.stat-info h3,.metric h3) {font-size:28px!important;letter-spacing:-.035em!important;font-variant-numeric:tabular-nums}
+html:root body:is(.gx-light,.gx-dark) .dash-go {border-radius:10px!important}
+html:root body:is(.gx-light,.gx-dark) :is(.card-head,.table-controls,.table-foot,.modal-head,.modal-foot) {padding:16px!important;gap:12px}
+html:root body:is(.gx-light,.gx-dark) :is(.toolbar,.filter-row) {gap:12px!important}
+html:root body:is(.gx-light,.gx-dark) .toolbar {padding:16px!important}
+html:root body:is(.gx-light,.gx-dark) table {border-collapse:separate!important;border-spacing:0!important;font-size:13px}
+html:root body:is(.gx-light,.gx-dark) th {font-size:12px!important;font-weight:650!important;text-transform:none!important;letter-spacing:0!important;padding:13px 14px!important}
+html:root body:is(.gx-light,.gx-dark) td {padding:13px 14px!important;vertical-align:middle}
+html:root body:is(.gx-light,.gx-dark) :is(.cell-money,.money) {font-variant-numeric:tabular-nums;font-weight:650}
+html:root body:is(.gx-light,.gx-dark) :is(.mono,.gx-num) {font-variant-numeric:tabular-nums}
+html:root body:is(.gx-light,.gx-dark) :is(input,select,textarea) {border-width:1px!important;border-style:solid!important;border-radius:8px!important;font-family:inherit;font-size:14px!important}
+html:root body:is(.gx-light,.gx-dark) :is(input:not([type=checkbox]):not([type=radio]):not([type=hidden]),select) {min-height:40px}
+html:root body:is(.gx-light,.gx-dark) :is(input,select,textarea):focus {outline-style:none!important}
+html:root body:is(.gx-light,.gx-dark) :is(label,.form-group label,.field label) {font-size:13px!important;font-weight:600!important}
+html:root body:is(.gx-light,.gx-dark) :is(.btn,.gx-btn) {border-width:1px!important;border-style:solid!important;border-radius:8px!important;font-size:13px!important;font-weight:600!important;padding:9px 14px!important;min-height:36px;transform:none!important}
+html:root body:is(.gx-light,.gx-dark) :is(.btn,.gx-btn):hover {transform:none!important}
+html:root body:is(.gx-light,.gx-dark) :is(.btn-ghost,.btn.ghost,.exp-btns .gx-btn,.exp-btns .btn,.icon-btn,.gx-copy-num-btn) {border-width:1px!important;border-style:solid!important}
+html:root body:is(.gx-light,.gx-dark) :is(button,.btn,.gx-btn):disabled {cursor:not-allowed}
+html:root body:is(.gx-light,.gx-dark) :is(.tag,.chip,.gx-num-page-badge) {border-width:1px!important;border-style:solid!important;border-radius:6px!important;font-size:12px!important}
+html:root body:is(.gx-light,.gx-dark) :is(.pagination button,.pagination a) {border-width:1px!important;border-style:solid!important;border-radius:6px!important;min-width:34px;min-height:34px}
+html:root body:is(.gx-light,.gx-dark) .modal {border-radius:14px!important;max-width:calc(100vw - 24px);max-height:calc(100dvh - 24px);overflow:auto}
+html:root body:is(.gx-light,.gx-dark) .modal:has(> .box) {max-width:none;max-height:none;border-radius:0!important}
+html:root body:is(.gx-light,.gx-dark) .modal .box {max-width:calc(100vw - 24px);max-height:calc(100dvh - 48px);overflow:auto}
+html:root body:is(.gx-light,.gx-dark) :focus-visible {outline-width:2px;outline-style:solid;outline-offset:3px}
+html:root body:is(.gx-light,.gx-dark) :is(.stats-grid,.dash-metrics,.gx-dash-grid) .stat-card.dash-metric {border-width:1px!important;border-style:solid!important;border-top-width:3px!important;border-top-style:solid!important}
+html:root body:is(.gx-light,.gx-dark) .stat-card.dash-metric .stat-info p {text-transform:none!important;font-size:13px!important;font-weight:600!important;letter-spacing:0!important}
+html:root body:is(.gx-light,.gx-dark) .gx-btn {width:38px!important;height:38px!important;min-width:38px!important;padding:0!important;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
+html:root body:is(.gx-light,.gx-dark) .gx-btn svg {width:17px!important;height:17px!important;min-width:17px;flex-shrink:0}
+html:root body:is(.gx-light,.gx-dark) .gx-theme-btn {width:36px!important;height:36px!important;padding:8px!important;display:inline-flex;align-items:center;justify-content:center}
+html:root body:is(.gx-light,.gx-dark) .gx-theme-btn svg {width:18px;height:18px;flex-shrink:0}
+html:root body:is(.gx-light,.gx-dark) :is(.sd-trigger,.sd-menu) {border-width:1px!important;border-style:solid!important;border-radius:8px!important}
+html:root body:is(.gx-light,.gx-dark) .sd-trigger {min-height:40px}
+html:root body:is(.gx-light,.gx-dark) .sd-trigger:focus-visible {outline-width:2px!important;outline-style:solid!important;outline-offset:2px}
+html:root body:is(.gx-light,.gx-dark) .gx-btn:not(:has(> svg)) {width:auto!important;min-width:0!important;height:auto!important;min-height:38px!important;padding:8px 14px!important;gap:6px;white-space:nowrap}
+html:root body:is(.gx-light,.gx-dark) {font-family:Arial,'Segoe UI',sans-serif!important;font-size:13px!important;letter-spacing:0!important}
+html:root body:is(.gx-light,.gx-dark) :is(.sidebar,.rail,.side,.navshell,.appbar) {border-right-width:1px!important;border-right-style:solid!important}
+html:root body:is(.gx-light,.gx-dark) :is(.sb-brand,.rail > .brand,.side > .brand,.sidebar > .brand,.appbar-top > .brand) {display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:8px!important;padding:22px 12px!important;text-align:center;min-height:160px}
+html:root body:is(.gx-light,.gx-dark) :is(.sb-logo,.brand .logo,.rail > .brand > .logo,.sb-brand .logo) {width:150px!important;height:92px!important;border-width:0!important;border-radius:0!important}
+html:root body:is(.gx-light,.gx-dark) :is(.qtech-sms-logo-img,.logo img,.brand > img) {object-fit:contain!important;border-width:0!important;border-radius:0!important}
+html:root body:is(.gx-light,.gx-dark) .brand > img {width:150px!important;height:92px!important}
+html:root body:is(.gx-light,.gx-dark) :is(.sb-brand h1,.brand h1,.brand-text h1,.side .brand b) {display:none!important}
+html:root body:is(.gx-light,.gx-dark) :is(.brand small,.sb-brand small,.brand-text small,.side .brand .muted) {letter-spacing:.03em!important;font-size:12px!important;text-transform:none!important}
+html:root body:is(.gx-light,.gx-dark) :is(.sb-nav,.rail-nav,.side .nav) {padding:0!important}
+html:root body:is(.gx-light,.gx-dark) :is(.nav-item,.ritem,.navtab,.side .item,.sidebar .tab) {border-radius:0!important;border-top-width:1px!important;border-top-style:solid!important;border-bottom-width:1px!important;border-bottom-style:solid!important;min-height:40px;font-weight:600!important;padding:11px 14px!important;margin:0!important}
+html:root body:is(.gx-light,.gx-dark) :is(.sub-item,.rsubitem,.dropitem) {border-radius:0!important;min-height:36px;border-bottom-width:1px!important;border-bottom-style:solid!important}
+html:root body:is(.gx-light,.gx-dark) :is(.sb-section,.sb-sec,.rsec) {padding:16px 14px 8px!important;font-size:10px!important}
+html:root body:is(.gx-light,.gx-dark) .content {padding:22px 16px!important}
+html:root body:is(.gx-light,.gx-dark) :is(.page-head,.head) {border-bottom-width:0!important;margin-bottom:16px!important;padding-bottom:0!important}
+html:root body:is(.gx-light,.gx-dark) :is(.page-head h2,.head h2) {font-size:21px!important;letter-spacing:-.025em!important}
+html:root body:is(.gx-light,.gx-dark) :is(.breadcrumb,.crumb) {border-width:1px;border-style:solid;border-radius:3px;padding:8px 12px;margin-top:9px!important;font-size:12px}
+html:root body:is(.gx-light,.gx-dark) :is(.card,.stat-card,.table-wrap,.table,.toolbar,.box,.dash-note-card,.gx-pay-chip) {border-radius:4px!important}
+html:root body:is(.gx-light,.gx-dark) :is(.card-head,.modal-head) {border-bottom-width:1px!important;border-bottom-style:solid!important;padding:12px 14px!important;border-radius:3px 3px 0 0}
+html:root body:is(.gx-light,.gx-dark) :is(.card-head h3,.modal-head h3) {font-size:13px!important;font-weight:600!important}
+html:root body:is(.gx-light,.gx-dark) :is(.toolbar,.table-controls,.table-foot) {padding:12px!important}
+html:root body:is(.gx-light,.gx-dark) :is(.stats-grid,.dash-metrics,.gx-dash-grid) .stat-card.dash-metric {border-width:1px!important;border-style:solid!important;border-radius:4px!important;padding:16px!important}
+html:root body:is(.gx-light,.gx-dark) .stat-card.dash-metric .stat-info h3 {font-size:25px!important}
+html:root body:is(.gx-light,.gx-dark) .stat-card.dash-metric .stat-info p {font-size:12px!important}
+html:root body:is(.gx-light,.gx-dark) .dash-go {border-width:1px!important;border-style:solid!important;border-radius:0!important}
+html:root body:is(.gx-light,.gx-dark) :is(.btn,.gx-btn,.ms-btn.primary) {border-radius:4px!important;border-width:1px!important;border-style:solid!important;font-weight:500!important}
+html:root body:is(.gx-light,.gx-dark) :is(.btn-ghost,.btn.ghost,.exp-btns .btn,.exp-btns .gx-btn,.ms-btn.ghost) {border-width:1px!important;border-style:solid!important}
+html:root body:is(.gx-light,.gx-dark) :is(input,select,textarea,.sd-trigger) {border-width:1px!important;border-style:solid!important;border-radius:3px!important;font-size:13px!important}
+html:root body:is(.gx-light,.gx-dark) :is(th,td) {padding:11px 10px!important;border-bottom-width:1px!important;border-bottom-style:solid!important;border-right-width:1px!important;border-right-style:solid!important;font-size:12px!important}
+html:root body:is(.gx-light,.gx-dark) th {white-space:nowrap}
+html:root body:is(.gx-light,.gx-dark) tr:last-child td {border-bottom-width:0!important}
+html:root body:is(.gx-light,.gx-dark) .gx-shortcuts {display:flex;justify-content:center;flex-wrap:wrap;gap:18px;margin:18px 0 26px}
+html:root body:is(.gx-light,.gx-dark) .gx-shortcut {width:156px;min-height:86px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;border-width:1px;border-style:solid;border-radius:4px;text-decoration:none;font-size:12px}
+html:root body:is(.gx-light,.gx-dark) .gx-shortcut svg {width:27px;height:27px;stroke-width:1.7}
+html:root body:is(.gx-light,.gx-dark) :is(.page > .toolbar,.page > .table-wrap,.page > .card,.page > .grid2)::before {content:none!important}
+html:root body:is(.gx-light,.gx-dark) .gx-statement-notice {padding:13px 16px;border-width:1px;border-style:solid;border-left-width:3px;border-left-style:solid;margin-bottom:16px;line-height:1.6}
+html:root body:is(.gx-light,.gx-dark) .gx-statement-filters {display:flex;align-items:end;flex-wrap:wrap;gap:12px}
+html:root body:is(.gx-light,.gx-dark) .gx-statement-filters label {display:flex;flex-direction:column;gap:5px}
+html:root body:is(.gx-light,.gx-dark) .gx-statement-status {padding:12px 0}
+html:root body:is(.gx-light,.gx-dark) .gx-statement-table .amount {text-align:right;font-variant-numeric:tabular-nums}
+html:root body:is(.gx-light,.gx-dark) .gx-statement-table td {white-space:nowrap}
+html:root body:is(.gx-light,.gx-dark) .gx-statement-table td.note {white-space:normal;min-width:170px}
+html:root body:is(.gx-light,.gx-dark) :is(.btn-blue,.btn-purple,.btn-green,.btn-red):disabled,
+body:is(.gx-light,.gx-dark) :is(.btn-blue,.btn-purple,.btn-green,.btn-red)[disabled] {cursor:not-allowed}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) {font-family:'Helvetica Neue',Helvetica,Arial,sans-serif!important;font-size:13px!important;line-height:1.5}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) :is(.main,.content,.page,.grid2,.grid,.card,.table-wrap,.toolbar) {min-width:0}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) :is(.sidebar,.rail,.side,.appbar) {border-right-width:1px!important;border-right-style:solid!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) :is(.sb-brand,.rail>.brand,.side>.brand,.sidebar>.brand,.appbar-top>.brand) {min-height:158px;padding:20px 12px!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) :is(.nav-item,.ritem,.navtab,.side .item,.sidebar .tab) {min-height:42px;border-radius:0!important;border-bottom-width:1px!important;border-bottom-style:solid!important;font-size:12px!important;padding:11px 14px!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) :is(.topbar,.mgr-topbar,.top) {border-bottom-width:1px!important;border-bottom-style:solid!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .content {padding:22px 16px 36px!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) :is(.page-head,.head) {gap:12px;margin-bottom:18px!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) :is(.page-head h2,.head h2) {font-size:21px!important;font-weight:600!important;letter-spacing:0!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) :is(.breadcrumb,.crumb) {border-width:1px;border-style:solid;border-radius:3px;padding:6px 10px;font-size:12px}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) :is(.card,.panel,.table-wrap,.toolbar,.modal-box,.ms-modal,.box) {border-width:1px!important;border-style:solid!important;border-radius:4px!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) :is(.card-head,.modal-head,.ms-modal-head,.ms-notif-head) {border-bottom-width:1px!important;border-bottom-style:solid!important;border-radius:3px 3px 0 0!important;padding:11px 14px!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .card-head h3 {font-size:13px!important;font-weight:600!important;letter-spacing:.02em}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .card-head .sub {font-size:11px!important;margin-top:2px}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) :is(.toolbar,.table-controls,.table-foot) {padding:12px!important;gap:12px}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .table-wrap {padding:0!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) :is(.tscroll,.table-scroll,.table-responsive) {overflow-x:auto;max-width:100%;overscroll-behavior-x:contain}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) table {width:100%;border-collapse:separate!important;border-spacing:0!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) :is(th,td) {font-size:12px!important;padding:9px 10px!important;line-height:20px!important;border-right-width:1px!important;border-right-style:solid!important;border-bottom-width:1px!important;border-bottom-style:solid!important;vertical-align:middle}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) th {font-weight:600!important;text-transform:none!important;letter-spacing:0!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) :is(th,td):last-child {border-right-width:0!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) :is(input,select,textarea,.sd-trigger) {border-width:1px!important;border-style:solid!important;border-radius:3px!important;font-size:13px!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) :is(input:not([type=checkbox]):not([type=radio]),select) {min-height:34px}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) :is(button,a,input,select,textarea,summary,[tabindex]):focus-visible {outline-width:2px!important;outline-style:solid!important;outline-offset:3px!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) :is(.btn,.gx-btn,.ms-btn.primary) {border-radius:3px!important;border-width:1px!important;border-style:solid!important;font-size:12px!important;font-weight:500!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) button:disabled {cursor:not-allowed}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .pagination button {border-radius:3px!important;border-width:1px!important;border-style:solid!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) :is(.stat-card.dash-metric,.card.metric,.gx-pay-chip) {border-width:1px!important;border-style:solid!important;border-radius:3px!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .stat-card.dash-metric {min-height:84px!important;padding:13px 14px!important;gap:12px!important;flex-direction:row-reverse;justify-content:flex-end}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .stat-card.dash-metric::before,body.gx-qtech:is(.gx-light,.gx-dark) .stat-card.dash-metric::after {display:none!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .stat-card.dash-metric:hover {transform:none!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .stat-card.dash-metric .stat-info {min-width:0}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .stat-card.dash-metric .stat-info p {font-size:12px!important;margin:0 0 3px!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .stat-card.dash-metric .stat-info h3 {font-size:21px!important;font-weight:700!important;line-height:1.2;overflow-wrap:anywhere}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .stat-card.dash-metric .stat-info span {font-size:10.5px!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .dash-go {width:40px!important;height:40px!important;flex:0 0 40px!important;display:flex;align-items:center;justify-content:center;border-width:1px!important;border-style:solid!important;border-radius:2px!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .dash-go svg {width:25px;height:25px}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) :is(.stats-grid,.dash-metrics,.gx-dash-grid) {gap:14px!important;margin-bottom:18px!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) #page-dashboard :is(.stats-grid,.gx-dash-grid) {grid-template-columns:repeat(4,minmax(0,1fr))!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .gx-shortcuts {display:flex;justify-content:center;flex-wrap:wrap;gap:18px;margin:24px 0!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .gx-shortcut {box-sizing:border-box;width:170px;min-height:96px;padding:15px 10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;border-width:1px;border-style:solid;border-radius:4px;text-decoration:none;font-size:12px;text-align:center}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .gx-shortcut svg {width:29px;height:29px}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) a.gx-shortcut:hover {transform:translateY(-1px)}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .lm-unavailable small {font-size:10px}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .lm-related {display:flex;justify-content:flex-end;margin:-10px 0 14px;gap:10px}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .lm-related .gx-shortcut {flex-direction:row;min-height:32px;width:auto;padding:5px 10px;font-size:11px}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .lm-related .gx-shortcut svg {width:17px;height:17px}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .lm-dashboard-status {font-size:11px;text-align:right;margin:0 0 12px}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .lm-dashboard-status.is-error {text-align:left;padding:10px 12px;border-width:1px;border-style:solid}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .lm-volume-row {display:grid;grid-template-columns:minmax(0,1fr) 270px;gap:18px;margin:20px 0;align-items:stretch}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .lm-volume-card {overflow:hidden}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .lm-volume-card .chart {display:block!important;height:auto!important;min-height:0!important;padding:12px 15px!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .lm-volume-total {font-size:11px;margin:0 0 8px}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .lm-volume-total strong {font-size:14px}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .lm-volume-svg {display:block;width:100%;height:auto;min-height:180px;max-height:320px;overflow:visible}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .lm-volume-svg text {font:11px Arial,sans-serif}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .lm-volume-svg circle:focus {outline-style:none;stroke-width:3px}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .lm-chart-values {font-size:11px;margin-top:8px}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .lm-chart-values summary {cursor:pointer;display:list-item}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .lm-chart-values table {margin-top:10px}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .lm-chart-empty {padding:80px 20px;text-align:center}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .lm-summaries {display:flex;flex-direction:column;justify-content:space-around;gap:8px;padding:4px 0}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .lm-summary {display:flex;gap:13px;align-items:center;padding:7px 0;min-width:0}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .lm-summary-icon {height:44px;width:44px;flex:0 0 44px;border-width:1px;border-style:solid;border-radius:50%;display:flex;align-items:center;justify-content:center}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .lm-summary-icon svg {width:24px;height:24px}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .lm-summary strong {display:block;font-size:17px;line-height:1.25;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .lm-summary span:not(.lm-summary-icon) {display:block;text-transform:uppercase;font-size:10px;margin-top:3px;letter-spacing:.03em}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .lm-summary small {font-size:10px}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .lm-secondary-row {display:grid;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:16px!important;align-items:start}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .lm-secondary-row>.card {margin-top:0!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .lm-secondary-row>.card:only-child {grid-column:1/-1}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .gx-dash-sub {gap:14px;margin:16px 0}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .gx-pay-chip {padding:13px 16px!important;min-width:0}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .gx-pay-chip .t {font-size:12px!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .gx-pay-chip .v {font-size:20px!important;margin:4px 0}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .gx-pay-chip .s {font-size:10px!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .lm-earning-state {margin:16px 0}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .lm-earning-cards {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .lm-earning-card {border-width:1px;border-style:solid;border-radius:3px;padding:13px}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .lm-earning-card span {font-size:12px}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .lm-earning-card strong {display:block;font-size:17px;margin:5px 0}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .lm-earning-card small,body.gx-qtech:is(.gx-light,.gx-dark) .lm-earning-state>p {font-size:11px}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .lm-earning-state>p {margin:8px 0}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .modal-box {max-width:calc(100vw - 24px);max-height:90dvh;overflow-y:auto}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .lm-volume-card,body.gx-qtech:is(.gx-light,.gx-dark) .lm-secondary-row>.card {padding:0!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .lm-secondary-row .li {padding:12px 16px!important;margin:0!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .gx-map-wrap {border-radius:3px}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .gx-map-wrap svg {max-height:330px}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .welcome-step span b {display:inline;width:auto;height:auto;border-radius:0;font-size:inherit}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .lm-rankings {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:20px 0}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) :is(.lm-ranking,.lm-batches) {padding:0!important;overflow:hidden}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .lm-ranking:only-child {grid-column:1/-1}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .lm-report-link {font-size:11px;white-space:nowrap;padding:4px}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .lm-empty {padding:25px 12px!important;text-align:center}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .lm-ranking td:not(:first-child) {text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .lm-ranking td:first-child {overflow-wrap:anywhere}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .rail>.logo {width:150px!important;height:92px!important;border-radius:0!important;margin:20px auto 8px!important;flex-shrink:0}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .rail>.logo img {width:100%!important;height:100%!important;object-fit:contain!important;border-radius:0!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .rail>.brand-text {padding:0 12px 20px!important;text-align:center!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .stat-card.dash-metric {justify-content:flex-end!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) :is(.nav-item,.ritem,.navtab,.side .item,.sidebar .tab) {border-bottom-width:1px!important;border-bottom-style:solid!important;border-top-width:0!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) :is(.sub-item,.rsubitem,.dropitem) {border-bottom-width:1px!important;border-bottom-style:solid!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) :is(.topbar,.mgr-topbar,.top,.tb1) {border-bottom-width:1px!important;border-bottom-style:solid!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .tb-btn {border-width:1px!important;border-style:solid!important;border-radius:6px!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .hamburger {border-width:0!important;border-radius:6px!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) :is(.who,.user-chip,.chip-user) {border-width:1px!important;border-style:solid!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .who .av {border-width:0!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .mgr-mobile-menu {border-width:1px!important;border-style:solid!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .gx-num {white-space:nowrap}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .gx-copy-inline {display:inline-flex;align-items:center;justify-content:center;vertical-align:middle;width:22px;height:22px;margin-left:7px;padding:0;border-width:1px;border-style:solid;border-radius:4px;cursor:pointer;flex:0 0 auto;line-height:1}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .gx-copy-inline svg {width:12px;height:12px;pointer-events:none}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .gx-copy-live {position:absolute!important;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border-width:0}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) {--ds-bg:#f2efe8;--ds-surface:#fff;--ds-ink:#0d0b09;--ds-text:#141210;--ds-muted:#7d7568;--ds-line:#f2efe8;--ds-line2:#c9c3b7;--ds-brand:#a8842a;--ds-brand-d:#967623;--ds-brand-t:#1e1a10;--ds-side:#0d0b09;--ds-side-hi:#141210;--ds-ok:#0f9d6b;--ds-warn:#c77d0a;--ds-bad:#d6364a;--ds-r:12px;--ds-icon:#a8842a;--ds-side2:#0a0908;--ds-s2:#f5f2ec;--ds-hov:#e9c869;--ds-row2:#f2efe8;--ds-gbg:#e3f6ee;--ds-gfg:#0a7a54;--ds-rbg:#fde8eb;--ds-rfg:#b72a3c;--ds-abg:#fdf1dc;--ds-afg:#9a5f05;--ds-pbg:#e9c869;--ds-cbg:#e9c869;color-scheme:light;--ds-r-lg:16px;--ds-sh:0 1px 2px rgba(13,11,9,.05),0 4px 14px rgba(13,11,9,.05);--ds-ease:cubic-bezier(.22,.8,.24,1);--accent:var(--ds-brand);--border:var(--ds-line);--border2:var(--ds-line2);--text:var(--ds-text);--muted:var(--ds-muted);--bg2:var(--ds-surface);--row:#f5f2ec;background:var(--ds-bg)!important;color:var(--ds-text)!important;font-size:14px;font-feature-settings:"cv11","ss01";-webkit-font-smoothing:antialiased}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) *:focus-visible {outline:2px solid var(--ds-brand);outline-offset:2px;border-radius:8px}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) :is(.sidebar,.rail,.appbar) {background:var(--ds-side)!important;border-right:0!important;color:#c9c3b7;transition:transform .32s var(--ds-ease),box-shadow .32s var(--ds-ease);will-change:transform}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .sb-brand {padding:18px 18px 16px;border-bottom:1px solid rgba(255,255,255,.07)!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .sb-brand h1 {color:#fff!important;font-size:16px;font-weight:700;letter-spacing:-.01em}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .sb-brand small {color:#7d7568!important;font-size:12px;letter-spacing:0;text-transform:none}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .sb-nav {padding:10px 10px 24px;overflow-y:auto;flex:1;scrollbar-width:thin;scrollbar-color:#1c1a16 transparent}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .sb-section,html body.gx-qtech.qd:is(.gx-light,.gx-dark) .sb-sec {color:#3a352c!important;font-size:11.5px;font-weight:600;letter-spacing:.02em;text-transform:none;padding:16px 12px 6px}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .nav-item,html body.gx-qtech.qd:is(.gx-light,.gx-dark) .sub-item {position:relative;display:flex;align-items:center;gap:11px;color:#c9c3b7!important;border-radius:10px;padding:9px 12px;margin:1px 0;font-weight:500;cursor:pointer;background:transparent;transition:background .16s ease,color .16s ease}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .nav-item svg {width:18px;height:18px;stroke:currentColor!important;opacity:.85;flex-shrink:0}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .nav-item:hover,html body.gx-qtech.qd:is(.gx-light,.gx-dark) .sub-item:hover {background:rgba(255,255,255,.06)!important;color:#fff!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .nav-item.active,html body.gx-qtech.qd:is(.gx-light,.gx-dark) .sub-item.active {background:var(--ds-side-hi)!important;color:#fff!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .nav-item.active::before {content:"";position:absolute;left:-10px;top:9px;bottom:9px;width:3px;border-radius:0 3px 3px 0;background:#d4af43}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .nav-item .chev {margin-left:auto;width:14px;height:14px;transition:transform .25s var(--ds-ease)}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .nav-item.open .chev {transform:rotate(90deg)}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .sub-item .dot {width:5px;height:5px;border-radius:50%;background:#322e27}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .sub-item.active .dot {background:#d4af43}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .main {min-width:0;transition:margin .32s var(--ds-ease)}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .topbar {position:sticky;top:0;z-index:30;height:60px;display:flex;align-items:center;gap:12px;padding:0 24px;background:var(--ds-surface)!important;border-bottom:1px solid var(--ds-line)!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .hamburger {width:38px;height:38px;align-items:center;justify-content:center;border-radius:10px;background:transparent!important;color:var(--ds-ink)!important;transition:background .16s}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .hamburger:hover {background:var(--ds-brand-t)!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .content {padding:24px 28px 48px;max-width:1600px}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .overlay {position:fixed;inset:0;background:rgba(10,9,8,.5);opacity:0;pointer-events:none;transition:opacity .28s ease;z-index:40}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .overlay.show,html body.gx-qtech.qd:is(.gx-light,.gx-dark) .overlay.open {opacity:1;pointer-events:auto}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .page {animation:ds-in .28s var(--ds-ease)}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .page-head {display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid var(--ds-line)!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .page-head h2 {color:var(--ds-ink)!important;font-size:22px;font-weight:700;letter-spacing:-.02em}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .page-head p,html body.gx-qtech.qd:is(.gx-light,.gx-dark) .hint,html body.gx-qtech.qd:is(.gx-light,.gx-dark) .cell-sub {color:var(--ds-muted)!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .card,html body.gx-qtech.qd:is(.gx-light,.gx-dark) .table-wrap,html body.gx-qtech.qd:is(.gx-light,.gx-dark) .toolbar,html body.gx-qtech.qd:is(.gx-light,.gx-dark) .stat-card,html body.gx-qtech.qd:is(.gx-light,.gx-dark) .dash-metric {background:var(--ds-surface)!important;border:1px solid var(--ds-line)!important;border-radius:var(--ds-r-lg)!important;box-shadow:var(--ds-sh)!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .toolbar {padding:12px 14px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .stats-grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .stat-card,html body.gx-qtech.qd:is(.gx-light,.gx-dark) .dash-metric {padding:16px 18px;display:flex;align-items:center;gap:14px;transition:transform .18s var(--ds-ease),box-shadow .18s}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .stat-card:hover {transform:translateY(-2px);box-shadow:0 2px 4px rgba(13,11,9,.06),0 10px 24px rgba(13,11,9,.09)!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .stat-icon {width:42px;height:42px;border-radius:12px;display:grid;place-items:center;flex-shrink:0}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .stat-icon svg {width:20px;height:20px}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .si-blue {background:#1e1a10!important;color:var(--ds-icon)!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .si-green {background:var(--ds-gbg)!important;color:#0f9d6b!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .si-amber {background:var(--ds-abg)!important;color:#c77d0a!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .si-red {background:var(--ds-rbg)!important;color:#d6364a!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .si-purple {background:var(--ds-pbg)!important;color:#c9a63c!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .si-cyan {background:var(--ds-cbg)!important;color:#b8912f!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .stat-info .val,html body.gx-qtech.qd:is(.gx-light,.gx-dark) .stat-card .val {color:var(--ds-ink)!important;font-size:24px;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .stat-info .lbl,html body.gx-qtech.qd:is(.gx-light,.gx-dark) .stat-card .lbl {color:var(--ds-muted)!important;font-size:12.5px;font-weight:500}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .card-head {display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--ds-line)!important;font-weight:650;color:var(--ds-ink)}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .table-wrap {overflow:hidden}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .tscroll,html body.gx-qtech.qd:is(.gx-light,.gx-dark) .table-wrap {overflow-x:auto;-webkit-overflow-scrolling:touch}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) table {width:100%;border-collapse:separate;border-spacing:0;font-variant-numeric:tabular-nums}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) thead th {position:sticky;top:0;background:var(--ds-s2)!important;color:var(--ds-muted)!important;font-size:12px;font-weight:600;letter-spacing:.01em;text-transform:none;text-align:left;padding:11px 14px;border-bottom:1px solid var(--ds-line)!important;white-space:nowrap}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) tbody td {padding:12px 14px;border-bottom:1px solid var(--ds-row2)!important;color:var(--ds-text)!important;vertical-align:middle}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) tbody tr {transition:background .12s}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) tbody tr:hover td {background:var(--ds-hov)!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) tbody tr:last-child td {border-bottom:0!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .table-foot,html body.gx-qtech.qd:is(.gx-light,.gx-dark) .pagination {padding:12px 16px;border-top:1px solid var(--ds-line)!important;color:var(--ds-muted)}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .btn,html body.gx-qtech.qd:is(.gx-light,.gx-dark) .tb-btn {display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:38px;padding:8px 15px;border-radius:10px!important;border:1px solid var(--ds-brand)!important;background:var(--ds-brand)!important;color:#fff!important;font-weight:600;font-size:13.5px;cursor:pointer;box-shadow:0 1px 2px rgba(168,132,42,.25);transition:background .16s,transform .14s var(--ds-ease),box-shadow .16s}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .btn:hover,html body.gx-qtech.qd:is(.gx-light,.gx-dark) .tb-btn:hover {background:var(--ds-brand-d)!important;transform:translateY(-1px);box-shadow:0 4px 12px rgba(168,132,42,.28)}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .btn:active {transform:scale(.98)}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .btn-ghost,html body.gx-qtech.qd:is(.gx-light,.gx-dark) .btn.ghost,html body.gx-qtech.qd:is(.gx-light,.gx-dark) .icon-btn {background:var(--ds-surface)!important;color:var(--ds-ink)!important;border:1px solid var(--ds-line2)!important;box-shadow:none}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .btn-ghost:hover,html body.gx-qtech.qd:is(.gx-light,.gx-dark) .btn.ghost:hover,html body.gx-qtech.qd:is(.gx-light,.gx-dark) .icon-btn:hover {background:var(--ds-hov)!important;box-shadow:none}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .btn.red,html body.gx-qtech.qd:is(.gx-light,.gx-dark) .btn-red {background:var(--ds-bad)!important;border-color:var(--ds-bad)!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .btn.green,html body.gx-qtech.qd:is(.gx-light,.gx-dark) .btn-green {background:var(--ds-ok)!important;border-color:var(--ds-ok)!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .btn-sm {min-height:32px;padding:5px 11px;font-size:12.5px}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .btn[disabled] {opacity:.5;pointer-events:none}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) input:not([type=checkbox]):not([type=radio]),html body.gx-qtech.qd:is(.gx-light,.gx-dark) select,html body.gx-qtech.qd:is(.gx-light,.gx-dark) textarea {background:var(--ds-surface)!important;color:var(--ds-ink)!important;border:1px solid var(--ds-line2)!important;border-radius:10px!important;padding:9px 12px;min-height:38px;font:inherit;transition:border-color .15s,box-shadow .15s}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) input:focus,html body.gx-qtech.qd:is(.gx-light,.gx-dark) select:focus,html body.gx-qtech.qd:is(.gx-light,.gx-dark) textarea:focus {outline:none!important;border-color:var(--ds-brand)!important;box-shadow:0 0 0 3px rgba(168,132,42,.15)!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) ::placeholder {color:#9a9287}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .form-grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .form-group label {display:block;font-size:12.5px;font-weight:600;color:var(--ds-ink);margin-bottom:6px}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .tag,html body.gx-qtech.qd:is(.gx-light,.gx-dark) .badge {display:inline-flex;align-items:center;padding:3px 10px;border-radius:999px;font-size:12px;font-weight:600;border:0!important;background:var(--ds-row2);color:var(--ds-text)}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .tag-green {background:var(--ds-gbg)!important;color:var(--ds-gfg)!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .tag-red {background:var(--ds-rbg)!important;color:var(--ds-rfg)!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .tag-amber {background:var(--ds-abg)!important;color:var(--ds-afg)!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .tag-blue,html body.gx-qtech.qd:is(.gx-light,.gx-dark) .tag-mgr {background:#1e1a10!important;color:var(--ds-icon)!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .tag-gray {background:var(--ds-row2)!important;color:var(--ds-text)!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .modal-overlay {background:rgba(10,9,8,.55)!important;animation:ds-fade .2s ease}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .modal {background:var(--ds-surface)!important;border:1px solid var(--ds-line)!important;border-radius:18px!important;box-shadow:0 24px 60px rgba(10,9,8,.28)!important;animation:ds-pop .26s var(--ds-ease);max-height:92vh}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .modal-head {padding:16px 20px;border-bottom:1px solid var(--ds-line)!important;font-weight:650;color:var(--ds-ink)}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .modal-body {padding:20px}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .modal-foot {padding:14px 20px;border-top:1px solid var(--ds-line)!important;display:flex;justify-content:flex-end;gap:10px}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .sb-brand {flex-direction:row!important;justify-content:flex-start!important;align-items:center!important;text-align:left!important;min-height:0!important;padding:16px 18px!important;gap:12px!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .sb-logo {width:40px!important;height:40px!important;border-radius:11px!important;margin:0!important;background:var(--ds-surface)!important;border:0!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) :is(.nav-item,.sub-item) {border-radius:10px!important;border-top-width:0!important;border-bottom-width:0!important;min-height:38px;padding:9px 12px!important;margin:2px 0!important;font-weight:500!important;box-shadow:none!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .nav-item:not(.active):not(:hover) {background:transparent!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .sub-item {background:transparent!important;color:#9a9287!important;min-height:34px;font-size:13px}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .sub-item.active {background:var(--ds-side-hi)!important;color:#fff!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .submenu {transition:max-height .3s var(--ds-ease)!important;margin:0 0 0 20px!important;padding-left:6px;border-left:1px solid rgba(255,255,255,.1);background:transparent!important;border-color:rgba(255,255,255,.1)!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .nav-item.active svg,html body.gx-qtech.qd:is(.gx-light,.gx-dark) .nav-item:hover svg {stroke:#fff!important;color:#fff!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .nav-item svg {stroke:#e0bc4f!important;color:#e0bc4f!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) :is(th,td) {border-right-width:0!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .topbar {height:auto!important;min-height:60px!important;padding-top:8px!important;padding-bottom:8px!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .topbar :is(.tb-title,.clock,.tb-date) {color:var(--ds-ink)!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .tb-btn {background:var(--ds-surface)!important;color:var(--ds-ink)!important;border:1px solid var(--ds-line2)!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .tb-btn svg {stroke:var(--ds-icon)!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) :is(.hamburger) {background:transparent!important;border-color:transparent!important;color:var(--ds-ink)!important;border-radius:10px!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) :is(.stats-grid,.dash-metrics,.gx-dash-grid) .stat-card::before,html body.gx-qtech.qd:is(.gx-light,.gx-dark) :is(.stats-grid,.dash-metrics,.gx-dash-grid) .stat-card::after {display:none!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) :is(.toolbar,.table-controls,.table-foot,.card-head,.modal-head) {background:var(--ds-surface)!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) :is(.card-head,.modal-head) {border-radius:var(--ds-r-lg) var(--ds-r-lg) 0 0}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .breadcrumb {background:transparent!important;border:0!important;color:var(--ds-muted)!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .tb-btn {padding:8px 10px!important;min-width:38px;flex-shrink:0}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .tb-btn svg {width:18px!important;height:18px!important;flex-shrink:0}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) :is(.sb-section,.sb-sec) {text-transform:none!important;letter-spacing:.02em!important;font-size:12px!important;font-weight:600!important;padding:14px 12px 4px!important;margin:0!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .section-title {text-transform:none!important;letter-spacing:0!important;font-size:13px!important;font-weight:650!important;color:var(--ds-ink)!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .breadcrumb {padding:0!important;margin-top:2px}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .sb-brand small {font-size:13px!important;font-weight:600!important;color:#c9c3b7!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .gx-btn {display:inline-flex;align-items:center;justify-content:center;gap:7px;min-width:38px;min-height:38px;padding:8px 12px;border-radius:10px!important;font-weight:600;cursor:pointer;background:var(--ds-surface)!important;color:var(--ds-ink)!important;border:1px solid var(--ds-line2)!important;box-shadow:none!important;transition:background .16s,transform .14s var(--ds-ease)}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .gx-btn:hover {background:var(--ds-hov)!important;transform:translateY(-1px)}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .gx-btn svg {width:17px;height:17px;flex-shrink:0;stroke:currentColor!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .gx-btn:is(.gx-blue,.gx-primary) {background:var(--ds-brand)!important;border-color:var(--ds-brand)!important;color:#fff!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .gx-btn:is(.gx-blue,.gx-primary):hover {background:var(--ds-brand-d)!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .gx-btn:is(.gx-red,.danger) {background:var(--ds-bad)!important;border-color:var(--ds-bad)!important;color:#fff!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .gx-btn:is(.gx-green) {background:var(--ds-ok)!important;border-color:var(--ds-ok)!important;color:#fff!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .exp-btns .gx-btn,html body.gx-qtech.qd:is(.gx-light,.gx-dark) .exp-btns .btn {background:var(--ds-surface)!important;color:var(--ds-ink)!important;border:1px solid var(--ds-line2)!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .pagination button {min-width:34px;min-height:34px;border-radius:9px!important;background:var(--ds-surface)!important;border:1px solid var(--ds-line2)!important;color:var(--ds-ink)!important;box-shadow:none!important;cursor:pointer;transition:background .14s}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .pagination button:hover:not(:disabled) {background:var(--ds-brand-t)!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .pagination button.active {background:var(--ds-brand)!important;border-color:var(--ds-brand)!important;color:#fff!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .card-head :is(h3,h4),html body.gx-qtech.qd:is(.gx-light,.gx-dark) .table-wrap>.card-head h3 {text-transform:none!important;letter-spacing:-.01em!important;font-size:15px!important;font-weight:650!important;color:var(--ds-ink)!important;margin:0!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .card-head {padding:14px 18px!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .table-controls {padding:12px 16px!important;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) :is(.table-controls,.toolbar) label {font-size:12.5px;font-weight:600;color:var(--ds-ink)}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .table-controls select {min-width:84px}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .ds-card-title {font-size:15px;font-weight:650;letter-spacing:-.01em;color:var(--ds-ink);padding:2px 4px 6px;text-transform:capitalize}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login).gx-qtech.qd {--ds-bg:#0a0908;--ds-surface:#0d0b09;--ds-ink:#e9c869;--ds-text:#c9c3b7;--ds-muted:#5c554b;--ds-line:#141210;--ds-line2:#1c1a16;--ds-brand:#c9a63c;--ds-brand-d:#c9a63c;--ds-brand-t:#141210;--ds-icon:#e0bc4f;--ds-side:#0a0908;--ds-side2:#0d0b09;--ds-side-hi:#141210;--ds-s2:#100e0c;--ds-hov:#141210;--ds-row2:#141210;--ds-gbg:#0f3a2c;--ds-gfg:#5ee0a9;--ds-rbg:#45202a;--ds-rfg:#ff8fa0;--ds-abg:#43320f;--ds-afg:#f5c46a;--ds-pbg:#181614;--ds-cbg:#100e0c;--row:#100e0c;--ds-sh:0 1px 2px rgba(0,0,0,.4),0 6px 18px rgba(0,0,0,.25);color-scheme:dark}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login).gx-qtech.qd .gx-theme-btn svg {stroke:#f5b83d!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login).gx-qtech.qd :is(.si-blue,.si-green,.si-amber,.si-red,.si-purple,.si-cyan) {filter:brightness(1.35) saturate(.9)}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login).gx-qtech.qd ::placeholder {color:#322e27}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login).gx-qtech.qd .stat-card:hover {box-shadow:0 8px 26px rgba(0,0,0,.45)!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login).gx-qtech.qd .gx-btn:hover,html body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login).gx-qtech.qd .btn-ghost:hover,html body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login).gx-qtech.qd .btn.ghost:hover {border-color:#221f1a!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) td {background:transparent!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .modal {color:var(--ds-text)}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .sb-logo {background:#fff!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) :is(.sidebar,.rail,.appbar) {background:linear-gradient(180deg,var(--ds-side) 0%,var(--ds-side2) 100%)!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) :is(.gx-theme-btn,.tb-btn) {background:var(--ds-surface)!important;border:1px solid var(--ds-line2)!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .who {background:transparent!important;border-color:transparent!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .who .av {background:var(--ds-brand-t)!important;color:var(--ds-icon)!important;border:1px solid var(--ds-line2)!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .who :is(.nm,.rl) {color:var(--ds-ink)!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) :is(.tscroll,.table-wrap,.sb-nav) {scrollbar-width:thin}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .page {animation:ds-fade .2s ease}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .page.active :is(.stats-grid,.dash-metrics)>* {animation:ds-rise .42s var(--ds-ease) backwards}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .page.active :is(.stats-grid,.dash-metrics)>:nth-child(2) {animation-delay:.04s}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .page.active :is(.stats-grid,.dash-metrics)>:nth-child(3) {animation-delay:.08s}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .page.active :is(.stats-grid,.dash-metrics)>:nth-child(4) {animation-delay:.12s}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .page.active :is(.stats-grid,.dash-metrics)>:nth-child(n+5) {animation-delay:.16s}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .page.active>.table-wrap {animation:ds-rise .38s var(--ds-ease) .05s backwards}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .nav-item.active::before {animation:ds-bar .32s var(--ds-ease);transform-origin:center}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) :is(.nav-item,.sub-item) {transition:background .16s,color .16s,transform .18s var(--ds-ease)!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) :is(.nav-item,.sub-item):hover {transform:translateX(3px)}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .btn:focus-visible,html body.gx-qtech.qd:is(.gx-light,.gx-dark) .gx-btn:focus-visible {box-shadow:0 0 0 3px rgba(212,175,67,.35)!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .page>:is(.toolbar,.table-wrap,.card,.grid2)::before {display:none!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .topbar {position:sticky}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .topbar::after {content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;pointer-events:none;background:linear-gradient(90deg,#d9b543,#d4af43,#ec4899,#d4af43,#d9b543) 0 0/640px 2px repeat-x;opacity:.85;animation:ds-sweep 9s linear infinite}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) :is(.sidebar,.rail,.appbar) {overflow:hidden}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) :is(.sidebar,.rail,.appbar)::after {content:"";position:absolute;left:-30%;bottom:-18%;width:160%;height:46%;pointer-events:none;z-index:0;will-change:transform;background:radial-gradient(closest-side,rgba(201,166,60,.26),rgba(212,175,67,.10) 60%,transparent);animation:ds-drift 16s ease-in-out infinite alternate}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) :is(.rail,.appbar) {position:relative;z-index:0}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) :is(.rail-nav,.rail-brand,.appbar-top,.appbar-nav,.navtabs,.navtab) {position:relative;z-index:1}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) :is(.sb-brand,.sb-nav) {position:relative;z-index:1}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .stat-card {position:relative;overflow:hidden}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) :is(.stats-grid,.dash-metrics,.gx-dash-grid) .stat-card::after {display:block!important;content:""!important;position:absolute!important;inset:0!important;right:auto!important;bottom:auto!important;width:100%!important;height:100%!important;border-radius:0!important;pointer-events:none;background:linear-gradient(105deg,transparent 38%,rgba(255,255,255,.16) 50%,transparent 62%)!important;transform:translate3d(-120%,0,0);transition:transform .75s var(--ds-ease)}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .stat-card:hover::after {transform:translate3d(120%,0,0)}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .page-head {position:relative}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .page-head::after {content:"";position:absolute;left:0;bottom:-1px;width:84px;height:2px;border-radius:2px;background:linear-gradient(90deg,var(--ds-brand),#d9b543);transform-origin:left;animation:ds-grow .6s var(--ds-ease) backwards}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) tbody tr:nth-child(-n+12) {animation:ds-row .24s ease backwards}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) tbody tr:nth-child(n+2) {animation-delay:.03s}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) tbody tr:nth-child(n+4) {animation-delay:.06s}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) tbody tr:nth-child(n+6) {animation-delay:.09s}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) tbody tr:nth-child(n+8) {animation-delay:.12s}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login).gx-qtech.qd {background-image:radial-gradient(55% 100% at 88% 0,rgba(201,166,60,.17),transparent 70%),radial-gradient(45% 80% at 0 100%,rgba(212,175,67,.10),transparent 70%)!important;background-size:100% 900px!important;background-repeat:no-repeat!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .ds-anim-btn svg {width:18px;height:18px}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .ds-anim-btn[aria-pressed=false] {opacity:.6}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login).gx-qtech :is(.hamburger,.mgr-topbar-menu) {background:#1c1a16;border-color:#3a352c;color:#cfc9be}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login).gx-qtech :is(.hamburger,.mgr-topbar-menu):hover {background:#221f1a;border-color:#e0bc4f;color:#f0ece4}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login).gx-qtech .qt-theme-toggle {color:#e8b955}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login).gx-qtech .qt-theme-toggle:hover {color:#f2d79a}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login).gx-qtech :is(.page-head,.head) :is(h1,h2,h3),
+body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login).gx-qtech .qt-page-heading {color:#f5f2ec!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) .qt-legal-overlay {background:rgba(5,5,5,.72)}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) .qt-legal-card {background:#141210;border-color:#1c1a16;color:#f2efe8;box-shadow:0 28px 70px rgba(0,0,0,.6)}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) .qt-legal-head {border-bottom-color:#181614}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) .qt-legal-eyebrow {color:#d4af43}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) .qt-legal-title {color:#f5f2ec}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) .qt-legal-body {color:#9a9287}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) .qt-legal-body b {color:#f0ece4}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) .qt-legal-agree {background:#0d0b09;border-color:#1c1a16;color:#e9c869}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) .qt-legal-agree input {accent-color:#e0bc4f}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) .qt-legal-foot {border-top-color:#181614}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) .qt-legal-btn.primary {background:linear-gradient(180deg,#e0bc4f,#b8912f);color:#080706}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) .qt-legal-note {color:#9a9287}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) .qt-legal-error {color:#f0a98f}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(.sd-menu,.dropmenu) {background:#141210!important;border-color:#3a352c!important;color:#f2efe8!important;box-shadow:0 18px 40px rgba(0,0,0,.55)!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) .sd-search-box {background:#12100e!important;border-bottom:1px solid #2a2621!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) .sd-search-box input {background:#0a0908!important;border:1px solid #3a352c!important;color:#f2efe8!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) .sd-search-box input::placeholder {color:#5c554b!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) .sd-options {background:#141210!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) .sd-option {background:#141210!important;color:#cfc9be!important;border-bottom:1px solid #221f1a!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) .sd-option:hover {background:#1c1a16!important;color:#fff!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) .sd-option.selected {background:#a8842a!important;color:#fff!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) .sd-no-results {background:#141210!important;color:#9a9287!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(.sd-label,.sd-caret) {color:#cfc9be!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) .sd-trigger:hover {border-color:#e0bc4f!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) .sd-trigger:focus-visible {outline-color:#e0bc4f!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(.stat-card,.dash-metric,.metric) {background:#141210!important;color:#f2efe8!important;border-color:#2a2621!important;box-shadow:0 1px 3px rgba(0,0,0,.35)!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(.stat-card,.dash-metric,.metric)::before {background:none!important;box-shadow:none!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(.stat-card,.dash-metric,.metric)::after {background:none!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(.stat-info h3,.metric h3) {color:#f0ece4!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(.stat-info p,.stat-info span,.metric p) {color:#9a9287!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(.stats-grid,.dash-metrics,.gx-dash-grid) .stat-card.dash-metric {background:#141210!important;border-color:#2a2621!important;border-top-color:#a8842a!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(.stats-grid,.dash-metrics,.gx-dash-grid) .stat-card.dash-metric .stat-info h3 {color:#f0ece4!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(.stats-grid,.dash-metrics,.gx-dash-grid) .stat-card.dash-metric .stat-info p {color:#9a9287!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) .dash-go {background:#1c1a16!important;border-color:#3a352c!important;color:#e9c869!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) .dash-go svg {stroke:#e9c869!important;color:#e9c869!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login).gx-qtech .qt-sa-alert {border-color:#b8912f;border-left-color:#e0bc4f;background:#100e0c;color:#e9c869}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login).gx-qtech .qt-sa-alert a {color:#e9c869}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login).gx-qtech .qt-sa-warn {border-color:#5b4a1f;border-left-color:#e0a33e;background:#2a2410;color:#fde3a7}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login).gx-qtech .qt-sa-warn a {color:#e8b955}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login).gx-qtech .qt-sa-danger {border-color:#5f2b2b;border-left-color:#e8876b;background:#2a1414;color:#3a1f18}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login).gx-qtech .qt-sa-danger a {color:#f0a98f}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login).gx-qtech .ps-group-row>td {background:#1c1a16!important;border-top:1px solid #2a2621!important;color:#e0bc4f!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) .pm-grid>.card {border:1px solid #2a2621;box-shadow:0 1px 2px rgba(0,0,0,.35)}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) .pm-grid>.card:hover {border-color:#3a352c}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) .pm-grid>.card:focus-within,
+body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) .pm-grid>.card.pm-active {border-color:#e0bc4f;box-shadow:0 0 0 3px rgba(224,188,79,.16)}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) html body.gx-qtech :is(.topbar,.tb1,.appbar,.appbar-top,.mgr-topbar,.rail,.navshell) [data-tip]:hover::before {border-bottom-color:#f2efe8!important}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login).gx-qtech :is(.topbar,.tb1,.appbar,.appbar-top,.mgr-topbar,.rail,.navshell) [data-tip]:hover::before {border-bottom-color:#f2efe8!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) :is(.sb-logo,.brand .logo,.rail > .brand > .logo,.sb-brand .logo,.brand-logo .logo,.rail .logo) {background:transparent!important;border:0!important;box-shadow:none!important}
+html:root body.gx-qtech.qd:is(.gx-light, .gx-dark) .grid2 {display: grid !important;grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)) !important;gap: 14px !important;margin-bottom: 16px !important}
+html:root body.gx-qtech.qd:is(.gx-light, .gx-dark) .appbar-top {padding: 0 !important;gap: 0 !important;flex: none !important;border-bottom: 1px solid rgba(255, 255, 255, .07) !important}
+html:root body.gx-qtech.qd:is(.gx-light, .gx-dark) .appbar .brand {flex-direction: row !important;align-items: center !important;justify-content: flex-start !important;text-align: left !important;min-height: 0 !important;padding: 16px 18px !important;gap: 12px !important}
+html:root body.gx-qtech.qd:is(.gx-light, .gx-dark) .appbar .brand .logo {width: 40px !important;height: 40px !important;flex: none !important;margin: 0 !important;border-radius: 11px !important;overflow: hidden !important;background: #fff !important;/* same white tile as Admin's .sb-logo */}
+html:root body.gx-qtech.qd:is(.gx-light, .gx-dark) .appbar .brand .logo img {width: 40px !important;height: 40px !important;object-fit: contain !important}
+html:root body.gx-qtech.qd:is(.gx-light, .gx-dark) .appbar .brand small {font-size: 13px !important;font-weight: 600 !important;color: #c9c3b7 !important;text-align: left !important}
+html:root body.gx-qtech.qd:is(.gx-light, .gx-dark) .rail {padding: 0 !important}
+html:root body.gx-qtech.qd:is(.gx-light, .gx-dark) .rail > .logo {position: absolute !important;left: 18px;top: 16px;z-index: 1;width: 40px !important;height: 40px !important;margin: 0 !important;border-radius: 11px !important;overflow: hidden !important;background: #fff !important}
+html:root body.gx-qtech.qd:is(.gx-light, .gx-dark) .rail > .logo img {width: 40px !important;height: 40px !important;object-fit: contain !important}
+html:root body.gx-qtech.qd:is(.gx-light, .gx-dark) .rail .brand-text {box-sizing: border-box;flex: none !important;display: flex !important;align-items: center;height: 73px;margin: 0 !important;padding: 0 12px 0 70px !important;text-align: left !important;border-bottom: 1px solid rgba(255, 255, 255, .07) !important}
+html:root body.gx-qtech.qd:is(.gx-light, .gx-dark) .rail .brand-text small {display: block !important;font-size: 13px !important;font-weight: 600 !important}
+html:root body.gx-qtech.qd:is(.gx-light, .gx-dark) .navtabs {gap: 0 !important;padding: 10px 0 24px !important}
+html:root body.gx-qtech.qd:is(.gx-light, .gx-dark) .rail-nav {padding: 10px 0 24px !important}
+html:root body.gx-qtech.qd:is(.gx-light, .gx-dark) .navtab,
+html body.gx-qtech.qd:is(.gx-light, .gx-dark) .rail .ritem {box-sizing: border-box;min-height: 38px !important;height: auto !important;padding: 9px 12px !important;margin: 0 0 2px !important;border-radius: 10px !important}
+html:root body.gx-qtech.qd:is(.gx-light, .gx-dark) .appbar .dropmenu,
+html body.gx-qtech.qd:is(.gx-light, .gx-dark) .rail .rsub {margin: 0 0 0 20px !important;padding: 0 0 0 6px !important;border: 0 !important;border-left: 1px solid rgba(255, 255, 255, .1) !important;border-radius: 0 !important;background: transparent !important;box-shadow: none !important}
+html:root body.gx-qtech.qd:is(.gx-light, .gx-dark) .dropitem,
+html body.gx-qtech.qd:is(.gx-light, .gx-dark) .rail .rsubitem {box-sizing: border-box;min-height: 36px !important;height: auto !important;margin: 2px 0 !important;padding: 9px 12px !important;border-radius: 10px !important}
+html:root body.gx-light.gx-login .shell,
+html body.gx-light.gx-portal-login > .card {position: relative;border-radius: 22px !important;background: linear-gradient(160deg, rgba(255,255,255,.74) 0%, rgba(233,200,105,.56) 100%) !important;-webkit-backdrop-filter: blur(22px) saturate(160%);backdrop-filter: blur(22px) saturate(160%);border: 1px solid rgba(224,188,79,.55) !important;box-shadow:
+    0 30px 70px rgba(8,7,6,.50),
+    0 2px 10px rgba(8,7,6,.30),
+    0 0 0 1px rgba(224,188,79,.14),
+    0 0 46px rgba(224,188,79,.14),
+    inset 0 1px 0 rgba(255,255,255,.75) !important}
+html:root body.gx-light.gx-login .login-panel {background: transparent !important}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) :is(.m-brand img, .logo img, .login-hero-logo) {background: transparent !important}
+html:root.qt-logo-opaque body.gx-light:is(.gx-login,.gx-portal-login) :is(.m-brand img, .logo img, .login-hero-logo) {mix-blend-mode: multiply}
+html:root body.gx-light.gx-portal-login .logo {background: transparent !important}
+html:root body.gx-light.gx-login .m-brand img {width: auto !important;height: 114px !important;max-width: 100% !important;object-fit: contain !important}
+html:root body.gx-light.gx-portal-login .logo img {display: block;width: auto !important;height: 100% !important;max-width: 100% !important;margin: 0 auto;object-fit: contain !important}
+html:root.qt-logo-opaque body.gx-light:is(.gx-login,.gx-portal-login) :is(.m-brand img, .logo img, .login-hero-logo) {-webkit-mask-image: linear-gradient(90deg, transparent 0, #000 14%, #000 86%, transparent 100%),
+                      linear-gradient(180deg, transparent 0, #000 14%, #000 86%, transparent 100%);-webkit-mask-composite: source-in;mask-image: linear-gradient(90deg, transparent 0, #000 14%, #000 86%, transparent 100%),
+              linear-gradient(180deg, transparent 0, #000 14%, #000 86%, transparent 100%);mask-composite: intersect}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) :is(.field label, label, .checkbox, .row-between) {color: #141210 !important}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) .login-anim-toggle .login-anim-label {color: #2e2a23 !important}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) :is(.hint, .footer, .sub) {color: #141210 !important}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) :is(.eyebrow, .login-head .eyebrow) {color: #967623 !important}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) .row-between a {color: #b8912f !important}
+html:root body.gx-light.gx-login #captchaText {white-space: nowrap}
+html:root .login-anim-switch,
+body:is(.gx-light,.gx-dark):is(.gx-login,.gx-portal-login) .login-anim-toggle .login-anim-switch {flex: 0 0 auto !important;order: 2 !important;position: relative !important;appearance: none !important;-webkit-appearance: none !important;-moz-appearance: none !important;width: 40px !important;height: 22px !important;min-width: 40px !important;max-width: 40px !important;min-height: 22px !important;margin: 0 !important;padding: 0 !important;float: none !important;border: 1px solid #7d7568 !important;/* OFF — solid slate, never white */;border-radius: 999px !important;background: #9a9287 !important;box-shadow: inset 0 1px 2px rgba(16,14,12,.20) !important;outline: none;cursor: pointer;vertical-align: middle;transition: background .2s ease, border-color .2s ease, box-shadow .2s ease}
+html:root .login-anim-switch:checked,
+body:is(.gx-light,.gx-dark):is(.gx-login,.gx-portal-login) .login-anim-toggle .login-anim-switch:checked {background: #a8842a !important;border-color: #967623 !important;box-shadow: inset 0 1px 2px rgba(16,14,12,.15), 0 0 0 3px rgba(168,132,42,.20) !important}
+html:root .login-anim-switch:focus-visible,
+body:is(.gx-light,.gx-dark) .login-anim-toggle .login-anim-switch:focus-visible {outline: 2px solid #a8842a !important;outline-offset: 2px;box-shadow: 0 0 0 3px rgba(168,132,42,.20) !important}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) {background:
+    radial-gradient(900px 520px at 12% -10%, rgba(212,175,67,.38) 0%, rgba(212,175,67,0) 60%),
+    radial-gradient(800px 520px at 100% 110%, rgba(236,72,153,.26) 0%, rgba(236,72,153,0) 60%),
+    radial-gradient(700px 420px at 90% 0%, rgba(217,181,67,.22) 0%, rgba(217,181,67,0) 60%),
+    linear-gradient(165deg,#080706 0%,#0a0908 50%,#050505 100%) !important;background-attachment: fixed !important}
+html:root body.gx-light.gx-login .shell,
+html body.gx-light.gx-portal-login > .card {background: linear-gradient(160deg, rgba(16,14,12,.72) 0%, rgba(10,9,8,.78) 100%) !important;-webkit-backdrop-filter: blur(26px) saturate(170%);backdrop-filter: blur(26px) saturate(170%);border: 1px solid rgba(255,255,255,.10) !important;border-radius: 24px !important;color: #f2efe8 !important;box-shadow: 0 40px 90px rgba(0,0,0,.65), 0 0 0 1px rgba(255,255,255,.03), inset 0 1px 0 rgba(255,255,255,.12) !important}
+html:root body.gx-light.gx-login .login-panel {background: transparent !important;padding: 34px 32px 28px !important}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) :is(.shell,.card)::after {content: "";position: absolute;inset: 0;z-index: 2;pointer-events: none;border-radius: inherit;background: radial-gradient(340px circle at var(--mx,50%) var(--my,0%), rgba(201,166,60,.16), transparent 60%);opacity: 0;transition: opacity .3s ease}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) :is(.shell,.card):hover::after {opacity: 1}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) :is(.shell,.card)::before {content: "";position: absolute;top: -20%;bottom: -20%;left: -60%;width: 38%;z-index: 1;pointer-events: none;background: linear-gradient(100deg, transparent, rgba(255,255,255,.07), transparent);transform: skewX(-18deg) translate3d(0,0,0)}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) :is(.m-brand img, .logo img, .login-hero-logo) {mix-blend-mode: normal !important;-webkit-mask-image: none !important;mask-image: none !important;filter: drop-shadow(0 0 14px rgba(212,175,67,.55))}
+html:root.qt-logo-opaque body.gx-light.gx-login .m-brand img {background: linear-gradient(145deg,#ffffff,#e9c869) !important;padding: 10px 16px;border-radius: 20px !important;box-sizing: content-box;height: 84px !important;width: auto !important;box-shadow: 0 10px 34px rgba(212,175,67,.45), 0 0 0 1px rgba(255,255,255,.5) !important}
+html:root.qt-logo-opaque body.gx-light.gx-portal-login .logo {background: linear-gradient(145deg,#ffffff,#e9c869) !important;border-radius: 20px !important;padding: 8px 14px;box-sizing: border-box;box-shadow: 0 10px 34px rgba(212,175,67,.45), 0 0 0 1px rgba(255,255,255,.5) !important}
+html:root body.gx-light.gx-login .login-head h2,
+html body.gx-light.gx-portal-login :is(.title,h1) {background: linear-gradient(90deg,#fff 0%,#e9c869 35%,#d4af43 70%,#fff 100%);background-size: 220% 100%;-webkit-background-clip: text;background-clip: text;-webkit-text-fill-color: transparent;color: transparent !important}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) :is(.eyebrow,.login-head .eyebrow) {color: #d4af43 !important;text-shadow: 0 0 14px rgba(217,181,67,.55)}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) :is(.field label,label,.checkbox,.row-between) {color: #cfc9be !important}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) :is(.sub,.hint,.footer) {color: #9a9287 !important}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) .row-between a {color: #ddc06a !important}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) .row-between a:hover {color: #d4af43 !important}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) .field {position: relative}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) input:not([type=checkbox]):not(.login-anim-switch) {background: rgba(255,255,255,.055) !important;border: 1px solid rgba(255,255,255,.13) !important;border-radius: 14px !important;color: #f5f2ec !important;box-shadow: inset 0 1px 0 rgba(255,255,255,.05) !important;transition: border-color .2s, box-shadow .25s, background .2s !important}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) input::placeholder {color: #7d7568 !important}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) input:not([type=checkbox]):not(.login-anim-switch):focus {background: rgba(255,255,255,.09) !important;border-color: rgba(212,175,67,.8) !important;box-shadow: 0 0 0 3px rgba(217,181,67,.16), 0 0 26px rgba(212,175,67,.35) !important}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) input:-webkit-autofill {-webkit-text-fill-color: #f5f2ec !important;-webkit-box-shadow: 0 0 0 40px #100e0c inset !important;caret-color: #fff}
+html:root body.gx-light.gx-login .input-wrap svg {stroke: #c9a63c !important;transition: stroke .2s, filter .2s}
+html:root body.gx-light.gx-login .input-wrap:focus-within svg {stroke: #d4af43 !important;filter: drop-shadow(0 0 6px rgba(217,181,67,.8))}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) .field::after {content: "";position: absolute;left: 14px;right: 14px;bottom: -1px;height: 2px;border-radius: 2px;background: linear-gradient(90deg,#d9b543,#d4af43,#ec4899,#f97316,#d9b543);background-size: 200% 100%;transform: scaleX(0);transform-origin: left;transition: transform .35s cubic-bezier(.22,.9,.3,1);pointer-events: none}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) .field:focus-within::after {transform: scaleX(1)}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) :is(.captcha-box,.toggle-pass) {background: rgba(212,175,67,.14) !important;color: #e9c869 !important;border-color: rgba(201,166,60,.45) !important;box-shadow: none !important}
+html:root body.gx-light.gx-login #captchaText {color: #fff !important;text-shadow: 0 0 12px rgba(201,166,60,.9) !important}
+html:root body.gx-light.gx-login .refresh-btn {background: linear-gradient(135deg,#d4af43,#d4af43) !important;border-color: rgba(255,255,255,.2) !important;box-shadow: 0 4px 14px rgba(212,175,67,.5) !important}
+html:root body.gx-light.gx-login .checkbox input {accent-color: #d4af43}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) :is(form > .btn, form button[type=submit]) {position: relative;overflow: hidden;background: linear-gradient(110deg,#c9a63c,#c9a63c,#db2777,#c9a63c) !important;background-size: 260% 100% !important;border: 1px solid rgba(255,255,255,.22) !important;color: #fff !important;letter-spacing: .03em;box-shadow: 0 12px 30px rgba(201,166,60,.50), inset 0 1px 0 rgba(255,255,255,.3) !important;transition: transform .18s ease, box-shadow .25s ease !important}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) :is(form > .btn, form button[type=submit])::after {content: "";position: absolute;top: 0;bottom: 0;left: -40%;width: 30%;background: linear-gradient(100deg, transparent, rgba(255,255,255,.38), transparent);transform: skewX(-20deg);pointer-events: none}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) :is(form > .btn, form button[type=submit]):hover {filter: none !important;transform: translateY(-2px);box-shadow: 0 18px 40px rgba(236,72,153,.5), 0 0 0 3px rgba(224,188,79,.25), inset 0 1px 0 rgba(255,255,255,.35) !important}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) :is(form > .btn, form button[type=submit]):active {transform: translateY(0) scale(.99);filter: none !important}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) .msg.error {background: rgba(239,68,68,.12) !important;color: #3a1f18 !important;border-color: rgba(232,135,107,.45) !important}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) .msg.success {background: rgba(34,197,94,.12) !important;color: #1d2e1f !important;border-color: rgba(111,207,127,.45) !important}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) .login-anim-toggle {background: rgba(13,11,9,.72) !important;border: 1px solid rgba(255,255,255,.16) !important;-webkit-backdrop-filter: blur(14px);backdrop-filter: blur(14px);box-shadow: 0 8px 26px rgba(0,0,0,.5) !important}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) .login-anim-toggle .login-anim-label {color: #cfc9be !important}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) .login-anim-state {color: #9a9287 !important}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) .login-anim-state.is-on {color: #d4af43 !important}
+html:root body.gx-light.gx-login .m-brand {margin-top: 14px !important}
+html:root body.gx-light.gx-portal-login .logo {margin-top: 8px !important}
+html:root body.gx-login, body.gx-portal-login {color-scheme: dark}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) input:not([type=checkbox]):not(.login-anim-switch):-webkit-autofill,
+html body.gx-light:is(.gx-login,.gx-portal-login) input:not([type=checkbox]):not(.login-anim-switch):-webkit-autofill:hover,
+html body.gx-light:is(.gx-login,.gx-portal-login) input:not([type=checkbox]):not(.login-anim-switch):-webkit-autofill:focus,
+html body.gx-light:is(.gx-login,.gx-portal-login) input:not([type=checkbox]):not(.login-anim-switch):-webkit-autofill:active {-webkit-text-fill-color: #f5f2ec !important;-webkit-box-shadow: 0 0 0 1000px #141210 inset !important;box-shadow: 0 0 0 1000px #141210 inset !important;caret-color: #fff !important;border-color: rgba(201,166,60,.55) !important;transition: background-color 600000s 0s, color 600000s 0s !important}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) input:not([type=checkbox]):not(.login-anim-switch):autofill {-webkit-text-fill-color: #f5f2ec !important;box-shadow: 0 0 0 1000px #141210 inset !important}
+html:root body.gx-light.gx-login .shell,
+html body.gx-light.gx-portal-login > .card {-webkit-backdrop-filter: none !important;backdrop-filter: none !important;background: linear-gradient(160deg, rgba(16,14,12,.94) 0%, rgba(10,9,8,.96) 100%) !important}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) .login-anim-toggle {-webkit-backdrop-filter: none !important;backdrop-filter: none !important;background: rgba(13,11,9,.92) !important}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) :is(.shell,.card)::before {left: 0 !important;transform: translate3d(-160%,0,0) skewX(-18deg);will-change: transform}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) :is(form > .btn, form button[type=submit])::after {left: 0 !important;transform: translate3d(-160%,0,0) skewX(-20deg);will-change: transform}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) {padding-top: 12px !important;padding-bottom: 12px !important}
+html:root body.gx-light.gx-login .shell {max-width: 396px !important;border-radius: 22px !important}
+html:root body.gx-light.gx-portal-login > .card {max-width: 396px !important;padding: 22px 26px 18px !important;border-radius: 22px !important}
+html:root body.gx-light.gx-login .login-panel {padding: 20px 28px 16px !important}
+html:root body.gx-light.gx-login .m-brand {margin: 0 0 8px !important}
+html:root body.gx-light.gx-portal-login .logo {background: none !important;box-shadow: none !important;border: 0 !important;border-radius: 0 !important;padding: 0 !important;width: auto !important;height: auto !important;margin: 0 auto 8px !important;overflow: visible !important}
+html:root body.gx-light.gx-login .login-head {margin-bottom: 12px !important}
+html:root body.gx-light.gx-login .login-head h2 {font-size: 22px !important}
+html:root body.gx-light.gx-login .login-head .eyebrow, html body.gx-light.gx-portal-login .eyebrow {margin-bottom: 5px !important;font-size: 10px !important}
+html:root body.gx-light.gx-portal-login :is(.title,h1) {font-size: 22px !important;margin: 4px 0 2px !important}
+html:root body.gx-light.gx-portal-login .sub {font-size: 12.5px !important;margin-bottom: 14px !important}
+html:root body.gx-light.gx-login .field {margin-bottom: 11px !important}
+html:root body.gx-light.gx-portal-login .field {margin-bottom: 11px !important}
+html:root body.gx-light.gx-login .field label, html body.gx-light.gx-portal-login .field label {font-size: 12.5px !important;margin-bottom: 5px !important}
+html:root body.gx-light.gx-login .input-wrap input {height: 42px !important;font-size: 14px !important;border-radius: 12px !important}
+html:root body.gx-light.gx-portal-login input {height: 42px !important;min-height: 42px !important;font-size: 14px !important}
+html:root body.gx-light.gx-login .captcha-row {grid-template-columns: 116px minmax(0,1fr) !important;gap: 10px !important}
+html:root body.gx-light.gx-login .captcha-box {height: 42px !important;border-radius: 12px !important}
+html:root body.gx-light.gx-login .row-between {margin: 2px 0 12px !important}
+html:root body.gx-light.gx-login form > .btn, html body.gx-light.gx-portal-login form button[type=submit] {height: 44px !important;min-height: 44px !important;border-radius: 12px !important;margin-top: 2px !important}
+html:root body.gx-light.gx-login .footer {margin-top: 14px !important}
+html:root body.gx-light.gx-portal-login .hint {margin-top: 12px !important;font-size: 11.5px !important}
+html:root body.gx-light.gx-login .shell,
+html body.gx-light.gx-portal-login > .card {z-index: 1}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) :is(.btn, button, input, a, label) {-webkit-tap-highlight-color: transparent}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) :is(.btn, button, a, .checkbox) {touch-action: manipulation}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) .field label {transition: color .2s ease, transform .25s cubic-bezier(.22,.9,.3,1)}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) .field:focus-within label {color: #d4af43 !important;transform: translate3d(2px,0,0)}
+html:root body.gx-light.gx-login .input-wrap svg {transform-origin: 50% 50%}
+html:root body.gx-light.gx-login .input-wrap:focus-within svg {transform: translateY(-50%) scale(1.12)}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) input:not([type=checkbox]):not(.login-anim-switch):hover:not(:focus) {border-color: rgba(221,192,106,.40) !important;background: rgba(255,255,255,.075) !important}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) :is(.btn, .toggle-pass, .refresh-btn, .row-between a, .checkbox input):focus-visible {outline: 2px solid #d4af43 !important;outline-offset: 3px}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) .toggle-pass {transition: background .18s ease, transform .15s ease, color .18s ease !important}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) .toggle-pass:hover {background: rgba(201,166,60,.30) !important;color: #fff !important}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) .toggle-pass:active {transform: translateY(-50%) scale(.94)}
+html:root body.gx-light.gx-login .refresh-btn svg {transition: transform .35s cubic-bezier(.22,.9,.3,1)}
+html:root body.gx-light.gx-login .refresh-btn.qt-spin svg {animation: qtSpin .5s cubic-bezier(.22,.9,.3,1)}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) .row-between a {background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;transition: background-size .28s ease, color .2s ease;padding-bottom: 1px}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) .row-between a:hover {background-size: 100% 1px}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) :is(form > .btn, form button[type=submit]).qt-busy {cursor: progress}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) :is(form > .btn, form button[type=submit]).qt-busy::before {content: "";position: absolute;left: 0;bottom: 0;height: 3px;width: 40%;background: rgba(255,255,255,.85);border-radius: 3px;transform: translate3d(-100%,0,0)}
+
+/* ---------------------------------------------------------------------------
+   Same rules inside their original media queries (90)
+   ------------------------------------------------------------------------- */
+@media (max-width:767px) {
+html:root body.gx-login .login-panel {padding:26px 22px!important}
+html:root body.gx-login {padding:20px 14px!important}
+html:root body.gx-light.gx-login .login-panel {padding:24px!important}
+html:root body:is(.gx-light,.gx-dark) .content {padding:14px!important}
+html:root body:is(.gx-light,.gx-dark) :is(.btn,.gx-btn,.tb-btn,.hamburger,.hamb) {min-height:44px}
+html:root body:is(.gx-light,.gx-dark) :is(.page-head h2,.head h2) {font-size:22px!important}
+html:root body:is(.gx-light,.gx-dark) :is(.stat-card,.dash-metric) {padding:16px!important}
+html:root body:is(.gx-light,.gx-dark) .gx-btn {width:44px!important;height:44px!important;min-width:44px!important}
+html:root body:is(.gx-light,.gx-dark) .gx-btn:not(:has(> svg)) {width:auto!important;min-width:0!important;height:auto!important;min-height:44px!important;padding:9px 14px!important}
+html:root body:is(.gx-light,.gx-dark) .content {padding:14px 10px!important}
+html:root body:is(.gx-light,.gx-dark) .gx-shortcuts {gap:10px;margin:12px 0 20px}
+html:root body:is(.gx-light,.gx-dark) .gx-shortcut {width:calc(50% - 8px);min-height:70px}
+html:root body:is(.gx-light,.gx-dark) .gx-statement-filters label {flex:1 1 130px}
+html:root body:is(.gx-light,.gx-dark) :is(.card-head,.modal-head) {padding:12px!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .lm-rankings {grid-template-columns:minmax(0,1fr)}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .gx-copy-inline {width:30px;height:30px;margin-left:8px}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .gx-copy-inline svg {width:14px;height:14px}
+}
+@media (max-width:420px) {
+html:root body.gx-portal-login > .card {padding:24px!important}
+html:root body:is(.gx-light,.gx-dark) :is(.stats-grid,.dash-metrics,.gx-dash-grid) {grid-template-columns:minmax(0,1fr)!important}
+}
+@media (max-width:1100px) {
+html:root body:is(.gx-light,.gx-dark) .content {padding:18px!important}
+html:root body:is(.gx-light,.gx-dark) :is(.stats-grid,.dash-metrics,.gx-dash-grid) {grid-template-columns:repeat(2,minmax(0,1fr))!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) #page-dashboard :is(.stats-grid,.gx-dash-grid) {grid-template-columns:repeat(2,minmax(0,1fr))!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .lm-volume-row {grid-template-columns:minmax(0,1fr)}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .lm-summaries {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .lm-volume-svg {max-height:300px}
+}
+@media (min-width:901px) {
+html:root body:is(.gx-light,.gx-dark) :is(.sidebar,.rail,.side) {width:210px!important}
+html:root body:is(.gx-light,.gx-dark) .rail:hover {width:210px!important}
+html:root body:is(.gx-light,.gx-dark) .layout > .main {margin-left:210px!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) :is(.sidebar,.rail,.side,.appbar) {width:210px!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .appbar~.content,body.gx-qtech:is(.gx-light,.gx-dark) .mgr-topbar {margin-left:210px!important;width:calc(100% - 210px)!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark)>.main {margin-left:210px!important}
+}
+@media (max-width:900px) {
+html:root body:is(.gx-light,.gx-dark) :is(.sidebar,.rail).show {width:240px!important}
+html:root body:is(.gx-light,.gx-dark) .layout > .main {margin-left:0!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .mgr-mobile-menu {display:none!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .layout>.side {width:100%!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .content {padding:18px 12px 30px!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) :is(.filter-row,.table-controls,.table-foot,.head-actions,.tc-left,.tc-right) {flex-wrap:wrap;gap:9px}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) :is(.toolbar,.filter-row,.tc-left,.tc-right)>* {max-width:100%}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .table-wrap:has(>table),body.gx-qtech:is(.gx-light,.gx-dark) .table:has(>table),body.gx-qtech:is(.gx-light,.gx-dark) .card:has(>table) {overflow-x:auto}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .lm-earning-cards {grid-template-columns:minmax(0,1fr)}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .grid2,html body.gx-qtech.qd:is(.gx-light,.gx-dark) .two-col {grid-template-columns:1fr!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .content {padding:18px 16px 40px!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .sidebar.show,html body.gx-qtech.qd:is(.gx-light,.gx-dark).qt-sb-open .sidebar {transform:translateX(0)!important;box-shadow:12px 0 40px rgba(10,9,8,.35)!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .overlay {z-index:49}
+}
+@media (max-width:600px) {
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .content {padding:16px 8px 28px!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .gx-shortcuts {gap:12px!important;margin:18px 4px!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .gx-shortcut {width:calc(50% - 8px);max-width:170px;min-height:92px}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) #page-dashboard :is(.stats-grid,.gx-dash-grid) {grid-template-columns:minmax(0,1fr)!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .lm-summaries {grid-template-columns:minmax(0,1fr);gap:0}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .lm-summary {padding:9px 0}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .lm-secondary-row {grid-template-columns:minmax(0,1fr)!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .gx-dash-sub {grid-template-columns:minmax(0,1fr)!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .lm-dashboard-status {text-align:left;line-height:1.6}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .lm-volume-card .chart {padding:10px 6px!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) :is(.btn,.tb-btn,.gx-btn,.pagination button,.hamburger) {min-height:42px!important}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) :is(.who .nm,.who .rl,.tb-title) {max-width:90px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) :is(.topbar,.mgr-topbar) {gap:6px;padding-left:8px;padding-right:8px}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) :is(.clock,.tb-date) {font-size:10px!important;padding-left:4px;padding-right:4px;white-space:nowrap}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .topbar .who {padding:0;border-width:0;gap:4px}
+html:root body.gx-qtech:is(.gx-light,.gx-dark) .topbar .who>div:not(.av) {display:none}
+}
+@media (max-width:620px) {
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .topbar {padding:0 12px}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .page-head h2 {font-size:19px}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .stats-grid {grid-template-columns:1fr 1fr;gap:10px}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .stat-card {padding:12px;gap:10px}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .stat-info .val {font-size:20px}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .modal {width:calc(100vw - 20px)!important;max-width:none!important}
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) .btn,html body.gx-qtech.qd:is(.gx-light,.gx-dark) .tb-btn {min-height:42px}
+}
+@media (prefers-reduced-motion:reduce) {
+html:root body.gx-qtech.qd:is(.gx-light,.gx-dark) *,html body.gx-qtech.qd:is(.gx-light,.gx-dark) *::before {animation:none!important;transition:none!important}
+}
+@media (max-width: 1000px) {
+html:root body.gx-qtech.qd:is(.gx-light, .gx-dark) .grid2 {grid-template-columns: 1fr !important}
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+html:root body.gx-light.gx-login .shell,
+  html body.gx-light.gx-portal-login > .card {background: rgba(233,200,105,.97) !important}
+html:root body.gx-light.gx-login .shell, html body.gx-light.gx-portal-login > .card {background: #0d0b09 !important}
+}
+@media (max-width: 900px) {
+html:root .login-anim-switch,
+  body:is(.gx-light,.gx-dark):is(.gx-login,.gx-portal-login) .login-anim-toggle .login-anim-switch {width: 46px !important;height: 26px !important;min-width: 46px !important;max-width: 46px !important;min-height: 26px !important;border-radius: 999px !important}
+html:root body.gx-light.gx-login .login-panel {padding: 22px 20px 18px !important}
+html:root body.gx-light.gx-login .m-brand img {height: 56px !important;padding: 8px 12px;border-radius: 16px !important}
+html:root body.gx-light.gx-login .m-brand {margin: 0 0 6px !important}
+html:root body.gx-light.gx-login .login-panel {padding: 16px 18px 12px !important}
+html:root body.gx-light.gx-login .login-head h2 {font-size: 20px !important}
+html:root body.gx-light.gx-login .input-wrap input {font-size: 16px !important;height: 46px !important}
+html:root body.gx-light.gx-portal-login input {font-size: 16px !important;height: 46px !important;min-height: 46px !important}
+html:root body.gx-light.gx-login .captcha-box, html body.gx-light.gx-login .captcha-row {--h: 46px}
+html:root body.gx-light.gx-login .captcha-box {height: 46px !important}
+html:root body.gx-light:is(.gx-login,.gx-portal-login) .toggle-pass {padding: 9px 11px !important}
+html:root body.gx-light.gx-login .row-between {min-height: 40px}
+html:root body.gx-light.gx-login .checkbox {min-height: 40px}
+html:root body.gx-light.gx-login .checkbox input {width: 20px !important;height: 20px !important}
+html:root body.gx-light.gx-login form > .btn, html body.gx-light.gx-portal-login form button[type=submit] {height: 48px !important;min-height: 48px !important}
+html:root body.gx-light.gx-login .row-between a {padding: 10px 0}
+}
+@media (max-height: 640px) {
+html:root body.gx-light.gx-login .login-head .eyebrow, html body.gx-light.gx-portal-login .eyebrow,
+  html body.gx-light.gx-login .footer, html body.gx-light.gx-portal-login .sub {display: none !important}
+html:root body.gx-light.gx-login .field, html body.gx-light.gx-portal-login .field {margin-bottom: 8px !important}
+}
+@supports (height: 100dvh) {
+html:root body.gx-light:is(.gx-login,.gx-portal-login) {min-height: 100dvh}
+}
+
+/* ============================================================================
+   HAND-TUNED REFINEMENTS
+   States that need designing rather than colour-translating.
+   ========================================================================== */
+/* ---------------------------------------------------------------------------
+   DESIGN-SYSTEM TOKENS (--ds-*)
+   The admin, manager, agent, client and management panels are driven by the
+   design system in qtech-ds.css, which publishes its palette as --ds-* custom
+   properties. That file defines them TWICE: a light set on
+   'html body.gx-qtech.qd:is(.gx-light,.gx-dark)' and a dark set on
+   'html body.gx-dark.gx-qtech.qd'.
+
+   Because the dark set is keyed to a gx-dark class and the light set is not,
+   a light-mode page picked up the light values and stayed light no matter what
+   the generic tokens said. These are therefore re-declared explicitly, at the
+   same specificity as the design system's own rule and later in the cascade.
+   ------------------------------------------------------------------------- */
+html:root body.gx-qtech.qd:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) {
+  --ds-bg:#0a0908;      --ds-surface:#141210;  --ds-ink:#f2efe8;
+  --ds-text:#e2ddd3;    --ds-muted:#9a9287;
+  --ds-line:#2a2621;    --ds-line2:#3a352c;
+  --ds-brand:#e0bc4f;   --ds-brand-d:#c9a63c;  --ds-brand-t:#241f14;
+  --ds-side:#0d0b09;    --ds-side2:#080706;    --ds-side-hi:#1c1a16;
+  --ds-s2:#12100e;      --ds-hov:#1c1a16;      --ds-row2:#181614;
+  --ds-ok:#6fcf7f;      --ds-warn:#e0a33e;     --ds-bad:#e8876b;
+  --ds-icon:#e0bc4f;
+  --ds-gbg:#132a1d; --ds-gfg:#6fcf7f;
+  --ds-rbg:#33191a; --ds-rfg:#e8876b;
+  --ds-abg:#2e2411; --ds-afg:#e8b955;
+  --ds-pbg:#1e1a10; --ds-cbg:#132428;
+  --accent:#e0bc4f;
+  --border:#2a2621; --border2:#3a352c;
+  --text:#e2ddd3;   --muted:#9a9287;
+  --bg2:#141210;    --row:#141210;
+  --ds-sh:0 1px 2px rgba(0,0,0,.45),0 4px 14px rgba(0,0,0,.30);
+  color-scheme:dark;
+}
+/* Panels that are NOT .qd still need the generic tokens pointed at gold. */
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) {
+  --accent:#e0bc4f; --blue:#e0bc4f; --accent2:#d4af43;
+  --bg:#0a0908; --bg2:#100e0c; --panel:#141210; --panel2:#12100e; --row:#141210;
+  --text:#f2efe8; --text-2:#cfc9be; --muted:#9a9287; --text-muted:#9a9287;
+  --border:#2a2621; --border2:#3a352c;
+  --sidebar:#0d0b09; --topbar:#12100e;
+  --grad:linear-gradient(90deg,#d4af43,#e9c869);
+}
+
+/* ---------------------------------------------------------------------------
+   PRIMARY ACTION — the gold button.
+   Measured from the reference: the button fill runs along hue 45deg from
+   #d4af43 to #e9c869. Its label is dark because gold is a light colour; white
+   on gold fails contrast, near-black on gold is comfortably AA.
+   ------------------------------------------------------------------------- */
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(
+  .btn,.btn-primary,button[type=submit],.login-card .btn,.submit-btn,.primary-btn
+) {
+  background: linear-gradient(90deg,#d4af43 0%,#e9c869 100%) !important;
+  border: 1px solid #b8912f !important;
+  color: #17140a !important;
+  font-weight: 600 !important;
+  box-shadow: none !important;
+  transition: filter .08s linear !important;
+}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(
+  .btn,.btn-primary,button[type=submit],.login-card .btn,.submit-btn,.primary-btn
+):hover { filter: brightness(1.08) !important; }
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(
+  .btn,.btn-primary,button[type=submit],.login-card .btn,.submit-btn,.primary-btn
+):active { filter: brightness(.93) !important; }
+
+/* The generated sheet above also carries a re-mapped rule for
+   form > .btn on the login page (originally a blue gradient). It sits at a
+   higher specificity than the generic button rule and would otherwise win with
+   a flat, dark gold fill and white text. Matched here at equal-or-higher
+   specificity and placed later so the real gold gradient with dark text wins. */
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login).gx-login form > .btn,
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login).gx-portal-login form > .btn,
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) form button[type=submit],
+/* the two portal logins use a bare <button> with no class at all */
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) form button:not([class]) {
+  background: linear-gradient(90deg,#d4af43 0%,#e9c869 100%) !important;
+  background-image: linear-gradient(90deg,#d4af43 0%,#e9c869 100%) !important;
+  border: 1px solid #b8912f !important;
+  color: #17140a !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+/* Secondary / ghost buttons: quiet outline, gold only on interaction. */
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(
+  .btn.ghost,.btn.secondary,.btn:not(.primary):not([type=submit])
+) {
+  background: #1c1a16 !important;
+  border: 1px solid #3a352c !important;
+  color: #cfc9be !important;
+  box-shadow: none !important;
+}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(
+  .btn.ghost,.btn.secondary,.btn:not(.primary):not([type=submit])
+):hover { border-color: #e0bc4f !important; color: #e9c869 !important; }
+
+/* ---------------------------------------------------------------------------
+   SIDEBAR / NAVIGATION
+   ------------------------------------------------------------------------- */
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(
+  .sidebar,.rail,.rail-nav,.sb-nav,.side,.appbar
+) {
+  background: #0d0b09 !important;
+  border-right: 1px solid #2a2621 !important;
+}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(
+  .nav-item,.ritem,.navtab,.side .item,.sidebar .tab,.sub-item,.rsubitem,.dropitem
+).active,
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(
+  .nav-item,.ritem,.navtab,.side .item,.sidebar .tab,.sub-item,.rsubitem,.dropitem
+).active:hover {
+  background: #241f14 !important;
+  color: #e9c869 !important;
+  box-shadow: inset 3px 0 0 #e0bc4f !important;
+}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(
+  .nav-item,.ritem,.navtab,.side .item,.sidebar .tab,.sub-item,.rsubitem,.dropitem
+).active svg { stroke: #e9c869 !important; color: #e9c869 !important; }
+
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(
+  .nav-item,.ritem,.navtab,.side .item,.sidebar .tab,.sub-item,.rsubitem,.dropitem
+):hover { background: #1c1a16 !important; color: #f2efe8 !important; }
+
+/* The design system in qtech-ds.css reaches (0,6,2) with
+   html body.gx-qtech.qd:is(.gx-light,.gx-dark) .nav-item.active, which is far
+   above the generic rule above — so a .qd panel kept white active labels.
+   Repeated under the same .gx-qtech.qd scope to win it back. */
+html:root body.gx-qtech.qd:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login)
+  :is(.nav-item,.sub-item,.ritem,.navtab,.side .item,.sidebar .tab,.rsubitem,.dropitem).active,
+html:root body.gx-qtech.qd:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login)
+  :is(.nav-item,.sub-item,.ritem,.navtab,.side .item,.sidebar .tab,.rsubitem,.dropitem).active:hover {
+  background: #241f14 !important;
+  color: #e9c869 !important;
+  box-shadow: inset 3px 0 0 #e0bc4f !important;
+}
+html:root body.gx-qtech.qd:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login)
+  :is(.nav-item,.sub-item,.ritem,.navtab,.side .item,.sidebar .tab).active svg {
+  stroke: #e9c869 !important; color: #e9c869 !important;
+}
+html:root body.gx-qtech.qd:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login)
+  :is(.nav-item,.sub-item).active > * { color: #e9c869 !important; }
+
+/* ---------------------------------------------------------------------------
+   FORMS
+   ------------------------------------------------------------------------- */
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(
+  input:not([type=checkbox]):not([type=radio]):not([type=hidden]),
+  select,textarea,.sd-trigger,.input-wrap
+) {
+  background: #100e0c !important;
+  border: 1px solid #3a352c !important;
+  color: #f2efe8 !important;
+}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(
+  input:not([type=checkbox]):not([type=radio]):not([type=hidden]),
+  select,textarea
+):focus {
+  border-color: #e0bc4f !important;
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(224,188,79,.22) !important;
+}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(
+  input::placeholder,textarea::placeholder
+) { color: #7d7568 !important; }
+
+/* ---------------------------------------------------------------------------
+   TABLES / PAGINATION
+   ------------------------------------------------------------------------- */
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(th) {
+  background: #12100e !important;
+  color: #b09a6a !important;
+  border-bottom: 1px solid #3a352c !important;
+  font-weight: 600 !important;
+}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(td) {
+  border-bottom: 1px solid #221f1a !important;
+  color: #e2ddd3 !important;
+}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) tbody tr:hover td { background: #1c1a16 !important; }
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) .pagination button.active,
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) .pagination button:hover:not(:disabled) {
+  background: #e0bc4f !important; border-color: #e0bc4f !important; color: #17140a !important;
+}
+
+/* ---------------------------------------------------------------------------
+   DASHBOARD STAT CARDS
+   qtech.css gives the metric cards four unrelated brand gradients — indigo
+   (#4338ca), pink (#db2777), purple (#7c3aed) and orange (#f59e0b). They are
+   the most saturated thing on the dashboard and they fight a gold theme.
+   They are re-voiced as four STEPS OF THE SAME GOLD/AMBER FAMILY: still
+   distinguishable from one another at a glance, but unmistakably one palette.
+   ------------------------------------------------------------------------- */
+html:root body :is(.qt-card.qt-indigo) {
+  background: linear-gradient(135deg,#7a5f1e 0%,#a8842a 100%) !important;
+}
+html:root body :is(.qt-card.qt-purple) {
+  background: linear-gradient(135deg,#a8842a 0%,#d4af43 100%) !important;
+}
+html:root body :is(.qt-card.qt-orange) {
+  background: linear-gradient(135deg,#b8791f 0%,#e0a33e 100%) !important;
+}
+html:root body :is(.qt-card.qt-pink) {
+  background: linear-gradient(135deg,#8a5a2a 0%,#c08a3e 100%) !important;
+}
+/* White-on-gradient labels are kept, but softened so the cards read as one set. */
+html:root body :is(.qt-card.qt-indigo,.qt-card.qt-purple,.qt-card.qt-orange,.qt-card.qt-pink)
+  :is(.qt-label,.qt-value) { color: #fff8e6 !important; }
+
+/* ---------------------------------------------------------------------------
+   LOGIN SHELL
+   qtech-login-anim.css:616 paints the login shell navy with
+   html body.gx-light.gx-login .shell{background:#0c1028!important} at
+   (0,3,2). It is the single largest surface on the login page, so leaving it
+   navy made the whole page read blue. Rematched one class higher.
+   ------------------------------------------------------------------------- */
+html:root body.gx-light.gx-login .shell,
+html:root body.gx-light.gx-portal-login .shell,
+html:root body.gx-light.gx-portal-login > .card,
+html:root body:is(.gx-dark,.gx-login,.gx-portal-login) .shell {
+  background: #0a0908 !important;
+  border-color: #2a2621 !important;
+}
+
+/* ---------------------------------------------------------------------------
+   LOGIN CARD — the reference design
+   ------------------------------------------------------------------------- */
+html body:is(.gx-login,.gx-portal-login) .login-card,
+html:root body:is(.gx-dark,.gx-light) .login-card {
+  background: #141210 !important;
+  border: 1px solid #2a2621 !important;
+  border-radius: 14px !important;
+  box-shadow: 0 10px 30px rgba(0,0,0,.5) !important;
+}
+html body:is(.gx-login,.gx-portal-login) .field label { color: #b09a6a !important; }
+html body:is(.gx-login,.gx-portal-login) a,
+html:root body:is(.gx-dark,.gx-light) a { color: #e0bc4f !important; }
+html body:is(.gx-login,.gx-portal-login) .m-brand-t b,
+html body:is(.gx-login,.gx-portal-login) .login-head h2 { color: #f2efe8 !important; }
+html body:is(.gx-login,.gx-portal-login) .footer,
+html body:is(.gx-login,.gx-portal-login) .m-brand-t span { color: #9a9287 !important; }
+
+/* ---------------------------------------------------------------------------
+   SURFACES
+   ------------------------------------------------------------------------- */
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(
+  .card,.panel,.table-wrap,.toolbar,.modal-box,.ms-modal,.box,.qt-chart-card,.qt-wcard
+) {
+  background: #141210 !important;
+  border-color: #2a2621 !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,.45) !important;
+}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(
+  .card-head,.modal-head,.ms-modal-head,.toolbar,.table-controls,.table-foot,.topbar,.appbar
+) {
+  background: #12100e !important;
+  border-color: #2a2621 !important;
+}
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(
+  h1,h2,h3,h4,b,strong,.title,.nm,.tb-title,.t1,.pt
+) { color: #f2efe8 !important; }
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(
+  .muted,.hint,.sub,.breadcrumb,.card-head .sub
+) { color: #9a9287 !important; }
+
+/* ---------------------------------------------------------------------------
+   PORTAL LOGIN BUTTONS
+   The payment and panel-sharing logins use a bare <button> with no class.
+   A re-mapped rule body.gx-light.gx-portal-login form button was winning
+   with a flat dark-gold fill and WHITE text — poor contrast on mid-gold.
+   Rematched at equal specificity and placed last so gold + near-black wins.
+   ------------------------------------------------------------------------- */
+html:root body.gx-light.gx-portal-login :is(form > .btn, form button),
+html:root body.gx-light.gx-login :is(form > .btn, form button),
+html:root body.gx-dark.gx-portal-login :is(form > .btn, form button),
+html:root body.gx-dark.gx-login :is(form > .btn, form button) {
+  background: linear-gradient(90deg,#d4af43 0%,#e9c869 100%) !important;
+  color: #17140a !important;
+}

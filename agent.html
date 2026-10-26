@@ -330,7 +330,9 @@ thead th{font-size:11.5px!important;letter-spacing:.25px!important;}
 
 <script src="/assets/number-copy.js?v=20260928-final"></script>
 <link rel="stylesheet" href="/assets/qtech-motion.css?v=motion-20261021"/><script src="/assets/qtech-motion.js?v=motion-20261021" defer></script>
-<link rel="stylesheet" href="/branding/runtime.css"/><script src="/branding/runtime.js" defer></script></head>
+<link rel="stylesheet" href="/branding/runtime.css"/>
+<link rel="stylesheet" href="/assets/zoom-theme.css?v=zoom-20261026"/>
+<link rel="stylesheet" href="/assets/zoom-motion-off.css?v=zoom-20261026"/><script src="/branding/runtime.js" defer></script></head>
 <body class="gx-light gx-qtech qd">
 <div class="layout">
   <!-- ===== ICON RAIL ===== -->
@@ -1405,7 +1407,7 @@ async function loadDashboard(){
     {label:'Last 7 Days', value:d.sms_7d||0, tone:'purple', spark:spark},
     {label:'This Month', value:d.sms_month||0, tone:'orange', spark:spark}
   ]);
-  window.QTDashboard.areaChart('qtSmsChart',{title:'SMS Last 7 Days',series:'SMS',color:'#6d5df6',rows:d.daily7,valueKey:'count',ariaLabel:'Received SMS per day for the last seven UK reporting days'});
+  window.QTDashboard.areaChart('qtSmsChart',{title:'SMS Last 7 Days',series:'SMS',color:'#e0bc4f',rows:d.daily7,valueKey:'count',ariaLabel:'Received SMS per day for the last seven UK reporting days'});
   window.QTDashboard.statGroup('qtScope','Account',[
     {label:'Number of Clients', value:d.clients||0, icon:'clients'},
     {label:'My Numbers', value:d.numbers||0, icon:'numbers'}
