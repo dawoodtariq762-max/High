@@ -511,7 +511,14 @@
   function brandLogoUrl() {
     try {
       var b = window.QTECH_BRAND;
+      /* An uploaded logo always wins. */
       if (b && b.assets && b.assets.logo) return b.assets.logo;
+      /* Otherwise fall back to the SHIPPED mark rather than returning ''.
+         Previously an empty value made brandLogos() replace every logo <img>
+         with a generated inline SVG, so the logo shipped in assets/ never
+         appeared on the login card at all. The shipped file is a transparent
+         PNG, so it no longer needs the SVG workaround. */
+      if (b && b.logo) return b.logo;
     } catch (e) {}
     return '';
   }

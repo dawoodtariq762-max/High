@@ -267,8 +267,8 @@ module.exports = function branding(app, ctx) {
         favicon: s.assets.favicon ? '/branding/asset/favicon' : '',
       },
       // the login page's shipped transparent mark stays the fallback
-      defaultLogo: '/assets/zoom-logo-transparent.png?v=zoom-20261025',
-      defaultFavicon: '/assets/zoom-favicon.png?v=zoom-20261025',
+      defaultLogo: '/assets/zoom-logo-transparent.png?v=zoom-20261026',
+      defaultFavicon: '/assets/zoom-favicon.png?v=zoom-20261026',
     };
   }
 
