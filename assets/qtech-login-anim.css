@@ -295,7 +295,7 @@ html body.gx-light.gx-login .login-panel { background: transparent !important; }
  *    white background, so on the glass card it is blended with `multiply`:
  *    white disappears into the card, the artwork keeps its colours, nothing is
  *    stretched (object-fit/size still come from qtech.css). To rebrand, replace
- *    assets/zoom-logo-square.png?v=zoom-20261025 — any logo (white OR transparent background)
+ *    assets/zoom-logo-square-v2.png — any logo (white OR transparent background)
  *    works with no CSS change.
  * ------------------------------------------------------------------ */
 html body.gx-light:is(.gx-login,.gx-portal-login) :is(.m-brand img, .logo img, .login-hero-logo) {

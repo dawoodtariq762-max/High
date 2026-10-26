@@ -264,8 +264,8 @@ async function runTests() {
   }
   for (const role of ['admin','manager','agent','client']) {
     const html = fs.readFileSync(path.join(__dirname, '..', role + '.html'), 'utf8');
-    assert.ok(html.includes('/assets/zoom-logo-square.png?v=zoom-20261025'), role + '.html must use the supplied ZOOM logo');
-    assert.ok(html.includes('/assets/zoom-favicon.png?v=zoom-20261025'), role + '.html must use the ZOOM favicon');
+    assert.ok(html.includes('/assets/zoom-logo-square-v2.png'), role + '.html must use the supplied ZOOM logo');
+    assert.ok(html.includes('/assets/zoom-favicon-v2.png'), role + '.html must use the ZOOM favicon');
   }
   console.log('  ✓ PASS: Branding is consistently "ZOOM SMS" (no old brand names, supplied logo in use) and "Agent Account PIN".');
 
