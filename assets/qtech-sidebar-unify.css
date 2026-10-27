@@ -28,7 +28,13 @@
   max-width: 210px !important;
   flex-shrink: 0 !important;
   z-index: 50 !important;
-  transform: translateX(0) !important;
+  /* No `transform: translateX(0)` here. `left: 0` already puts the bar at x=0,
+     and pinning the transform with !important outranked the responsive states
+     in qtech-chrome.css — notably the mobile closed state
+     `translateX(-105%)`, which carries no !important of its own. The result was
+     a sidebar that could never be moved off-canvas on a phone. The open/closed
+     transform is owned by qtech-chrome.css, which is media-query scoped and
+     correctly weighted. */
   transition: transform .32s cubic-bezier(.22, .8, .24, 1),
               box-shadow .32s ease !important;
   will-change: transform;

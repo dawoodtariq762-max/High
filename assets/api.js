@@ -369,6 +369,13 @@
       const a=e.target.closest('a.ms-page-link-overlay');
       if(!a) return;
       if(e.button!==0 || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return;
+      /* activatePageFromHistory() restores the last open page on load by firing a
+         synthetic click on this link. That is not the user choosing a page, so it
+         must not run closeAllSidebars() — otherwise the mobile drawer was opened
+         by QTNav.init() and immediately slammed shut again by its own route
+         restore, and the panel always loaded with the menu closed. The sibling
+         [data-page] handler below already carries this guard. */
+      if(window.__msHistoryNav) return;
       e.preventDefault(); e.stopPropagation();
       const page=a.dataset.page || 'dashboard';
       activatePageFromHistory(page);
@@ -586,12 +593,24 @@
   function activatePageFromHistory(page){
     if(!page) page='dashboard';
     try{ localStorage.setItem('ms_last_page_'+panelKeyForStorage(), page); }catch(e){}
-    if(typeof window.showPageByName==='function') { window.showPageByName(page); return; }
-    const safePage=String(page).replace(/"/g,'\\"');
-    const el=document.querySelector(`[data-page="${safePage}"]`);
-    if(el){ window.__msHistoryNav=1; el.click(); setTimeout(()=>{window.__msHistoryNav=0;},0); return; }
-    const target=document.getElementById('page-'+page);
-    if(target){ document.querySelectorAll('.page').forEach(p=>p.classList.remove('active')); target.classList.add('active'); }
+    /* This is a PROGRAMMATIC restore of the last open page, not the user
+       choosing one. Several panels — Management in particular — reach
+       showPage(), which ends with `if(window.innerWidth<=900) closeSidebar();`.
+       Without a flag the drawer that QTNav.init() just opened on a phone is
+       closed again by the panel's own route restore, and the panel always
+       loaded with the menu shut. The flag is honoured by the adopted
+       close* delegates below and by the page-link click handlers above. */
+    window.__msHistoryNav = 1;
+    try {
+      if(typeof window.showPageByName==='function') { window.showPageByName(page); return; }
+      const safePage=String(page).replace(/"/g,'\\"');
+      const el=document.querySelector(`[data-page="${safePage}"]`);
+      if(el){ el.click(); return; }
+      const target=document.getElementById('page-'+page);
+      if(target){ document.querySelectorAll('.page').forEach(p=>p.classList.remove('active')); target.classList.add('active'); }
+    } finally {
+      setTimeout(()=>{ window.__msHistoryNav=0; },0);
+    }
   }
   function currentPageName(){
     const active=document.querySelector('.page.active');
@@ -783,6 +802,20 @@
     open: function(){ this.apply(true); },
     close: function(){ this.apply(false); },
     toggle: function(){ this.apply(!this.isOpen()); },
+    /* The drawer is seated below the top bar on narrow screens (qtech-chrome.css)
+       so the hamburger stays tappable. The top bar is height:auto and wraps on
+       very narrow viewports, so its height cannot be hard-coded — measure it and
+       publish it as --qt-topbar-h. */
+    measureTopbar: function(){
+      try{
+        const p = this.find();
+        const tb = document.querySelector('.topbar, .tb1, .headerbar, .mgr-topbar');
+        const h = (p && p.nav && p.nav.getBoundingClientRect)
+          ? this.narrow() && tb ? Math.round(tb.getBoundingClientRect().height) : 0
+          : 0;
+        document.documentElement.style.setProperty('--qt-topbar-h', (h || 0) + 'px');
+      }catch(e){}
+    },
     /* Is this nav entry a SUBMENU TOGGLE parent rather than a navigation link?
        Two independent signals, either is enough:
          - its own onclick calls the panel's toggle helper (toggleSub / toggleRsub /
@@ -820,6 +853,14 @@
       /* any navigation click closes an off-canvas menu (no reload, no state loss) */
       p.nav.addEventListener('click', function(e){
         if (!self.narrow()) return;
+        /* A programmatic restore is not the user tapping a link. On load,
+           activatePageFromHistory() re-opens the last page by calling
+           showPageByName(), which clicks the matching nav entry — landing here
+           and closing the very drawer QTNav.init() had just opened, so a phone
+           always loaded with the menu shut. Real taps are unaffected:
+           __msHistoryNav is set only inside activatePageFromHistory and cleared
+           on the next tick. */
+        if (window.__msHistoryNav) return;
         const hit = e.target.closest('.nav-item, .sub-item, .ritem, .rsubitem, .navtab, .dropitem, .tab, .item');
         if (!hit) return;
         /* SUBMENU TOGGLE PARENTS must NOT close the menu. Closing here slid the
@@ -838,10 +879,16 @@
           /* crossing the breakpoint must never leave a stuck overlay or a hidden bar */
           if (self.narrow()) document.body.classList.remove('qt-sb-collapsed');
           else { document.body.classList.remove('qt-sb-open'); p.nav.classList.remove('show'); p.overlay.classList.remove('show'); try{ document.body.style.overflow=''; }catch(e){} }
+          self.measureTopbar();
           self.apply(self.isOpen());
         }, 120);
       });
-      this.apply(this.isOpen());
+      this.measureTopbar();
+      /* Mobile: the drawer is OPEN when a panel first loads (i.e. right after
+         login), which is how it behaved before the theme work. Desktop keeps
+         its own default, which is open too, so this only affects narrow
+         screens where the base style is off-canvas. */
+      if (this.narrow()) this.apply(true); else this.apply(this.isOpen());
     }
   };
   window.QTNav = QTNav;
@@ -852,7 +899,12 @@
     Object.keys(map).forEach(function(name){
       if (typeof window[name] !== 'function') return;
       if (window[name].__qtNav) return;
-      const fn = function(){ QTNav[map[name]](); };
+      /* A close that arrives while the last page is being restored
+         programmatically is not the user dismissing the menu — ignore it so the
+         drawer stays open on a phone after login. Real clicks and taps are
+         unaffected: __msHistoryNav is only set inside activatePageFromHistory,
+         and cleared on the next tick. */
+      const fn = function(){ if (window.__msHistoryNav) return; QTNav[map[name]](); };
       fn.__qtNav = true;
       window[name] = fn;
     });

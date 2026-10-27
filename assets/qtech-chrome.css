@@ -64,6 +64,15 @@ body.gx-qtech :is(.overlay,.sb-overlay,.mgr-mobile-overlay){background:rgba(6,12
 /* ---- narrow screens: off-canvas, no overlap, no horizontal scroll ---- */
 @media(max-width:900px){
   body.gx-qtech{overflow-x:hidden;}
+  /* The hamburger lives in the top bar. The drawer is a full-height overlay, so
+     left as-is it slid over the top bar and sat on top of the button — the menu
+     could be opened but never closed by tapping it. The top bar is raised above
+     the drawer, and the drawer is seated directly below it, so the toggle stays
+     reachable and the drawer keeps its own brand row.
+     The top bar is height:auto (it wraps on narrow screens), so its height is
+     measured at runtime into --qt-topbar-h by QTNav. */
+  body.gx-qtech :is(.topbar,.tb1,.headerbar,.mgr-topbar){z-index:60!important;}
+  body.gx-qtech :is(.sidebar,.rail,.side,.appbar){top:var(--qt-topbar-h,0px)!important;}
   body.gx-qtech :is(.sidebar,.rail,.side,.appbar){transform:translateX(-105%);transition:transform .26s cubic-bezier(.4,0,.2,1);}
   body.gx-qtech.qt-sb-open :is(.sidebar,.rail,.side,.appbar){transform:translateX(0)!important;}
   body.gx-qtech :is(.layout>.main,.main){margin-left:0!important;}

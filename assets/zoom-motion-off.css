@@ -167,6 +167,22 @@ html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx
 ) {
   transition: none !important;
   animation: none !important;
+}
+
+/* `transform` may only be frozen on elements whose OPEN/CLOSED STATE is not
+   itself a transform.
+
+   The sidebar, rail and appbar are POSITIONED by transform — translateX(0) is
+   open, translateX(-105%) is closed. Freezing transform here pinned them
+   permanently open: the desktop collapse never moved, and on mobile the
+   off-canvas sidebar stayed over the top bar, covering the hamburger so the
+   menu could not be closed at all. Only the travel time is removed, never the
+   position. Sub-menus expand with max-height, so they are safe to freeze. */
+html:root body:is(.gx-dark,.gx-light,.gx-login,.gx-portal-login):is(.gx-dark,.gx-light,.gx-login,.gx-portal-login) :is(
+  .submenu,.dropdown,.dropdown-menu,.menu,.qm-menu,
+  .modal,.modal-box,.modal-overlay,.ms-modal,
+  .nav-item,.sub-item,.dropitem,.ritem,.navtab,.sidebar .tab
+) {
   transform: none !important;
 }
 
