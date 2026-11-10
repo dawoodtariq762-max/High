@@ -1438,6 +1438,32 @@ function payoutRateForPaymentCycle(row, cycle){
   return '0';
 }
 function payoutRateForPaymentType(row, type){ return payoutRateForPaymentCycle(row, type); }
+
+/* ---------------------------------------------------------------------------
+ * CLIENT PAYOUT RULE
+ *
+ * Allocation is tiered:  Admin -> Manager -> Agent -> Client, and every tier
+ * carries its own rate (manager_rate / agent_rate / client_rate).
+ *
+ * A number that is allocated to a CLIENT must pay out at the rate the AGENT
+ * assigned to that client (numbers.client_rate) — never the agent's own rate
+ * and never the rate the manager gave the agent. Those upstream rates are what
+ * the agent and the manager earn; showing them to the client overstates what
+ * the client is owed.
+ *
+ * If the agent left the client rate blank or set it to zero, the payout is
+ * zero. It must NOT fall back to the manager->agent rate, to the range rate
+ * card, or to anything else: a blank is a deliberate zero, not a missing value.
+ *
+ * Returns null when the number is not allocated to a client, which tells the
+ * caller to use the normal tier logic unchanged (so manager->agent behaviour
+ * is preserved exactly as it was).
+ * ------------------------------------------------------------------------- */
+function clientPayoutRateForNumber(n){
+  if (!n || !n.client_id) return null;                 // not a client number
+  const v = normalizeDecimalString(n.client_rate);
+  return isPositiveDecimal(v) ? v : '0';               // blank or 0 stays 0
+}
 /* P19k #4: Provider Rate for a payment cycle — payoutRateForPaymentCycle ke EXACT candidate
    order wala mirror (daily: 1/1 -> 7/1 -> 30/45; weekly_7_7: 7/7 -> 7/1 -> ...; waghera),
    lekin sirf provider_rate_* columns se (number-level override provider rate pe lagu
@@ -2705,6 +2731,23 @@ function buildNumberQuery(user, q) {
     if (user.role === 'admin') where.push('(manager_id IS NOT NULL OR agent_id IS NOT NULL OR client_id IS NOT NULL)');
     else { const col = numberOwnerColumnForRole(user.role); where.push(`${col} IS NOT NULL`); }
   }
+  /* ---------------------------------------------------------------------
+   * PER-TIER ALLOCATION FILTERS (Admin SMS Numbers)
+   *
+   * The single `allocation` filter above is role-relative: for an admin it
+   * asks whether the number is allocated AT ALL, which cannot express "held by
+   * a manager but not yet passed to an agent". These two are independent and
+   * per-tier, so they can be combined — mgr_alloc=allocated AND
+   * agt_alloc=unallocated is exactly "with a manager, still waiting for an
+   * agent". Each is keyed off its own column and neither touches the other.
+   * Admin-only: no other role can see both tiers at once.
+   * ------------------------------------------------------------------- */
+  if (user.role === 'admin') {
+    if (q.mgr_alloc === 'unallocated')      where.push('n.manager_id IS NULL');
+    else if (q.mgr_alloc === 'allocated')   where.push('n.manager_id IS NOT NULL');
+    if (q.agt_alloc === 'unallocated')      where.push('n.agent_id IS NULL');
+    else if (q.agt_alloc === 'allocated')   where.push('n.agent_id IS NOT NULL');
+  }
   return { where: where.join(' AND '), params, need };
 }
 /**
@@ -3257,6 +3300,136 @@ function handleAllocate(req, res) {
 
 // unallocate selected numbers (clear the caller's ownership level downward, without changing old SMS snapshots)
 app.post('/api/numbers/allocate', authRequired, (req, res) => { handleAllocate(req, res); });
+
+/* =========================================================================
+ * RETURN NUMBERS — move numbers back UP the hierarchy, one level at a time.
+ * -------------------------------------------------------------------------
+ * Allocation flows downward:  Admin -> Manager -> Agent -> Client.
+ * Returning is the exact reverse, and only ever one step per operation:
+ *
+ *   client  -> clears client_id                     (stays with agent + manager)
+ *   agent   -> clears agent_id and client_id        (stays with manager)
+ *   manager -> clears manager_id, agent_id, client_id (returns to admin)
+ *   admin   -> not a thing; admin is the top of the chain
+ *
+ * Downstream links are cleared together with the level, because a client
+ * cannot remain attached to an agent that no longer holds the number — but
+ * UPSTREAM allocations are deliberately left alone. That is the whole point:
+ * a client's return must not disturb the agent's or manager's holding.
+ *
+ * Safety, mirroring handleAllocate:
+ *   - caller scope guard  (numberScope): only numbers inside the caller's tree
+ *   - ownership guard: only numbers whose <role>_id is the caller, so nobody
+ *     can return another user's numbers
+ *   - temp table instead of WHERE id IN (?,?,…) so bulk returns are not bound
+ *     by SQLite's variable limit
+ *   - one BEGIN IMMEDIATE transaction, so a concurrent duplicate cannot both
+ *     "succeed"
+ *   - a number_history row per number, so the move stays on the record
+ *   - numbers already unallocated at this level simply do not match the
+ *     ownership guard, which makes a duplicate return a no-op (counted as
+ *     skipped) rather than a second mutation
+ * ========================================================================= */
+const RETURN_LEVEL = {
+  client:  { col: 'client_id',  to: 'agent',
+             clears: { client_id: null, client_rate: '', payout: '0' } },
+  agent:   { col: 'agent_id',   to: 'manager',
+             clears: { agent_id: null, agent_rate: '', client_id: null, client_rate: '', payout: '0' } },
+  manager: { col: 'manager_id', to: 'admin',
+             clears: { manager_id: null, manager_rate: '', agent_id: null, agent_rate: '',
+                       client_id: null, client_rate: '', payout: '0' } },
+};
+
+function handleReturnNumbers(req, res) {
+  const ids = (req.body && req.body.ids) || [];
+  if (!Array.isArray(ids) || !ids.length)
+    return res.status(400).json({ error: 'ids[] is required' });
+
+  const level = RETURN_LEVEL[req.user.role];
+  if (!level)
+    return res.status(403).json({
+      error: 'Admin is the top of the allocation hierarchy and has no level above it to return numbers to.'
+    });
+
+  const cleanIds = [...new Set(ids.map(x => parseInt(x, 10)).filter(x => Number.isFinite(x) && x > 0))];
+  if (!cleanIds.length) return res.status(400).json({ error: 'No valid number ids supplied' });
+
+  const scope = numberScope(req.user, 'n');
+  const TEMP = 'tmp_return_ids';
+  const CHUNK = 5000;
+  let returned = 0, skipped = 0;
+  const sample = [];
+
+  try {
+    if (!db.inTransaction()) db.exec('BEGIN IMMEDIATE');
+    db.execNoSave(`DROP TABLE IF EXISTS ${TEMP}`);
+    db.execNoSave(`CREATE TEMP TABLE ${TEMP} (id INTEGER PRIMARY KEY)`);
+    for (let i = 0; i < cleanIds.length; i += CHUNK) {
+      const chunk = cleanIds.slice(i, i + CHUNK);
+      db.runNoSave(`INSERT OR IGNORE INTO ${TEMP} (id) VALUES ${chunk.map(() => '(?)').join(',')}`, chunk);
+    }
+
+    /* OWNERSHIP + SCOPE: only numbers currently allocated to this caller at
+       their own level, and only inside their own branch of the tree. */
+    const rows = db.all(
+      `SELECT n.id, n.number, n.manager_id, n.agent_id, n.client_id
+         FROM numbers n
+        WHERE n.id IN (SELECT id FROM ${TEMP})
+          AND n.${level.col} = ?
+          AND ${scope.where}`,
+      [req.user.id, ...scope.params]
+    );
+
+    skipped = cleanIds.length - rows.length;   // not found, or not theirs to return
+
+    if (rows.length) {
+      const keys = Object.keys(level.clears);
+      const setSql = keys.map(k => `${k}=?`).join(', ');
+      const setVals = keys.map(k => level.clears[k]);
+      const owned = rows.map(r => r.id);
+      for (let i = 0; i < owned.length; i += CHUNK) {
+        const chunk = owned.slice(i, i + CHUNK);
+        db.runNoSave(
+          `UPDATE numbers SET ${setSql} WHERE id IN (${chunk.map(() => '?').join(',')})`,
+          [...setVals, ...chunk]
+        );
+      }
+      returned = owned.length;
+      sample.push(...rows.slice(0, 10).map(r => r.number));
+
+      const who = req.user.username || '';
+      rows.forEach(r => {
+        logNumberHistory(req, { id: r.id, number: r.number }, 'return',
+          who, level.to,
+          `Returned by ${req.user.role} ${who} up to ${level.to} level`);
+      });
+    }
+
+    db.execNoSave(`DROP TABLE IF EXISTS ${TEMP}`);
+    if (db.inTransaction()) db.exec('COMMIT');
+
+    bumpNumbersVer();
+    logAction(req, 'return_numbers', 'numbers',
+      { count: returned, skipped, from_role: req.user.role, to_level: level.to });
+    if (app.broadcastSseAll) app.broadcastSseAll('allocation_update',
+      { action: 'return', count: returned, from_role: req.user.role, to_level: level.to, timestamp: Date.now() });
+
+    return res.json({
+      ok: true, returned, skipped,
+      returned_numbers: sample,
+      to_level: level.to,
+      message: returned
+        ? `${returned} number${returned === 1 ? '' : 's'} returned to ${level.to} level.`
+        : 'Nothing to return — those numbers are not allocated to you.'
+    });
+  } catch (e) {
+    try { db.execNoSave(`DROP TABLE IF EXISTS ${TEMP}`); } catch (_) {}
+    try { if (db.inTransaction()) db.exec('ROLLBACK'); } catch (_) {}
+    console.error('[RETURN] failed:', e.message);
+    return res.status(500).json({ error: 'Return failed: ' + e.message });
+  }
+}
+app.post('/api/numbers/return', authRequired, (req, res) => { handleReturnNumbers(req, res); });
 
 /* =========================================================================
  * PART 3 - 13: AGENT SELF-ALLOCATION API (ATOMIC & LIMIT-ENFORCED)
@@ -4549,9 +4722,15 @@ app.get('/api/stats/:by', authRequired, (req, res) => {
 
 /* ============ CLI SEARCH & ANALYTICS ============ */
 function cliSearchScope(user, alias='s') {
-  if (!['admin','manager'].includes(user.role)) return null;
+  /* CLI Search is available to all four panel roles. Each one is confined to
+     the SMS rows it owns, so an agent can only look up CLIs that sent to the
+     agent's own numbers and a client only those on the client's own numbers —
+     the same ownership rule smsScopeWhere() applies everywhere else. */
+  if (!['admin','manager','agent','client'].includes(user.role)) return null;
   const p = alias ? alias + '.' : '';
   if (user.role === 'manager') return { where: `${p}manager_id=?`, params: [user.id] };
+  if (user.role === 'agent')   return { where: `${p}agent_id=?`,   params: [user.id] };
+  if (user.role === 'client')  return { where: `${p}client_id=?`,  params: [user.id] };
   return { where: '1=1', params: [] };
 }
 function hasCustomDate(q){ return !!(q.from || q.to); }
@@ -4571,19 +4750,20 @@ function cliBaseWhere(user, cli, q, alias='s') {
   const where=[scope.where, `${p}cli=?`, dr.where];
   return { where: where.join(' AND '), params:[...scope.params, cli, ...dr.params] };
 }
-app.get('/api/cli-search/suggestions', authRequired, requireRole('admin','manager'), (req,res)=>{
+app.get('/api/cli-search/suggestions', authRequired, requireRole('admin','manager','agent','client'), (req,res)=>{
   const prefix=String(req.query.q||'').trim();
   if(!prefix) return res.json([]);
   const scope=cliSearchScope(req.user,'s');
+  if(!scope) return res.status(403).json({error:'Forbidden'});
   const rows=db.all(`SELECT s.cli AS cli, COUNT(*) AS count
     FROM sms_records s
     WHERE ${scope.where} AND s.cli IS NOT NULL AND s.cli<>'' AND LOWER(s.cli) LIKE ?
     GROUP BY s.cli
     ORDER BY count DESC, s.cli ASC
-    LIMIT 20`, [...scope.params, prefix+'%']);
+    LIMIT 20`, [...scope.params, prefix.toLowerCase()+'%']);
   res.json(rows);
 });
-app.get('/api/cli-search', authRequired, requireRole('admin','manager'), (req,res)=>{
+app.get('/api/cli-search', authRequired, requireRole('admin','manager','agent','client'), (req,res)=>{
   const cli=String(req.query.cli||'').trim();
   if(!cli) return res.status(400).json({error:'CLI is required'});
   const custom=hasCustomDate(req.query);
@@ -6326,8 +6506,13 @@ app.post('/api/failed-sms/:id/retry', authRequired, requireRole('admin'), (req,r
   const rangeForRetry=db.get('SELECT * FROM ranges WHERE id=?',[n.range_id])||{};
   const retryPaymentCycle=assignedPaymentCycleForNumber(n, rangeForRetry);
   const retryPaymentType=normalizePaymentType(retryPaymentCycle);
-  const effectiveRetryRate = n.agent_id ? (n.agent_rate || (!n.manager_id ? n.rate : '')) : (n.manager_id ? (n.manager_rate || n.rate) : (n.rate || ''));
-  const retryRate=payoutRateForPaymentCycle({...rangeForRetry, number_rate:effectiveRetryRate, number_payout:n.payout}, retryPaymentCycle);
+  const retryClientRate = clientPayoutRateForNumber(n);
+  const effectiveRetryRate = retryClientRate !== null
+    ? retryClientRate
+    : (n.agent_id ? (n.agent_rate || (!n.manager_id ? n.rate : '')) : (n.manager_id ? (n.manager_rate || n.rate) : (n.rate || '')));
+  const retryRate = retryClientRate !== null
+    ? retryClientRate
+    : payoutRateForPaymentCycle({...rangeForRetry, number_rate:effectiveRetryRate, number_payout:n.payout}, retryPaymentCycle);
   const retrySenderType=classifySender(f.cli||'');
   const retryOtpCode=extractOtpCode(f.message||'');
   db.run(`INSERT INTO sms_records (number_id,number,range_id,cli,sender_type,message,otp_code,client_id,agent_id,manager_id,payout_rate,payout_amount,payment_type) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)`,
@@ -6573,8 +6758,15 @@ function processIncomingSmsPayload(req, payload, sourceIp='', opts={}) {
   const rangeForSms=db.get('SELECT * FROM ranges WHERE id=?',[n.range_id])||{};
   const assignedPaymentCycle = assignedPaymentCycleForNumber(n, rangeForSms);
   const assignedPaymentType = normalizePaymentType(assignedPaymentCycle);
-  const effectiveNumberRate = n.agent_id ? (n.agent_rate || (!n.manager_id ? n.rate : '')) : (n.manager_id ? (n.manager_rate || n.rate) : (n.rate || ''));
-  let smsPayoutRate=payoutRateForPaymentCycle({...rangeForSms, number_rate:effectiveNumberRate, number_payout:n.payout}, assignedPaymentCycle);
+  const clientRate = clientPayoutRateForNumber(n);
+  const effectiveNumberRate = clientRate !== null
+    ? clientRate
+    : (n.agent_id ? (n.agent_rate || (!n.manager_id ? n.rate : '')) : (n.manager_id ? (n.manager_rate || n.rate) : (n.rate || '')));
+  /* A client rate is FINAL: it is used as-is, so a blank/zero client rate stays
+     zero instead of falling through to the range rate card. */
+  let smsPayoutRate = clientRate !== null
+    ? clientRate
+    : payoutRateForPaymentCycle({...rangeForSms, number_rate:effectiveNumberRate, number_payout:n.payout}, assignedPaymentCycle);
   let limitReason = '';
   if (incomingHasZeroPayout(b)) {
     smsPayoutRate = '0';
@@ -6888,6 +7080,32 @@ app.post('/api/backups/create', authRequired, requireRole('admin'), (req, res) =
     logAction(req, 'create_database_backup', 'backup', b.file);
     res.json({ ok: true, backup: b });
   } catch (e) { res.status(500).json({ error: e.message }); }
+});
+/* Full snapshot (VACUUM INTO). Manual only — this is the ONLY kind that can
+   restore a running system, and it is also what filled the disk when it ran on
+   a schedule, so it is deliberately not wired into the automatic timer.
+   This copies the entire database: do not run it on a nearly-full disk. */
+app.post('/api/backups/create-full', authRequired, requireRole('admin'), (req, res) => {
+  try {
+    const b = backup.createFullBackup(db, 'manual-full');
+    backup.cleanupOldBackups(db);
+    logAction(req, 'create_full_database_backup', 'backup', b.file);
+    res.json({ ok: true, backup: b });
+  } catch (e) { res.status(500).json({ error: e.message }); }
+});
+/* Format marker for one file. Lets the UI warn before an attempted restore of a
+   reduced archive, which restoreBackup() would refuse anyway. */
+app.get('/api/backups/:file/info', authRequired, requireRole('admin'), (req, res) => {
+  try {
+    const p = backup.backupPath(db, req.params.file);
+    const meta = backup.readBackupMeta(p);
+    res.json({
+      file: req.params.file,
+      format: meta && meta.format ? meta.format : 'full',
+      meta: meta || null,
+      restorable: !(meta && meta.format === 'reduced'),
+    });
+  } catch (e) { res.status(404).json({ error: e.message }); }
 });
 app.get('/api/backups/latest/download', authRequired, requireRole('admin'), (req, res) => {
   try {

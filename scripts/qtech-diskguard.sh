@@ -4,23 +4,26 @@
 # =============================================================================
 # WHY THIS EXISTS (calculated from this project's own backup code):
 #
-#   backend/backup.js:57  createBackup() does:
-#       db.exportBuffer()  ->  fs.readFileSync(WHOLE DATABASE)
-#   Every backup is therefore a FULL copy of the database, not an incremental
-#   diff. With the default schedule (every 3 hours, keep 30 days) that is
-#   240 full copies on disk at any time:
+#   Every backup used to be `VACUUM INTO`, i.e. a FULL copy of the database,
+#   taken on a timer. With the old default schedule (every 3 hours, keep 30
+#   days) that is 240 full copies on disk at any time:
 #
 #       DB size     240 copies (3h / 30d default)
 #        50 MB      ->  11.7 GB
 #       100 MB      ->  23.4 GB
 #       400 MB      ->  93.8 GB     <-- VPS disk is 95.82 GB = FULL
 #
-#   A full disk is the worst failure mode for SQLite: writes start failing,
-#   the WAL cannot be checkpointed, and the panel can corrupt or freeze.
+#   That is exactly what filled this VPS (~91 GB of backups).
 #
-#   The .env shipped with this deployment uses 6h / 14d = 56 copies, which is
-#   far safer. This guard is the second line of defence: if the disk still
-#   creeps up, it trims the oldest backups before anything breaks.
+#   NOW FIXED AT THE SOURCE: backend/backup.js still uses VACUUM INTO only for
+#   a MANUAL full snapshot (POST /api/backups/create-full). The automatic timer
+#   produces REDUCED backups (users, SMS history, payments only) built by
+#   backend/backupReduced.js, which copies selected columns into a fresh file
+#   instead of duplicating the database. Retention is 5 CALENDAR MONTHS.
+#
+#   This guard remains as the second line of defence: if the disk still creeps
+#   up - for example because someone took several manual full snapshots - it
+#   trims the oldest backups before anything breaks.
 #
 # BEHAVIOUR
 #   - WARN_PCT (default 80): log a warning.
